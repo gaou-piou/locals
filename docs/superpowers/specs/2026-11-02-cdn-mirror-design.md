@@ -56,6 +56,13 @@ libraries current ("alive"). Distributed as an AUR package.
 - **CI builds the extension package and publishes it as a GitHub release asset;
   the AUR PKGBUILD downloads that release with a pinned checksum** (not built in the PKGBUILD).
 
+- **Install route: manual "Load unpacked" is acceptable** (confirmed by the user).
+  The AUR package installs the unpacked extension under `/usr/share/cdn-mirror/` and
+  prints the path to load. No CRX signing, update manifest or policy files are needed
+  for the first release. The release asset is a zip of the unpacked extension.
+  Target browsers: any Chromium-based browser that supports MV3 (Chromium, Brave,
+  Helium); the builder tests at least Chromium and Brave.
+
 ## Decisions made by me (assistant) — please check
 
 - Svelte 5 (runes) + Vite + TypeScript; service worker as plain TS module outside
@@ -91,9 +98,9 @@ libraries current ("alive"). Distributed as an AUR package.
 - DNR static ruleset limits (guaranteed per-extension rule count) bound how many
   patterns can ship; builder must check current limits.
 - Extension size grows with bundled libraries (LocalCDN is ~17 MB); keep it reasonable.
-- AUR: PKGBUILD installs the unpacked extension under `/usr/share/`; how Chromium
-  loads it (`--load-extension`, external extension JSON, policy) needs verification
-  since unpacked/external extensions have restrictions in normal profiles.
+- AUR: PKGBUILD installs the unpacked extension under `/usr/share/cdn-mirror/`;
+  the user loads it via "Load unpacked". Statistics via `onRuleMatchedDebug` are
+  available to unpacked extensions, so exact logs may be feasible after all (builder to check).
 - License: MPL-2.0 for anything derived from LocalCDN/Decentraleyes mappings.
 
 ## Left to the builder
