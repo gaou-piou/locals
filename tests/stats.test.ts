@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { createStats, dayKey } from "../src/background/stats.ts";
+import { createStats, dayKey, isLibraryMatch } from "../src/background/stats.ts";
 import { installFakeChrome } from "./fake-chrome.ts";
 
 const index = { 1: "jquery", 2: "jquery", 3: "react" };
@@ -92,5 +92,12 @@ describe("stats", () => {
     s.resetTab(7);
     expect(await s.getTabCount(7)).toBe(0);
     expect(await s.getTabCount(8)).toBe(1);
+  });
+
+  it("only matches of the static redirect rulesets count; site-exception rules do not", () => {
+    expect(isLibraryMatch({ rulesetId: "exact" })).toBe(true);
+    expect(isLibraryMatch({ rulesetId: "substitute" })).toBe(true);
+    expect(isLibraryMatch({ rulesetId: "_dynamic" })).toBe(false);
+    expect(isLibraryMatch({ rulesetId: "_session" })).toBe(false);
   });
 });

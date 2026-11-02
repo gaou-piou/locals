@@ -35,15 +35,23 @@ export function parseConfig(json: string): Settings {
   return migrate(parsed.data);
 }
 
-export const siteEnabled = (s: Settings, host: string): boolean =>
-  !s.disabledSites.includes(host) && (s.allowedSites.length === 0 || s.allowedSites.includes(host));
+/** Chrome's `requestDomains` semantics: the entry itself or any subdomain of it. */
+const covers = (entry: string, host: string): boolean => host === entry || host.endsWith(`.${entry}`);
 
-/** The settings patch that turns `host` on or off, honouring allow-list mode. */
+export const siteEnabled = (s: Settings, host: string): boolean =>
+  !s.disabledSites.some((d) => covers(d, host)) && (s.allowedSites.length === 0 || s.allowedSites.some((a) => covers(a, host)));
+
+/** The settings patch that turns `host` on or off, honouring allow-list mode and parent domains. */
 export function toggleSitePatch(s: Settings, host: string, enabled: boolean): Pick<Settings, "disabledSites" | "allowedSites"> {
-  if (!enabled) return { disabledSites: uniq([...s.disabledSites, host]), allowedSites: s.allowedSites };
+  if (!enabled) {
+    const already = s.disabledSites.some((d) => covers(d, host));
+    return { disabledSites: already ? s.disabledSites : uniq([...s.disabledSites, host]), allowedSites: s.allowedSites };
+  }
+  const covered = s.allowedSites.some((a) => covers(a, host));
   return {
-    disabledSites: without([host], s.disabledSites),
-    allowedSites: s.allowedSites.length ? uniq([...s.allowedSites, host]) : s.allowedSites,
+    // A denied parent domain is what disables the subdomain, so enabling the subdomain lifts that entry.
+    disabledSites: s.disabledSites.filter((d) => !covers(d, host)),
+    allowedSites: s.allowedSites.length && !covered ? uniq([...s.allowedSites, host]) : s.allowedSites,
   };
 }
 

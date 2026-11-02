@@ -75,3 +75,34 @@ describe("filterLibraries", () => {
     expect(filterLibraries(libs, "zzz")).toEqual([]);
   });
 });
+
+describe("site toggling follows Chrome's domain matching (subdomains included)", () => {
+  it("a denied parent domain disables its subdomains", () => {
+    expect(siteEnabled(S({ disabledSites: ["example.com"] }), "www.example.com")).toBe(false);
+    expect(siteEnabled(S({ disabledSites: ["example.com"] }), "notexample.com")).toBe(true);
+  });
+
+  it("an allowed parent domain enables its subdomains", () => {
+    const s = S({ allowedSites: ["example.com"] });
+    expect(siteEnabled(s, "www.example.com")).toBe(true);
+    expect(siteEnabled(s, "badexample.com")).toBe(false);
+  });
+
+  it("enabling a subdomain removes the denied parent entry that disabled it", () => {
+    const s = S({ disabledSites: ["example.com", "other.org"] });
+    const patch = toggleSitePatch(s, "www.example.com", true);
+    expect(patch.disabledSites).toEqual(["other.org"]);
+    expect(siteEnabled(S(patch), "www.example.com")).toBe(true);
+  });
+
+  it("disabling a site already disabled through its parent changes nothing", () => {
+    const s = S({ disabledSites: ["example.com"] });
+    expect(toggleSitePatch(s, "www.example.com", false)).toEqual({ disabledSites: ["example.com"], allowedSites: [] });
+  });
+
+  it("enabling in allow-list mode does not duplicate a subdomain of an allowed entry", () => {
+    const s = S({ allowedSites: ["example.com"] });
+    expect(toggleSitePatch(s, "www.example.com", true).allowedSites).toEqual(["example.com"]);
+  });
+});
+

@@ -24,13 +24,19 @@ What it cannot do in MV3 is in [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 yay -S cdn-mirror        # or any AUR helper
 ```
 
-The package installs the unpacked extension to `/usr/share/cdn-mirror/`.
+The package installs the extension to `/usr/share/cdn-mirror/` and a helper that makes a user-writable copy (Chromium writes an `_metadata/` folder into every unpacked extension, which fails in a root-owned directory):
+
+```sh
+cdn-mirror-install      # copies to ~/.local/share/cdn-mirror and prints the path
+```
+
+Then load that folder with *Load unpacked* (below). Run the helper again after each package upgrade and reload the extension.
 
 ### Load unpacked (any distribution)
 
 1. Download `cdn-mirror-<version>.zip` from the GitHub releases and check it against the `.sha256` file.
 2. Unzip it.
-3. Open `chrome://extensions` (Brave: `brave://extensions`), enable *Developer mode*, choose *Load unpacked* and pick the unzipped folder (AUR: `/usr/share/cdn-mirror`).
+3. Open `chrome://extensions` (Brave: `brave://extensions`), enable *Developer mode*, choose *Load unpacked* and pick the unzipped folder (AUR: the folder printed by `cdn-mirror-install`). The folder must be writable.
 
 Unpacked extensions are not auto-updated: reload the extension card after upgrading.
 
@@ -52,7 +58,7 @@ pnpm libs:hash      # recompute sha256 values in libraries.json
 pnpm libs:bump      # add the newest npm release of each library as a new pinned version
 ```
 
-Load `dist/` unpacked to try a build. Releases are cut by pushing a `v<version>` tag: the workflow checks that the tag equals the `package.json` and manifest version, then publishes the zip and its checksum. After a release, update `pkgver` and `sha256sums` in `packaging/aur/PKGBUILD`.
+Load `dist/` unpacked to try a build. Releases are cut by pushing a `v<version>` tag: the workflow checks that the tag equals the `package.json` and manifest version, then publishes the zip and its checksum. After a release, update `pkgver` and the first `sha256sums` entry (the zip) in `packaging/aur/PKGBUILD`; it ships as a placeholder that makes `makepkg` fail until replaced.
 
 ### Stack
 

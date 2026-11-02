@@ -73,4 +73,36 @@ describe("bumpLibs", () => {
     await bumpLibs(input, latest({ jq: "3.8.0" }), hash);
     expect(input).toEqual(copy);
   });
+
+  it("hashes only the new version, so a flaky CDN cannot erase the hashes already pinned", async () => {
+    const seen: string[][] = [];
+    const spy = vi.fn(async (entries: LibraryEntry[]) => {
+      seen.push(entries[0].versions.map((v) => v.version));
+      return hash(entries);
+    });
+    const old = entry("jq", ["3.7.1"]);
+    old.patterns[0].cdnSha256 = { "3.7.1": "b".repeat(64) };
+    const out = await bumpLibs([old], latest({ jq: "3.8.0" }), spy);
+    expect(seen).toEqual([["3.8.0"]]);
+    expect(out[0].versions.map((v) => v.version)).toEqual(["3.7.1", "3.8.0"]);
+    expect(out[0].versions[0].files[0].sha256).toBe(Z); // untouched, not re-hashed
+    expect(out[0].patterns[0].cdnSha256).toEqual({ "3.7.1": "b".repeat(64) });
+  });
+
+  it("adds the new version's CDN hash next to the existing ones", async () => {
+    const withCdn = (entries: LibraryEntry[]) =>
+      hash(entries).then((r) => r.map((e) => ({ ...e, patterns: e.patterns.map((p) => ({ ...p, cdnSha256: { [e.versions[0].version]: "c".repeat(64) } })) })));
+    const old = entry("jq", ["3.7.1"]);
+    old.patterns[0].cdnSha256 = { "3.7.1": "b".repeat(64) };
+    const out = await bumpLibs([old], latest({ jq: "3.8.0" }), withCdn);
+    expect(out[0].patterns[0].cdnSha256).toEqual({ "3.7.1": "b".repeat(64), "3.8.0": "c".repeat(64) });
+  });
+
+  it("drops cdn hashes of versions that were pruned", async () => {
+    const old = entry("lib", ["1.0.0", "1.1.0", "1.2.0"]);
+    old.patterns[0].cdnSha256 = { "1.0.0": "b".repeat(64), "1.1.0": "b".repeat(64), "1.2.0": "b".repeat(64) };
+    const out = await bumpLibs([old], latest({ lib: "1.3.0" }), hash);
+    expect(Object.keys(out[0].patterns[0].cdnSha256 ?? {})).not.toContain("1.0.0");
+    expect(() => parseManifest(out)).not.toThrow();
+  });
 });

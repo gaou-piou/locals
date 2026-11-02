@@ -1,7 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { buildLibs, hashLibs, registryTarballUrl } from "../scripts/lib-pipeline.ts";
+import { HttpError, buildLibs, hashLibs, registryTarballUrl } from "../scripts/lib-pipeline.ts";
 import type { LibraryEntry } from "../src/shared/manifest-schema.ts";
 import { makeTarball, sha, tmp } from "./helpers.ts";
 
@@ -123,10 +123,16 @@ describe("hashLibs", () => {
   it("omits the version when the CDN does not have it", async () => {
     const [e] = await hashLibs([placeholder()], {
       fetchTarball: async () => tarball(),
-      fetchUrl: async () => {
-        throw new Error("404");
+      fetchUrl: async (url) => {
+        throw new HttpError(url, 404);
       },
     });
     expect(e.patterns[0].cdnSha256).toBeUndefined();
+  });
+
+  it("does not mistake a transient CDN failure (503, network error) for a missing version", async () => {
+    const deps = (fail: (url: string) => Error) => ({ fetchTarball: async () => tarball(), fetchUrl: async (url: string): Promise<Buffer> => Promise.reject(fail(url)) });
+    await expect(hashLibs([placeholder()], deps((u) => new HttpError(u, 503)))).rejects.toThrow(/503/);
+    await expect(hashLibs([placeholder()], deps(() => new TypeError("fetch failed")))).rejects.toThrow(/fetch failed/);
   });
 });

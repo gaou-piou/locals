@@ -24,8 +24,9 @@
       <Card.Header>
         <Card.Title>Substitute close versions</Card.Title>
         <Card.Description>
-          When a page asks for a version that is not bundled, serve the newest bundled release of the same major version. Pages that pin
-          a hash (SRI) are never substituted. This can occasionally break a site, so it is off by default.
+          When a page asks for a version that is not bundled, serve the newest bundled release of the same major version. The extension
+          cannot see page hashes: a page that pins its script with an SRI hash will be blocked by the browser when a different version
+          is served. Because this can break sites, it is off by default.
         </Card.Description>
         <Card.Action>
           <Switch

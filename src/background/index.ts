@@ -1,6 +1,6 @@
 import type { Message } from "../shared/messages.ts";
 import { getSettings, restoreSettings, setSettings } from "./settings.ts";
-import { createStats, dayKey } from "./stats.ts";
+import { createStats, dayKey, isLibraryMatch } from "./stats.ts";
 
 const stats = createStats({
   loadIndex: async () => (await fetch(chrome.runtime.getURL("rules/index.json"))).json(),
@@ -19,6 +19,7 @@ chrome.runtime.onSuspend.addListener(() => void stats.flush());
 
 // Only fires for unpacked extensions (declarativeNetRequestFeedback); this is the source of the stats.
 chrome.declarativeNetRequest.onRuleMatchedDebug?.addListener((info) => {
+  if (!isLibraryMatch(info.rule)) return;
   stats.recordMatch(info.rule.ruleId, dayKey(new Date()), info.request.tabId);
 });
 chrome.tabs.onUpdated.addListener((tabId, change) => {

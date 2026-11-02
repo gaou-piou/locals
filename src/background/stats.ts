@@ -105,3 +105,6 @@ export function createStats(deps: {
 }
 
 export type Stats = ReturnType<typeof createStats>;
+
+/** Only the static redirect rulesets serve a library; dynamic site-exception rules (`_dynamic`) do not. */
+export const isLibraryMatch = (rule: { rulesetId: string }): boolean => rule.rulesetId === "exact" || rule.rulesetId === "substitute";

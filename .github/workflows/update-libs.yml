@@ -20,6 +20,11 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm libs:bump
+      # A PR opened with GITHUB_TOKEN does not trigger ci.yml, so verify here before proposing the change.
+      - run: pnpm test
+      - run: pnpm build:libs
+      - run: pnpm build
+      - run: pnpm size
       - uses: peter-evans/create-pull-request@v7
         with:
           branch: chore/update-libs
@@ -27,6 +32,7 @@ jobs:
           commit-message: "chore(libs): update bundled libraries"
           body: |
             Weekly run of `pnpm libs:bump`: newest npm release of each library added as a pinned
-            version (3 newest per major kept), hashes recomputed. CI verifies the build and the
-            size budget before this can be merged.
+            version (3 newest per major kept), hashes recomputed.
+            The job already ran the unit tests, built the libraries and the extension, and checked
+            the size budget with the new versions (a PR opened with GITHUB_TOKEN does not trigger ci.yml).
           add-paths: libraries.json

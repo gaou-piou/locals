@@ -46,11 +46,20 @@ export async function bumpLibs(
         continue;
       }
       // The new release is assumed to ship the same files as the newest pinned one; hashing proves it.
-      const grown: LibraryEntry = {
-        ...structuredClone(entry),
-        versions: prune([...entry.versions, { version: next, files: structuredClone(newest.files) }]),
+      // Only the new version is hashed: re-hashing the pinned ones would let a flaky CDN erase their `cdnSha256`.
+      const fresh: LibraryEntry = { ...structuredClone(entry), versions: [{ version: next, files: structuredClone(newest.files) }] };
+      const [hashedNew] = await hash([fresh], { fetchTarball: fetchTarballFromNpm, fetchUrl: fetchBuffer });
+      const versions = prune([...entry.versions, hashedNew.versions[0]]);
+      const kept = new Set(versions.map((v) => v.version));
+      const hashed: LibraryEntry = {
+        ...entry,
+        versions,
+        patterns: entry.patterns.map((p, i) => {
+          const cdn = Object.fromEntries(Object.entries({ ...p.cdnSha256, ...hashedNew.patterns[i]?.cdnSha256 }).filter(([v]) => kept.has(v)));
+          const { cdnSha256: _drop, ...rest } = p;
+          return Object.keys(cdn).length ? { ...rest, cdnSha256: cdn } : rest;
+        }),
       };
-      const [hashed] = await hash([grown], { fetchTarball: fetchTarballFromNpm, fetchUrl: fetchBuffer });
       out.push(hashed);
     } catch (e) {
       console.warn(`bump-libs: ${entry.name} left unchanged (${(e as Error).message})`);

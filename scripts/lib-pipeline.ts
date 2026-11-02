@@ -19,9 +19,21 @@ export function registryTarballUrl(pkg: string, version: string): string {
 
 export const fetchTarballFromNpm: FetchTarball = (pkg, version) => fetchBuffer(registryTarballUrl(pkg, version));
 
+export class HttpError extends Error {
+  constructor(
+    readonly url: string,
+    readonly status: number,
+  ) {
+    super(`GET ${url} → ${status}`);
+    this.name = "HttpError";
+  }
+}
+
+const FETCH_TIMEOUT_MS = 60_000;
+
 export async function fetchBuffer(url: string): Promise<Buffer> {
-  const res = await fetch(url, { redirect: "follow" });
-  if (!res.ok) throw new Error(`GET ${url} → ${res.status}`);
+  const res = await fetch(url, { redirect: "follow", signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+  if (!res.ok) throw new HttpError(url, res.status);
   return Buffer.from(await res.arrayBuffer());
 }
 
@@ -100,8 +112,10 @@ export async function hashLibs(
       for (const v of entry.versions) {
         try {
           cdnSha256[v.version] = sha256(await deps.fetchUrl(p.url.replaceAll("{version}", v.version)));
-        } catch {
-          // The CDN does not serve this version: leave it out, so it is never redirected.
+        } catch (e) {
+          // Only a 404 means "the CDN does not serve this version" (left out, never redirected).
+          // Anything else (5xx, 429, network, timeout) is transient: fail instead of silently dropping coverage.
+          if (!(e instanceof HttpError && e.status === 404)) throw e;
         }
       }
       const { cdnSha256: _old, ...rest } = p;

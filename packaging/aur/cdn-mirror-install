@@ -1,0 +1,13 @@
+#!/bin/sh
+# Copies the packaged extension to a user-writable folder.
+# Chromium writes `_metadata/` into an unpacked extension's own directory, so loading it straight from the
+# root-owned /usr/share/cdn-mirror fails (the service worker never starts). Run again after every upgrade.
+set -eu
+src="${CDN_MIRROR_SRC:-/usr/share/cdn-mirror}"
+dest="${XDG_DATA_HOME:-$HOME/.local/share}/cdn-mirror"
+[ -f "$src/manifest.json" ] || { echo "cdn-mirror-install: no extension found in $src" >&2; exit 1; }
+rm -rf "$dest"
+mkdir -p "$dest"
+cp -R "$src/." "$dest/"
+chmod -R u+rwX "$dest"
+echo "$dest"
