@@ -2,6 +2,7 @@
   "name": "cdn-mirror",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "pnpm@12.16.1",
   "type": "module",
   "license": "MPL-2.0",
   "scripts": {
@@ -9,6 +10,8 @@
     "build:libs": "tsx scripts/build-libs.ts",
     "gen:rules": "tsx scripts/gen-rules.ts",
     "libs:hash": "tsx scripts/hash-libs.ts",
+    "libs:bump": "tsx scripts/bump-libs.ts",
+    "size": "tsx scripts/size-check.ts",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "typecheck": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json"

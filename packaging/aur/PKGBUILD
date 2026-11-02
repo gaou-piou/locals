@@ -1,0 +1,27 @@
+# Maintainer: gaou-piou <i.am.piou@gmail.com>
+pkgname=cdn-mirror
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Chromium extension that serves common CDN libraries from a local bundle (Decentraleyes/LocalCDN alike), loaded unpacked'
+arch=('any')
+url='https://github.com/gaou-piou/cdn-mirror'
+# MPL-2.0 for the extension; the bundled libraries are MIT, and the font packages
+# carry CC-BY-4.0 / OFL-1.1 (the licence text of each ships in libs/<name>/<version>/LICENSE).
+license=('MPL-2.0' 'MIT' 'CC-BY-4.0' 'OFL-1.1')
+install=cdn-mirror.install
+source=("$pkgname-$pkgver.zip::$url/releases/download/v$pkgver/$pkgname-$pkgver.zip")
+# Updated with every release: `sha256sum` of the CI-built zip (published as the .sha256 asset).
+sha256sums=('SKIP')
+
+package() {
+  install -d "$pkgdir/usr/share/$pkgname"
+  cp -r "$srcdir/$pkgname-$pkgver/." "$pkgdir/usr/share/$pkgname/"
+  find "$pkgdir/usr/share/$pkgname" -type d -exec chmod 755 {} +
+  find "$pkgdir/usr/share/$pkgname" -type f -exec chmod 644 {} +
+  install -Dm644 "$srcdir/$pkgname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  # licence texts of the bundled libraries, one file per library version
+  local lic
+  for lic in "$srcdir/$pkgname-$pkgver"/libs/*/*/LICENSE; do
+    install -Dm644 "$lic" "$pkgdir/usr/share/licenses/$pkgname/libs/$(basename "$(dirname "$(dirname "$lic")")")-$(basename "$(dirname "$lic")")-LICENSE"
+  done
+}

@@ -1,0 +1,51 @@
+name: release
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Tag must match package.json
+        run: |
+          pkg=$(node -p "require('./package.json').version")
+          [ "${GITHUB_REF_NAME}" = "v${pkg}" ] || { echo "tag ${GITHUB_REF_NAME} != package.json v${pkg}"; exit 1; }
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build:libs
+      - run: pnpm build
+      - run: pnpm size
+      - name: Tag must match the built manifest
+        run: |
+          built=$(node -p "require('./dist/manifest.json').version")
+          [ "${GITHUB_REF_NAME}" = "v${built}" ] || { echo "tag ${GITHUB_REF_NAME} != manifest v${built}"; exit 1; }
+      - name: Package
+        run: |
+          v="${GITHUB_REF_NAME#v}"
+          stage="cdn-mirror-${v}"
+          mkdir "$stage"
+          cp -r dist/. "$stage/"
+          rm -rf "$stage/_metadata"
+          cp LICENSE "$stage/LICENSE"
+          # every bundled library ships its LICENSE next to its files (dist/libs/<name>/<version>/LICENSE)
+          [ -n "$(find "$stage/libs" -name LICENSE -print -quit)" ] || { echo "no bundled library LICENSE files"; exit 1; }
+          zip -rq "${stage}.zip" "$stage"
+          sha256sum "${stage}.zip" > "${stage}.zip.sha256"
+          cat "${stage}.zip.sha256"
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            cdn-mirror-*.zip
+            cdn-mirror-*.zip.sha256
+          generate_release_notes: true

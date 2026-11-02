@@ -1,0 +1,32 @@
+name: update-libs
+on:
+  schedule:
+    - cron: "17 5 * * 1" # weekly, Monday 05:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm libs:bump
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/update-libs
+          title: "chore(libs): update bundled libraries"
+          commit-message: "chore(libs): update bundled libraries"
+          body: |
+            Weekly run of `pnpm libs:bump`: newest npm release of each library added as a pinned
+            version (3 newest per major kept), hashes recomputed. CI verifies the build and the
+            size budget before this can be merged.
+          add-paths: libraries.json
