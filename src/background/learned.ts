@@ -44,7 +44,7 @@ export function learnedRules(entries: LearnedEntry[]): Rule[] {
   }));
 }
 
-async function loadIndex(): Promise<LearnedEntry[]> {
+export async function loadLearned(): Promise<LearnedEntry[]> {
   try {
     const res = await fetch(chrome.runtime.getURL("libs/learned/index.json"), { cache: "no-store" });
     return res.ok ? parseLearnedIndex(await res.json()) : [];
@@ -55,11 +55,17 @@ async function loadIndex(): Promise<LearnedEntry[]> {
 
 /** Replaces the learned dynamic rules with the current index; returns how many are active. */
 export async function applyLearned(): Promise<number> {
-  const rules = learnedRules(await loadIndex());
+  const rules = learnedRules(await loadLearned());
   const existing = await chrome.declarativeNetRequest.getDynamicRules();
   await chrome.declarativeNetRequest.updateDynamicRules({
     removeRuleIds: existing.filter((r) => r.id >= LEARNED_ID_BASE).map((r) => r.id),
     addRules: rules,
   });
   return rules.length;
+}
+
+/** Candidates that are already served locally no longer need learning, so they leave the Ready/Waiting lists. */
+export function excludeLearned<T extends { url: string }>(candidates: T[], learned: LearnedEntry[]): T[] {
+  const have = new Set(learned.map((e) => e.url));
+  return candidates.filter((c) => !have.has(c.url));
 }

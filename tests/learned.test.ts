@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { applyExceptions } from "../src/background/exceptions.ts";
-import { applyLearned, learnedRules, LEARNED_ID_BASE, parseLearnedIndex } from "../src/background/learned.ts";
+import { applyLearned, excludeLearned, learnedRules, LEARNED_ID_BASE, parseLearnedIndex, type LearnedEntry } from "../src/background/learned.ts";
 import { installFakeChrome } from "./fake-chrome.ts";
 
 const H = "a".repeat(64);
@@ -65,5 +65,19 @@ describe("applyLearned", () => {
     expect(ids).toEqual([100_000, LEARNED_ID_BASE]);
     await applyLearned();
     expect((await chrome.declarativeNetRequest.getDynamicRules()).length).toBe(2);
+  });
+});
+
+describe("excludeLearned", () => {
+  const cand = (url: string) => ({ url, sites: 2, hits: 3, last: 1 });
+  it("drops candidates whose URL is already learned and keeps the rest", () => {
+    const learned = [entry()] as LearnedEntry[];
+    const a = cand(learned[0].url);
+    const b = cand("https://cdn.example.net/other@1.0.0/y.js");
+    expect(excludeLearned([a, b], learned)).toEqual([b]);
+  });
+  it("returns everything when nothing is learned", () => {
+    const a = cand("https://cdn.example.net/z@1.0.0/z.js");
+    expect(excludeLearned([a], [])).toEqual([a]);
   });
 });

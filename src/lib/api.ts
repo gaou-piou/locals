@@ -1,5 +1,5 @@
 import { parseManifest, type LibraryEntry } from "../shared/manifest-schema.ts";
-import { send, type Candidate, type Settings, type StatsRange, type StatsResult } from "../shared/messages.ts";
+import { send, type Candidate, type LearnedEntry, type Settings, type StatsRange, type StatsResult } from "../shared/messages.ts";
 import { parseConfig, serializeConfig, toggleSitePatch } from "./config.ts";
 
 export type PopupState = { settings: Settings; tab: { host: string; count: number } };
@@ -35,6 +35,8 @@ export const getStats = (range: StatsRange): Promise<StatsResult> => send({ type
 export const getObserved = (): Promise<Candidate[]> => send({ type: "get-observed" });
 
 export const getPending = (): Promise<Candidate[]> => send({ type: "get-pending" });
+
+export const getLearned = (): Promise<LearnedEntry[]> => send({ type: "get-learned" });
 
 export const refreshLearned = (): Promise<number> => send({ type: "refresh-learned" });
 

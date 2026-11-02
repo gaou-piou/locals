@@ -1,5 +1,5 @@
 import type { Message } from "../shared/messages.ts";
-import { applyLearned } from "./learned.ts";
+import { applyLearned, excludeLearned, loadLearned } from "./learned.ts";
 import { createObserver } from "./observe.ts";
 import { getSettings, restoreSettings, setSettings } from "./settings.ts";
 import { createStats, dayKey, isLibraryMatch } from "./stats.ts";
@@ -53,9 +53,11 @@ chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) =
       case "get-tab-count":
         return stats.getTabCount(message.tabId);
       case "get-observed":
-        return observer.getCandidates();
+        return excludeLearned(await observer.getCandidates(), await loadLearned());
       case "get-pending":
-        return observer.getPending();
+        return excludeLearned(await observer.getPending(), await loadLearned());
+      case "get-learned":
+        return loadLearned();
       case "refresh-learned":
         return applyLearned();
       case "clear-observed":

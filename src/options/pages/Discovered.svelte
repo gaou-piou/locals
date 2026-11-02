@@ -4,7 +4,7 @@
   import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
   import * as Table from "$lib/components/ui/table";
-  import { clearObserved, getObserved, getPending, refreshLearned } from "$lib/api";
+  import { clearObserved, getLearned, getObserved, getPending, refreshLearned } from "$lib/api";
 
   let version = $state(0);
   const ready = resource(
@@ -15,6 +15,11 @@
     () => version,
     () => getPending(),
   );
+  const learned = resource(
+    () => version,
+    () => getLearned(),
+  );
+  const learnedRows = $derived(learned.current ?? []);
   const readyRows = $derived(ready.current ?? []);
   const waitingRows = $derived(waiting.current ?? []);
 
@@ -28,6 +33,7 @@
   let applied = $state<number>();
   async function apply() {
     applied = await refreshLearned();
+    version++;
   }
 
   async function clear() {
@@ -55,9 +61,35 @@
     </Card.Content>
   </Card.Root>
 
-  {#if ready.error || waiting.error}
-    <p class="text-destructive text-sm" role="alert">{(ready.error ?? waiting.error)?.message}</p>
+  {#if ready.error || waiting.error || learned.error}
+    <p class="text-destructive text-sm" role="alert">{(ready.error ?? waiting.error ?? learned.error)?.message}</p>
   {:else}
+    <section class="flex flex-col gap-2">
+      <h2 class="flex items-center gap-2 text-sm font-medium">Learned <Badge variant="secondary">{learnedRows.length}</Badge></h2>
+      {#if learnedRows.length}
+        <Table.Root>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>URL</Table.Head>
+              <Table.Head>Type</Table.Head>
+              <Table.Head>File</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {#each learnedRows as e (e.url)}
+              <Table.Row>
+                <Table.Cell class="break-all">{e.url}</Table.Cell>
+                <Table.Cell>{e.type}</Table.Cell>
+                <Table.Cell class="font-mono text-xs">{e.sha256.slice(0, 12)}…</Table.Cell>
+              </Table.Row>
+            {/each}
+          </Table.Body>
+        </Table.Root>
+      {:else}
+        <p class="text-muted-foreground text-sm">Nothing learned yet. Run <code>locals-learn</code> on the exported ready list, then press Apply learned.</p>
+      {/if}
+    </section>
+
     <section class="flex flex-col gap-2">
       <h2 class="flex items-center gap-2 text-sm font-medium">Ready to learn <Badge variant="secondary">{readyRows.length}</Badge></h2>
       {#if readyRows.length}
