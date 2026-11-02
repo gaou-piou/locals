@@ -51,11 +51,17 @@ libraries current ("alive"). Distributed as an AUR package.
 ## Decisions made by the user
 
 - Own repo, user `gaou-piou`, at `/mnt/SSD/works/cdn-mirror`.
-- UI in Svelte 5 (not SvelteKit). Full UI from the start.
+- UI in Svelte 5 (not SvelteKit), with shadcn-svelte components. Full UI from the start.
 - Library *files* are not stored in git; git holds the manifest/lists.
 - **CI builds the extension package and publishes it as a GitHub release asset;
   the AUR PKGBUILD downloads that release with a pinned checksum** (not built in the PKGBUILD).
 
+- **UI components: shadcn-svelte** (confirmed by the user). It must be set up in the
+  Svelte project (Tailwind, `components.json`, `$lib` alias, `cn` util, `bits-ui`).
+  Because shadcn-svelte's CLI targets SvelteKit/Vite, the builder verifies it works in a
+  plain Svelte 5 + Vite project and that its output satisfies the MV3 CSP (no inline scripts;
+  popup and options pages built as separate Vite entry points). Components are copied
+  into the repo (`src/lib/components/ui`), not vendored from git submodules.
 - **Install route: manual "Load unpacked" is acceptable** (confirmed by the user).
   The AUR package installs the unpacked extension under `/usr/share/cdn-mirror/` and
   prints the path to load. No CRX signing, update manifest or policy files are needed
