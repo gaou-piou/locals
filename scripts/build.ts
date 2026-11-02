@@ -19,5 +19,8 @@ writeFileSync(`${root}dist/manifest.json`, JSON.stringify(createManifest(version
 // 3. bundled libraries
 if (existsSync(`${root}.cache/libs`)) cpSync(`${root}.cache/libs`, `${root}dist/libs`, { recursive: true });
 
+// 3b. library metadata for the options UI
+if (existsSync(`${root}libraries.json`)) cpSync(`${root}libraries.json`, `${root}dist/libraries.json`);
+
 // 4. generated DNR rulesets + web_accessible_resources (added by the rule generator)
 if (existsSync(`${root}scripts/gen-rules.ts`)) run("pnpm", ["gen:rules"]);

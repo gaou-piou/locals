@@ -49,6 +49,14 @@ async function probe(ctx: BrowserContext) {
   return out;
 }
 
+async function jqAt(ctx: BrowserContext, url: string) {
+  const page = await ctx.newPage();
+  await page.goto(url);
+  const v = await page.evaluate(jq);
+  await page.close();
+  return v;
+}
+
 async function stopWorker(ctx: BrowserContext) {
   const page = await ctx.newPage();
   const cdp = await ctx.newCDPSession(page);
@@ -95,12 +103,8 @@ test("allow-list mode: redirects only on listed sites", async () => {
   const ctx = await open();
   try {
     await send(ctx, { type: "set-settings", patch: { allowedSites: ["localhost"] } });
-    const page = await ctx.newPage();
-    await page.goto(`${server.origin}/jquery.html`);
-    expect(await page.evaluate(jq)).toBe("3.7.1");
-    const other = await ctx.newPage();
-    await other.goto(`${server.origin.replace("localhost", "127.0.0.1")}/jquery.html`);
-    expect(await other.evaluate(jq)).toBeUndefined();
+    await expect.poll(() => jqAt(ctx, `${server.origin}/jquery.html`), { timeout: 8000 }).toBe("3.7.1");
+    await expect.poll(() => jqAt(ctx, `${server.origin.replace("localhost", "127.0.0.1")}/jquery.html`), { timeout: 8000 }).toBeUndefined();
   } finally {
     await ctx.close();
   }
@@ -110,9 +114,7 @@ test("disabling the extension turns redirects off", async () => {
   const ctx = await open();
   try {
     await send(ctx, { type: "set-settings", patch: { enabled: false } });
-    const page = await ctx.newPage();
-    await page.goto(`${server.origin}/jquery.html`);
-    expect(await page.evaluate(jq)).toBeUndefined();
+    await expect.poll(() => jqAt(ctx, `${server.origin}/jquery.html`), { timeout: 8000 }).toBeUndefined();
   } finally {
     await ctx.close();
   }

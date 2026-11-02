@@ -10,13 +10,20 @@ export async function launchWithExtension(
 ): Promise<BrowserContext> {
   const userDataDir = opts.userDataDir ?? (await mkdtemp(path.join(os.tmpdir(), "cdn-mirror-")));
   const rules = (opts.blockedHosts ?? []).map((h) => `MAP ${h} ~NOTFOUND`).join(",");
-  return chromium.launchPersistentContext(userDataDir, {
-    channel: "chromium",
-    headless: true,
-    args: [
-      `--disable-extensions-except=${path.resolve(extensionDir)}`,
-      `--load-extension=${path.resolve(extensionDir)}`,
-      ...(rules ? [`--host-resolver-rules=${rules}`] : []),
-    ],
-  });
+  const launch = () =>
+    chromium.launchPersistentContext(userDataDir, {
+      channel: "chromium",
+      headless: true,
+      args: [
+        `--disable-extensions-except=${path.resolve(extensionDir)}`,
+        `--load-extension=${path.resolve(extensionDir)}`,
+        ...(rules ? [`--host-resolver-rules=${rules}`] : []),
+      ],
+    });
+  // headless Chromium occasionally dies at startup (SIGSEGV) in CI-like environments; one retry is cheap
+  try {
+    return await launch();
+  } catch {
+    return launch();
+  }
 }

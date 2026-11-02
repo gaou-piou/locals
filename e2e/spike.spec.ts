@@ -113,13 +113,19 @@ test("(g) allowAllRequests with requestDomains exempts site and third-party ifra
         addRules: [{ id: 1000, priority: 100, action: { type: "allowAllRequests" as any }, condition: { requestDomains: ["localhost"], resourceTypes: ["main_frame", "sub_frame"] as any } }],
       }),
     );
-    const page = await ctx.newPage();
     const frameUrl = `${server.origin.replace("localhost", "127.0.0.1")}/jquery.html`;
-    await page.goto(`${server.origin}/frames.html?frame=${encodeURIComponent(frameUrl)}`);
-    await page.waitForLoadState("load");
-    const main = await page.evaluate(jq);
-    const frame = page.frames().find((f) => f.url().startsWith("http://127.0.0.1"));
-    const inner = frame ? await frame.evaluate(jq) : "no-frame";
+    // the ruleset swap lands a few ms after the promise resolves, so retry until it is in force
+    let main: string | undefined = "3.7.1";
+    let inner: string | undefined = "3.7.1";
+    for (let i = 0; i < 10 && (main !== undefined || inner !== undefined); i++) {
+      const page = await ctx.newPage();
+      await page.goto(`${server.origin}/frames.html?frame=${encodeURIComponent(frameUrl)}`);
+      await page.waitForLoadState("load");
+      main = await page.evaluate(jq);
+      const frame = page.frames().find((f) => f.url().startsWith("http://127.0.0.1"));
+      inner = frame ? await frame.evaluate(jq) : "no-frame";
+      await page.close();
+    }
     console.log("PROBE g", JSON.stringify({ main, inner }));
     expect(main).toBeUndefined();
     expect(inner).toBeUndefined();

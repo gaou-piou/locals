@@ -1,5 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { svelteTesting } from "@testing-library/svelte/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vitest/config";
 
@@ -9,7 +10,7 @@ export default defineConfig({
   root: "src",
   base: "./",
   publicDir: false,
-  plugins: [tailwindcss(), svelte({ configFile: fileURLToPath(new URL("./svelte.config.js", import.meta.url)) })],
+  plugins: [tailwindcss(), svelte({ configFile: fileURLToPath(new URL("./svelte.config.js", import.meta.url)) }), svelteTesting()],
   resolve: { alias: { $lib: `${src}/lib` } },
   build: {
     outDir: "../dist",
