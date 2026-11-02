@@ -54,6 +54,8 @@ chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) =
         return stats.getTabCount(message.tabId);
       case "get-observed":
         return observer.getCandidates();
+      case "get-pending":
+        return observer.getPending();
       case "refresh-learned":
         return applyLearned();
       case "clear-observed":

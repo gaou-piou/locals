@@ -114,4 +114,28 @@ describe("observer", () => {
     const urls = (await o.getCandidates({ minSites: 1 })).map((c) => c.url).sort();
     expect(urls).toEqual(["https://c.net/l@1.0.2/a.js", "https://c.net/l@1.0.3/a.js"]);
   });
+
+  it("lists versioned urls seen on only one site as pending, never the ready or unversioned ones", async () => {
+    const o = make();
+    const ready = "https://c.net/a@1.0.0/a.js";
+    const waiting = "https://c.net/b@2.0.0/b.js";
+    o.record({ url: ready, initiator: "https://a.com", type: "script" });
+    o.record({ url: ready, initiator: "https://b.org", type: "script" });
+    o.record({ url: waiting, initiator: "https://a.com", type: "script" });
+    o.record({ url: "https://c.net/analytics.js", initiator: "https://a.com", type: "script" });
+    await o.flush();
+    const pending = await o.getPending();
+    expect(pending.map((c) => c.url)).toEqual([waiting]);
+    expect(pending[0]).toMatchObject({ sites: 1, hits: 1, type: "script" });
+  });
+
+  it("lists the most recently seen pending url first", async () => {
+    const o = make();
+    for (const [n, u] of [[1, "https://c.net/a@1.0.0/a.js"], [2, "https://c.net/b@1.0.0/b.js"]] as const) {
+      now = new Date(2026, 10, n, 12);
+      o.record({ url: u, initiator: "https://a.com", type: "script" });
+    }
+    await o.flush();
+    expect((await o.getPending()).map((c) => c.url)).toEqual(["https://c.net/b@1.0.0/b.js", "https://c.net/a@1.0.0/a.js"]);
+  });
 });

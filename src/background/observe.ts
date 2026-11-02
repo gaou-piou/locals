@@ -83,7 +83,7 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
     }, delay);
   };
 
-  const apply = async (o: Observation): Promise<void> => {
+  const apply = async (o: Observation, at: number): Promise<void> => {
     if (!TYPES.has(o.type) || !o.initiator) return;
     const url = normalizeUrl(o.url);
     if (!url) return;
@@ -98,7 +98,7 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
     const e = (s.entries[url] ??= { type: o.type as ObservedType, hits: 0, last: 0, sites: [] });
     const frag = fnv1a(s.salt + registrable(initiatorHost));
     e.hits++;
-    e.last = now().getTime();
+    e.last = at;
     if (!e.sites.includes(frag) && e.sites.length < MAX_SITES) e.sites.push(frag);
     const urls = Object.keys(s.entries);
     if (urls.length > maxEntries) {
@@ -110,7 +110,8 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
   };
 
   const record = (o: Observation): void => {
-    chain = chain.then(() => apply(o)).catch(() => {});
+    const at = now().getTime();
+    chain = chain.then(() => apply(o, at)).catch(() => {});
   };
 
   async function flush(): Promise<void> {
@@ -130,6 +131,17 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
       .sort((a, b) => b.sites - a.sites || b.hits - a.hits || a.url.localeCompare(b.url));
   }
 
+  /** Versioned URLs seen on fewer sites than needed: they are saved as soon as another site loads them. */
+  async function getPending(opts: { minSites?: number } = {}): Promise<Candidate[]> {
+    await chain;
+    const min = opts.minSites ?? 2;
+    const s = await load();
+    return Object.entries(s.entries)
+      .filter(([url, e]) => e.sites.length < min && isImmutableUrl(url))
+      .map(([url, e]) => ({ url, type: e.type, sites: e.sites.length, hits: e.hits, lastSeen: e.last }))
+      .sort((a, b) => b.lastSeen - a.lastSeen || a.url.localeCompare(b.url));
+  }
+
   async function clear(): Promise<void> {
     await chain;
     state = { salt: crypto.randomUUID(), entries: {} };
@@ -137,5 +149,5 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
     await save();
   }
 
-  return { record, flush, getCandidates, clear };
+  return { record, flush, getCandidates, getPending, clear };
 }
