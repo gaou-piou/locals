@@ -1,0 +1,113 @@
+import { createHash } from "node:crypto";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { Readable } from "node:stream";
+import { chain, map } from "ramda";
+import { Parser } from "tar";
+import type { LibraryEntry } from "../src/shared/manifest-schema.ts";
+
+export type FetchTarball = (pkg: string, version: string) => Promise<Buffer>;
+export type FetchUrl = (url: string) => Promise<Buffer>;
+
+const sha256 = (b: Buffer) => createHash("sha256").update(b).digest("hex");
+const LICENSE_RE = /^(?:licen[cs]e|copying)(?:[.-][\w.-]+)?$/i;
+
+export function registryTarballUrl(pkg: string, version: string): string {
+  const base = pkg.split("/").pop()!;
+  return `https://registry.npmjs.org/${pkg}/-/${base}-${version}.tgz`;
+}
+
+export const fetchTarballFromNpm: FetchTarball = (pkg, version) => fetchBuffer(registryTarballUrl(pkg, version));
+
+export async function fetchBuffer(url: string): Promise<Buffer> {
+  const res = await fetch(url, { redirect: "follow" });
+  if (!res.ok) throw new Error(`GET ${url} → ${res.status}`);
+  return Buffer.from(await res.arrayBuffer());
+}
+
+/** Reads the files of an npm tarball into memory, keyed by path relative to the package root. */
+async function extract(tgz: Buffer, want: (path: string) => boolean): Promise<Map<string, Buffer>> {
+  const out = new Map<string, Buffer>();
+  const parser = new Parser({
+    filter: (path) => want(path.split("/").slice(1).join("/")),
+    onReadEntry: (entry) => {
+      const chunks: Buffer[] = [];
+      entry.on("data", (c: Buffer) => chunks.push(c));
+      entry.on("end", () => out.set(entry.path.split("/").slice(1).join("/"), Buffer.concat(chunks)));
+    },
+  });
+  await new Promise<void>((resolve, reject) => {
+    parser.on("end", resolve).on("error", reject);
+    Readable.from(tgz).pipe(parser);
+  });
+  return out;
+}
+
+type Tuple = { entry: LibraryEntry; version: string; files: LibraryEntry["versions"][number]["files"] };
+const tuples = (entries: LibraryEntry[]): Tuple[] =>
+  chain((entry) => map((v) => ({ entry, version: v.version, files: v.files }), entry.versions), entries);
+
+export async function buildLibs(
+  entries: LibraryEntry[],
+  opts: { outDir: string; fetchTarball: FetchTarball },
+): Promise<void> {
+  // Phase 1: fetch + verify everything in memory; nothing touches the disk until all hashes match.
+  const writes: { path: string; data: Buffer }[] = [];
+  for (const { entry, version, files } of tuples(entries)) {
+    const id = `${entry.name}@${version}`;
+    const wanted = new Set(files.map((f) => f.path));
+    const got = await extract(await opts.fetchTarball(entry.npm, version), (p) => wanted.has(p) || LICENSE_RE.test(p));
+    const base = join(opts.outDir, entry.name, version);
+    for (const f of files) {
+      const data = got.get(f.path);
+      if (!data) throw new Error(`file missing: ${id} ${f.path}`);
+      if (sha256(data) !== f.sha256) throw new Error(`sha256 mismatch: ${id}`);
+      writes.push({ path: join(base, f.path), data });
+    }
+    const licenseName = [...got.keys()].find((k) => LICENSE_RE.test(k));
+    if (!licenseName) throw new Error(`license missing: ${id}`);
+    writes.push({ path: join(base, "LICENSE"), data: got.get(licenseName)! });
+  }
+  // Phase 2: write.
+  for (const w of writes) {
+    mkdirSync(dirname(w.path), { recursive: true });
+    writeFileSync(w.path, w.data);
+  }
+}
+
+export async function hashLibs(
+  entries: LibraryEntry[],
+  deps: { fetchTarball: FetchTarball; fetchUrl: FetchUrl },
+): Promise<LibraryEntry[]> {
+  const result: LibraryEntry[] = [];
+  for (const entry of entries) {
+    const versions = [];
+    for (const v of entry.versions) {
+      const wanted = new Set(v.files.map((f) => f.path));
+      const got = await extract(await deps.fetchTarball(entry.npm, v.version), (p) => wanted.has(p));
+      versions.push({
+        ...v,
+        files: v.files.map((f) => {
+          const data = got.get(f.path);
+          if (!data) throw new Error(`file missing: ${entry.name}@${v.version} ${f.path}`);
+          return { ...f, sha256: sha256(data) };
+        }),
+      });
+    }
+    const patterns = [];
+    for (const p of entry.patterns) {
+      const cdnSha256: Record<string, string> = {};
+      for (const v of entry.versions) {
+        try {
+          cdnSha256[v.version] = sha256(await deps.fetchUrl(p.url.replaceAll("{version}", v.version)));
+        } catch {
+          // The CDN does not serve this version: leave it out, so it is never redirected.
+        }
+      }
+      const { cdnSha256: _old, ...rest } = p;
+      patterns.push(Object.keys(cdnSha256).length ? { ...rest, cdnSha256 } : rest);
+    }
+    result.push({ ...entry, versions, patterns });
+  }
+  return result;
+}

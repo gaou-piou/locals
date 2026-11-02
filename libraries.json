@@ -1,0 +1,442 @@
+[
+  {
+    "name": "jquery",
+    "npm": "jquery",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "3.6.4",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af"
+          }
+        ]
+      },
+      {
+        "version": "3.7.1",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/{version}/jquery.min.js",
+        "file": "dist/jquery.min.js",
+        "cdnSha256": {
+          "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
+          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/jquery@{version}/dist/jquery.min.js",
+        "file": "dist/jquery.min.js",
+        "cdnSha256": {
+          "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
+          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+        }
+      },
+      {
+        "url": "https://unpkg.com/jquery@{version}/dist/jquery.min.js",
+        "file": "dist/jquery.min.js",
+        "cdnSha256": {
+          "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
+          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+        }
+      },
+      {
+        "url": "https://code.jquery.com/jquery-{version}.min.js",
+        "file": "dist/jquery.min.js",
+        "cdnSha256": {
+          "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
+          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+        }
+      },
+      {
+        "url": "https://ajax.googleapis.com/ajax/libs/jquery/{version}/jquery.min.js",
+        "file": "dist/jquery.min.js",
+        "cdnSha256": {
+          "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
+          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+        }
+      },
+      {
+        "url": "https://ajax.aspnetcdn.com/ajax/jQuery/jquery-{version}.min.js",
+        "file": "dist/jquery.min.js",
+        "cdnSha256": {
+          "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
+          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+        }
+      }
+    ]
+  },
+  {
+    "name": "bootstrap",
+    "npm": "bootstrap",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "5.3.3",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "de040986d9a3ed89d5d5f9ad6d5727015e9e238c2cd13af8f1b55909386d0864"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{version}/css/bootstrap.min.css",
+        "file": "dist/css/bootstrap.min.css",
+        "cdnSha256": {
+          "5.3.3": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{version}/js/bootstrap.bundle.min.js",
+        "file": "dist/js/bootstrap.bundle.min.js",
+        "cdnSha256": {
+          "5.3.3": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{version}/js/bootstrap.min.js",
+        "file": "dist/js/bootstrap.min.js",
+        "cdnSha256": {
+          "5.3.3": "de040986d9a3ed89d5d5f9ad6d5727015e9e238c2cd13af8f1b55909386d0864"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/bootstrap@{version}/dist/css/bootstrap.min.css",
+        "file": "dist/css/bootstrap.min.css",
+        "cdnSha256": {
+          "5.3.3": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/bootstrap@{version}/dist/js/bootstrap.bundle.min.js",
+        "file": "dist/js/bootstrap.bundle.min.js",
+        "cdnSha256": {
+          "5.3.3": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/bootstrap@{version}/dist/js/bootstrap.min.js",
+        "file": "dist/js/bootstrap.min.js",
+        "cdnSha256": {
+          "5.3.3": "de040986d9a3ed89d5d5f9ad6d5727015e9e238c2cd13af8f1b55909386d0864"
+        }
+      },
+      {
+        "url": "https://unpkg.com/bootstrap@{version}/dist/css/bootstrap.min.css",
+        "file": "dist/css/bootstrap.min.css",
+        "cdnSha256": {
+          "5.3.3": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8"
+        }
+      },
+      {
+        "url": "https://unpkg.com/bootstrap@{version}/dist/js/bootstrap.bundle.min.js",
+        "file": "dist/js/bootstrap.bundle.min.js",
+        "cdnSha256": {
+          "5.3.3": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c"
+        }
+      }
+    ]
+  },
+  {
+    "name": "vue",
+    "npm": "vue",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "3.5.13",
+        "files": [
+          {
+            "path": "dist/vue.global.prod.js",
+            "type": "script",
+            "sha256": "c459ba7cc8db65c982589fa5d64c7ff478877e8e5b0fd75683207cec6a4e89e8"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/vue/{version}/vue.global.prod.min.js",
+        "file": "dist/vue.global.prod.js",
+        "cdnSha256": {
+          "3.5.13": "220ffd8a70f6161104efbf08802375364d9e4579f2552ba412cf80437f1692fe"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/vue@{version}/dist/vue.global.prod.js",
+        "file": "dist/vue.global.prod.js",
+        "cdnSha256": {
+          "3.5.13": "c459ba7cc8db65c982589fa5d64c7ff478877e8e5b0fd75683207cec6a4e89e8"
+        }
+      },
+      {
+        "url": "https://unpkg.com/vue@{version}/dist/vue.global.prod.js",
+        "file": "dist/vue.global.prod.js",
+        "cdnSha256": {
+          "3.5.13": "c459ba7cc8db65c982589fa5d64c7ff478877e8e5b0fd75683207cec6a4e89e8"
+        }
+      }
+    ]
+  },
+  {
+    "name": "react",
+    "npm": "react",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "18.3.1",
+        "files": [
+          {
+            "path": "umd/react.production.min.js",
+            "type": "script",
+            "sha256": "d949f1c3687aedadcedac85261865f29b17cd273997e7f6b2bfc53b2f9d4c4dd"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/react/{version}/umd/react.production.min.js",
+        "file": "umd/react.production.min.js",
+        "cdnSha256": {
+          "18.3.1": "d949f1c3687aedadcedac85261865f29b17cd273997e7f6b2bfc53b2f9d4c4dd"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/react@{version}/umd/react.production.min.js",
+        "file": "umd/react.production.min.js",
+        "cdnSha256": {
+          "18.3.1": "d949f1c3687aedadcedac85261865f29b17cd273997e7f6b2bfc53b2f9d4c4dd"
+        }
+      },
+      {
+        "url": "https://unpkg.com/react@{version}/umd/react.production.min.js",
+        "file": "umd/react.production.min.js",
+        "cdnSha256": {
+          "18.3.1": "d949f1c3687aedadcedac85261865f29b17cd273997e7f6b2bfc53b2f9d4c4dd"
+        }
+      }
+    ]
+  },
+  {
+    "name": "react-dom",
+    "npm": "react-dom",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "18.3.1",
+        "files": [
+          {
+            "path": "umd/react-dom.production.min.js",
+            "type": "script",
+            "sha256": "35f4f974f4b2bcd44da73963347f8952e341f83909e4498227d4e26b98f66f0d"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/{version}/umd/react-dom.production.min.js",
+        "file": "umd/react-dom.production.min.js",
+        "cdnSha256": {
+          "18.3.1": "35f4f974f4b2bcd44da73963347f8952e341f83909e4498227d4e26b98f66f0d"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/react-dom@{version}/umd/react-dom.production.min.js",
+        "file": "umd/react-dom.production.min.js",
+        "cdnSha256": {
+          "18.3.1": "35f4f974f4b2bcd44da73963347f8952e341f83909e4498227d4e26b98f66f0d"
+        }
+      },
+      {
+        "url": "https://unpkg.com/react-dom@{version}/umd/react-dom.production.min.js",
+        "file": "umd/react-dom.production.min.js",
+        "cdnSha256": {
+          "18.3.1": "35f4f974f4b2bcd44da73963347f8952e341f83909e4498227d4e26b98f66f0d"
+        }
+      }
+    ]
+  },
+  {
+    "name": "lodash",
+    "npm": "lodash",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "4.17.21",
+        "files": [
+          {
+            "path": "lodash.min.js",
+            "type": "script",
+            "sha256": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/{version}/lodash.min.js",
+        "file": "lodash.min.js",
+        "cdnSha256": {
+          "4.17.21": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/lodash@{version}/lodash.min.js",
+        "file": "lodash.min.js",
+        "cdnSha256": {
+          "4.17.21": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9"
+        }
+      },
+      {
+        "url": "https://unpkg.com/lodash@{version}/lodash.min.js",
+        "file": "lodash.min.js",
+        "cdnSha256": {
+          "4.17.21": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9"
+        }
+      }
+    ]
+  },
+  {
+    "name": "fontawesome",
+    "npm": "@fortawesome/fontawesome-free",
+    "license": "(CC-BY-4.0 AND OFL-1.1 AND MIT)",
+    "versions": [
+      {
+        "version": "6.5.2",
+        "files": [
+          {
+            "path": "css/all.min.css",
+            "type": "stylesheet",
+            "sha256": "5ceaaba22d75b58e04150311f596306562a3e595e27ed4b1dfa451b82dda9e50"
+          },
+          {
+            "path": "webfonts/fa-solid-900.woff2",
+            "type": "font",
+            "sha256": "ae17c16afbea216707b2203ea1cf9bdb45b9bfe47d0f4ae3258ddbc6294dd02f"
+          },
+          {
+            "path": "webfonts/fa-regular-400.woff2",
+            "type": "font",
+            "sha256": "c27da6f833431da5aa295c44540bfac0fd8270ba6a3c4346427006d8a7b34b76"
+          },
+          {
+            "path": "webfonts/fa-brands-400.woff2",
+            "type": "font",
+            "sha256": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/css/all.min.css",
+        "file": "css/all.min.css",
+        "cdnSha256": {
+          "6.5.2": "5ceaaba22d75b58e04150311f596306562a3e595e27ed4b1dfa451b82dda9e50"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{version}/css/all.min.css",
+        "file": "css/all.min.css",
+        "cdnSha256": {
+          "6.5.2": "5ceaaba22d75b58e04150311f596306562a3e595e27ed4b1dfa451b82dda9e50"
+        }
+      },
+      {
+        "url": "https://unpkg.com/@fortawesome/fontawesome-free@{version}/css/all.min.css",
+        "file": "css/all.min.css",
+        "cdnSha256": {
+          "6.5.2": "5ceaaba22d75b58e04150311f596306562a3e595e27ed4b1dfa451b82dda9e50"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/webfonts/fa-solid-900.woff2",
+        "file": "webfonts/fa-solid-900.woff2",
+        "cdnSha256": {
+          "6.5.2": "ae17c16afbea216707b2203ea1cf9bdb45b9bfe47d0f4ae3258ddbc6294dd02f"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/webfonts/fa-regular-400.woff2",
+        "file": "webfonts/fa-regular-400.woff2",
+        "cdnSha256": {
+          "6.5.2": "c27da6f833431da5aa295c44540bfac0fd8270ba6a3c4346427006d8a7b34b76"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/webfonts/fa-brands-400.woff2",
+        "file": "webfonts/fa-brands-400.woff2",
+        "cdnSha256": {
+          "6.5.2": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{version}/webfonts/fa-solid-900.woff2",
+        "file": "webfonts/fa-solid-900.woff2",
+        "cdnSha256": {
+          "6.5.2": "ae17c16afbea216707b2203ea1cf9bdb45b9bfe47d0f4ae3258ddbc6294dd02f"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{version}/webfonts/fa-regular-400.woff2",
+        "file": "webfonts/fa-regular-400.woff2",
+        "cdnSha256": {
+          "6.5.2": "c27da6f833431da5aa295c44540bfac0fd8270ba6a3c4346427006d8a7b34b76"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{version}/webfonts/fa-brands-400.woff2",
+        "file": "webfonts/fa-brands-400.woff2",
+        "cdnSha256": {
+          "6.5.2": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92"
+        }
+      },
+      {
+        "url": "https://unpkg.com/@fortawesome/fontawesome-free@{version}/webfonts/fa-solid-900.woff2",
+        "file": "webfonts/fa-solid-900.woff2",
+        "cdnSha256": {
+          "6.5.2": "ae17c16afbea216707b2203ea1cf9bdb45b9bfe47d0f4ae3258ddbc6294dd02f"
+        }
+      },
+      {
+        "url": "https://unpkg.com/@fortawesome/fontawesome-free@{version}/webfonts/fa-regular-400.woff2",
+        "file": "webfonts/fa-regular-400.woff2",
+        "cdnSha256": {
+          "6.5.2": "c27da6f833431da5aa295c44540bfac0fd8270ba6a3c4346427006d8a7b34b76"
+        }
+      },
+      {
+        "url": "https://unpkg.com/@fortawesome/fontawesome-free@{version}/webfonts/fa-brands-400.woff2",
+        "file": "webfonts/fa-brands-400.woff2",
+        "cdnSha256": {
+          "6.5.2": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92"
+        }
+      }
+    ]
+  }
+]
