@@ -62,6 +62,10 @@ libraries current ("alive"). Distributed as an AUR package.
   plain Svelte 5 + Vite project and that its output satisfies the MV3 CSP (no inline scripts;
   popup and options pages built as separate Vite entry points). Components are copied
   into the repo (`src/lib/components/ui`), not vendored from git submodules.
+- **Libraries: runed and ramda** (confirmed by the user). runed (https://runed.dev/docs)
+  for Svelte 5 reactive utilities in the UI; ramda (named imports, tree-shaken) for data
+  transformation in scripts and shared code. runed's `PersistedState` uses `localStorage`,
+  unavailable in the service worker, so settings/stats stay in `chrome.storage.local`.
 - **Install route: manual "Load unpacked" is acceptable** (confirmed by the user).
   The AUR package installs the unpacked extension under `/usr/share/cdn-mirror/` and
   prints the path to load. No CRX signing, update manifest or policy files are needed
