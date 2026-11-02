@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/libs/jquery/3.7.1/jquery.min.js"
+      }
+    },
+    "condition": {
+      "urlFilter": "||cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "chrome-extension://jongdncfbmpeeojgbpmhajbclkegnnkg/libs/jquery/3.7.1/jquery.min.js"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://code\\.jquery\\.com/jquery-3\\.[0-9.]+\\.min\\.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/libs/font/f.ttf"
+      }
+    },
+    "condition": {
+      "urlFilter": "||fonts.test.invalid/f.ttf^",
+      "resourceTypes": [
+        "font"
+      ]
+    }
+  }
+]

@@ -1,0 +1,1 @@
+// spike service worker

@@ -1,0 +1,6 @@
+<!doctype html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+  const f = new URLSearchParams(location.search).get("frame");
+  if (f) { const i = document.createElement("iframe"); i.src = f; document.body ? document.body.append(i) : document.addEventListener("DOMContentLoaded", () => document.body.append(i)); }
+</script>
