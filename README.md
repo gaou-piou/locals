@@ -1,4 +1,6 @@
-# locals
+# Locals
+
+> A Chromium browser extension (Manifest V3). Load it from `dist/` after `pnpm build`, or from a release zip; see [Install](#install).
 
 A Manifest V3 Chromium extension that serves popular JavaScript libraries, stylesheets and fonts from a local copy instead of letting pages contact third-party CDNs (cdnjs, jsDelivr, unpkg, Google Hosted Libraries, Microsoft Ajax CDN, code.jquery.com).
 
