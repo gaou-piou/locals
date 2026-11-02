@@ -17,14 +17,14 @@ source=("$_pkgname-$pkgver.zip::$url/releases/download/v$pkgver/$_pkgname-$pkgve
 # Updated with every release: `sha256sum` of the CI-built zip (published as the .sha256 asset).
 # The placeholder makes makepkg fail until it is replaced, so an unchecked download cannot be published by accident.
 sha256sums=('REPLACE_WITH_RELEASE_SHA256'
-            'a1797026cbf8c6824510f264c632ef34a40411cc5b748e9713583326139cafb9'
+            '702bfef3105aafef5d561b2cdf1b8e7c14182716e98c987fcf27a5fdc905901e'
             '3a2e53883b39dbdfab791b28b0086899e1852c22f552e920f67c9f7a17405ff4')
 
 package() {
-  install -d "$pkgdir/usr/share/$_pkgname"
-  cp -r "$srcdir/$_pkgname-$pkgver/." "$pkgdir/usr/share/$_pkgname/"
-  find "$pkgdir/usr/share/$_pkgname" -type d -exec chmod 755 {} +
-  find "$pkgdir/usr/share/$_pkgname" -type f -exec chmod 644 {} +
+  install -d "$pkgdir/usr/share/$pkgname"
+  cp -r "$srcdir/$_pkgname-$pkgver/." "$pkgdir/usr/share/$pkgname/"
+  find "$pkgdir/usr/share/$pkgname" -type d -exec chmod 755 {} +
+  find "$pkgdir/usr/share/$pkgname" -type f -exec chmod 644 {} +
   install -Dm755 "$srcdir/locals-install" "$pkgdir/usr/bin/locals-install"
   install -Dm755 "$srcdir/locals-learn.cjs" "$pkgdir/usr/bin/locals-learn"
   install -Dm644 "$srcdir/$_pkgname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"

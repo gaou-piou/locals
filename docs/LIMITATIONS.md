@@ -27,4 +27,4 @@ The spike showed `declarativeNetRequest` `modifyHeaders` can remove request head
 - Turning a site on or off applies to new requests; reload the open tab to see the change.
 - Allow-list mode (a non-empty allow list) exempts everything except the listed sites and their subdomains; third-party iframes embedded on a listed site are not served locally.
 - Pages can detect that the extension is installed (its id is fixed and its files are web-accessible to every site). This is inherent to the redirect approach.
-- Installed from the AUR, load the extension from the copy made by `locals-install` (`~/.local/share/locals`), not from `/usr/share/locals`: Chromium writes an `_metadata/` folder into an unpacked extension and cannot do so in a root-owned directory.
+- Installed from the AUR, load the extension from the copy made by `locals-install` (`~/.local/share/locals`), not from `/usr/share/chromium-extension-locals-git`: Chromium writes an `_metadata/` folder into an unpacked extension and cannot do so in a root-owned directory.

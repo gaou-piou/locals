@@ -1,9 +1,16 @@
 #!/bin/sh
 # Copies the packaged extension to a user-writable folder.
 # Chromium writes `_metadata/` into an unpacked extension's own directory, so loading it straight from the
-# root-owned /usr/share/locals fails (the service worker never starts). Run again after every upgrade.
+# root-owned /usr/share/chromium-extension-locals* fails (the service worker never starts). Run again after every upgrade.
 set -eu
-src="${CDN_MIRROR_SRC:-/usr/share/locals}"
+src="${CDN_MIRROR_SRC:-}"
+if [ -z "$src" ]; then
+  # installed by chromium-extension-locals-git or chromium-extension-locals
+  for d in /usr/share/chromium-extension-locals-git /usr/share/chromium-extension-locals; do
+    [ -f "$d/manifest.json" ] && { src="$d"; break; }
+  done
+fi
+[ -n "$src" ] || { echo "locals-install: no packaged extension found under /usr/share/chromium-extension-locals*" >&2; exit 1; }
 dest="${XDG_DATA_HOME:-$HOME/.local/share}/locals"
 [ -f "$src/manifest.json" ] || { echo "locals-install: no extension found in $src" >&2; exit 1; }
 # libs/learned/ holds what locals-learn downloaded; it survives upgrades

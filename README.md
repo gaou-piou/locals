@@ -26,7 +26,7 @@ What it cannot do in MV3 is in [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 yay -S chromium-extension-locals-git        # or any AUR helper
 ```
 
-The package installs the extension to `/usr/share/locals/` and a helper that makes a user-writable copy (Chromium writes an `_metadata/` folder into every unpacked extension, which fails in a root-owned directory):
+The package installs the extension to `/usr/share/chromium-extension-locals-git/` and a helper that makes a user-writable copy (Chromium writes an `_metadata/` folder into every unpacked extension, which fails in a root-owned directory):
 
 ```sh
 locals-install      # copies to ~/.local/share/locals and prints the path
