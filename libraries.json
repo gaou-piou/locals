@@ -5,12 +5,132 @@
     "license": "MIT",
     "versions": [
       {
+        "version": "1.12.4",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "668b046d12db350ccba6728890476b3efee53b2f42dbb84743e5e9f1ae0cc404"
+          }
+        ]
+      },
+      {
+        "version": "2.2.4",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "05b85d96f41fff14d8f608dad03ab71e2c1017c2da0914d7c59291bad7a54f8e"
+          }
+        ]
+      },
+      {
+        "version": "3.2.1",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "87083882cc6015984eb0411a99d3981817f5dc5c90ba24f0940420c5548d82de"
+          }
+        ]
+      },
+      {
+        "version": "3.3.1",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "160a426ff2894252cd7cebbdd6d6b7da8fcd319c65b70468f10b6690c45d02ef"
+          }
+        ]
+      },
+      {
+        "version": "3.4.1",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "0925e8ad7bd971391a8b1e98be8e87a6971919eb5b60c196485941c3c1df089a"
+          }
+        ]
+      },
+      {
+        "version": "3.5.0",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "c4dccdd9ae25b64078e0c73f273de94f8894d5c99e4741645ece29aeefc9c5a4"
+          }
+        ]
+      },
+      {
+        "version": "3.5.1",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "f7f6a5894f1d19ddad6fa392b2ece2c5e578cbf7da4ea805b6885eb6985b6e3d"
+          }
+        ]
+      },
+      {
+        "version": "3.6.0",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "ff1523fb7389539c84c65aba19260648793bb4f5e29329d2ee8804bc37a3fe6e"
+          }
+        ]
+      },
+      {
+        "version": "3.6.1",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "a3cf00c109d907e543bc4f6dbc85eb31068f94515251347e9e57509b52ee3d74"
+          }
+        ]
+      },
+      {
+        "version": "3.6.2",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "da4ad864a87ffcf71c851b5df87f95cb242867f7b711cae4c6133cc9cc0048f0"
+          }
+        ]
+      },
+      {
+        "version": "3.6.3",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "a6f3f0faea4b3d48e03176341bef0ed3151ffbf226d4c6635f1c6039c0500575"
+          }
+        ]
+      },
+      {
         "version": "3.6.4",
         "files": [
           {
             "path": "dist/jquery.min.js",
             "type": "script",
             "sha256": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af"
+          }
+        ]
+      },
+      {
+        "version": "3.7.0",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "d8f9afbf492e4c139e9d2bcb9ba6ef7c14921eb509fb703bc7a3f911b774eff8"
           }
         ]
       },
@@ -23,6 +143,16 @@
             "sha256": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
           }
         ]
+      },
+      {
+        "version": "4.0.0",
+        "files": [
+          {
+            "path": "dist/jquery.min.js",
+            "type": "script",
+            "sha256": "39a546ea9ad97f8bfaf5d3e0e8f8556adb415e470e59007ada9759dce472adaa"
+          }
+        ]
       }
     ],
     "patterns": [
@@ -30,39 +160,103 @@
         "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/{version}/jquery.min.js",
         "file": "dist/jquery.min.js",
         "cdnSha256": {
+          "1.12.4": "668b046d12db350ccba6728890476b3efee53b2f42dbb84743e5e9f1ae0cc404",
+          "2.2.4": "05b85d96f41fff14d8f608dad03ab71e2c1017c2da0914d7c59291bad7a54f8e",
+          "3.2.1": "87083882cc6015984eb0411a99d3981817f5dc5c90ba24f0940420c5548d82de",
+          "3.3.1": "160a426ff2894252cd7cebbdd6d6b7da8fcd319c65b70468f10b6690c45d02ef",
+          "3.4.1": "0925e8ad7bd971391a8b1e98be8e87a6971919eb5b60c196485941c3c1df089a",
+          "3.5.0": "c4dccdd9ae25b64078e0c73f273de94f8894d5c99e4741645ece29aeefc9c5a4",
+          "3.5.1": "f7f6a5894f1d19ddad6fa392b2ece2c5e578cbf7da4ea805b6885eb6985b6e3d",
+          "3.6.0": "ff1523fb7389539c84c65aba19260648793bb4f5e29329d2ee8804bc37a3fe6e",
+          "3.6.1": "a3cf00c109d907e543bc4f6dbc85eb31068f94515251347e9e57509b52ee3d74",
+          "3.6.2": "da4ad864a87ffcf71c851b5df87f95cb242867f7b711cae4c6133cc9cc0048f0",
+          "3.6.3": "a6f3f0faea4b3d48e03176341bef0ed3151ffbf226d4c6635f1c6039c0500575",
           "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
-          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+          "3.7.0": "d8f9afbf492e4c139e9d2bcb9ba6ef7c14921eb509fb703bc7a3f911b774eff8",
+          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a",
+          "4.0.0": "39a546ea9ad97f8bfaf5d3e0e8f8556adb415e470e59007ada9759dce472adaa"
         }
       },
       {
         "url": "https://cdn.jsdelivr.net/npm/jquery@{version}/dist/jquery.min.js",
         "file": "dist/jquery.min.js",
         "cdnSha256": {
+          "1.12.4": "668b046d12db350ccba6728890476b3efee53b2f42dbb84743e5e9f1ae0cc404",
+          "2.2.4": "05b85d96f41fff14d8f608dad03ab71e2c1017c2da0914d7c59291bad7a54f8e",
+          "3.2.1": "87083882cc6015984eb0411a99d3981817f5dc5c90ba24f0940420c5548d82de",
+          "3.3.1": "160a426ff2894252cd7cebbdd6d6b7da8fcd319c65b70468f10b6690c45d02ef",
+          "3.4.1": "0925e8ad7bd971391a8b1e98be8e87a6971919eb5b60c196485941c3c1df089a",
+          "3.5.0": "c4dccdd9ae25b64078e0c73f273de94f8894d5c99e4741645ece29aeefc9c5a4",
+          "3.5.1": "f7f6a5894f1d19ddad6fa392b2ece2c5e578cbf7da4ea805b6885eb6985b6e3d",
+          "3.6.0": "ff1523fb7389539c84c65aba19260648793bb4f5e29329d2ee8804bc37a3fe6e",
+          "3.6.1": "a3cf00c109d907e543bc4f6dbc85eb31068f94515251347e9e57509b52ee3d74",
+          "3.6.2": "da4ad864a87ffcf71c851b5df87f95cb242867f7b711cae4c6133cc9cc0048f0",
+          "3.6.3": "a6f3f0faea4b3d48e03176341bef0ed3151ffbf226d4c6635f1c6039c0500575",
           "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
-          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+          "3.7.0": "d8f9afbf492e4c139e9d2bcb9ba6ef7c14921eb509fb703bc7a3f911b774eff8",
+          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a",
+          "4.0.0": "39a546ea9ad97f8bfaf5d3e0e8f8556adb415e470e59007ada9759dce472adaa"
         }
       },
       {
         "url": "https://unpkg.com/jquery@{version}/dist/jquery.min.js",
         "file": "dist/jquery.min.js",
         "cdnSha256": {
+          "1.12.4": "668b046d12db350ccba6728890476b3efee53b2f42dbb84743e5e9f1ae0cc404",
+          "2.2.4": "05b85d96f41fff14d8f608dad03ab71e2c1017c2da0914d7c59291bad7a54f8e",
+          "3.2.1": "87083882cc6015984eb0411a99d3981817f5dc5c90ba24f0940420c5548d82de",
+          "3.3.1": "160a426ff2894252cd7cebbdd6d6b7da8fcd319c65b70468f10b6690c45d02ef",
+          "3.4.1": "0925e8ad7bd971391a8b1e98be8e87a6971919eb5b60c196485941c3c1df089a",
+          "3.5.0": "c4dccdd9ae25b64078e0c73f273de94f8894d5c99e4741645ece29aeefc9c5a4",
+          "3.5.1": "f7f6a5894f1d19ddad6fa392b2ece2c5e578cbf7da4ea805b6885eb6985b6e3d",
+          "3.6.0": "ff1523fb7389539c84c65aba19260648793bb4f5e29329d2ee8804bc37a3fe6e",
+          "3.6.1": "a3cf00c109d907e543bc4f6dbc85eb31068f94515251347e9e57509b52ee3d74",
+          "3.6.2": "da4ad864a87ffcf71c851b5df87f95cb242867f7b711cae4c6133cc9cc0048f0",
+          "3.6.3": "a6f3f0faea4b3d48e03176341bef0ed3151ffbf226d4c6635f1c6039c0500575",
           "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
-          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+          "3.7.0": "d8f9afbf492e4c139e9d2bcb9ba6ef7c14921eb509fb703bc7a3f911b774eff8",
+          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a",
+          "4.0.0": "39a546ea9ad97f8bfaf5d3e0e8f8556adb415e470e59007ada9759dce472adaa"
         }
       },
       {
         "url": "https://code.jquery.com/jquery-{version}.min.js",
         "file": "dist/jquery.min.js",
         "cdnSha256": {
+          "1.12.4": "668b046d12db350ccba6728890476b3efee53b2f42dbb84743e5e9f1ae0cc404",
+          "2.2.4": "05b85d96f41fff14d8f608dad03ab71e2c1017c2da0914d7c59291bad7a54f8e",
+          "3.2.1": "87083882cc6015984eb0411a99d3981817f5dc5c90ba24f0940420c5548d82de",
+          "3.3.1": "160a426ff2894252cd7cebbdd6d6b7da8fcd319c65b70468f10b6690c45d02ef",
+          "3.4.1": "0925e8ad7bd971391a8b1e98be8e87a6971919eb5b60c196485941c3c1df089a",
+          "3.5.0": "c4dccdd9ae25b64078e0c73f273de94f8894d5c99e4741645ece29aeefc9c5a4",
+          "3.5.1": "f7f6a5894f1d19ddad6fa392b2ece2c5e578cbf7da4ea805b6885eb6985b6e3d",
+          "3.6.0": "ff1523fb7389539c84c65aba19260648793bb4f5e29329d2ee8804bc37a3fe6e",
+          "3.6.1": "a3cf00c109d907e543bc4f6dbc85eb31068f94515251347e9e57509b52ee3d74",
+          "3.6.2": "da4ad864a87ffcf71c851b5df87f95cb242867f7b711cae4c6133cc9cc0048f0",
+          "3.6.3": "a6f3f0faea4b3d48e03176341bef0ed3151ffbf226d4c6635f1c6039c0500575",
           "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
-          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+          "3.7.0": "d8f9afbf492e4c139e9d2bcb9ba6ef7c14921eb509fb703bc7a3f911b774eff8",
+          "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a",
+          "4.0.0": "39a546ea9ad97f8bfaf5d3e0e8f8556adb415e470e59007ada9759dce472adaa"
         }
       },
       {
         "url": "https://ajax.googleapis.com/ajax/libs/jquery/{version}/jquery.min.js",
         "file": "dist/jquery.min.js",
         "cdnSha256": {
+          "1.12.4": "668b046d12db350ccba6728890476b3efee53b2f42dbb84743e5e9f1ae0cc404",
+          "2.2.4": "05b85d96f41fff14d8f608dad03ab71e2c1017c2da0914d7c59291bad7a54f8e",
+          "3.2.1": "87083882cc6015984eb0411a99d3981817f5dc5c90ba24f0940420c5548d82de",
+          "3.3.1": "160a426ff2894252cd7cebbdd6d6b7da8fcd319c65b70468f10b6690c45d02ef",
+          "3.4.1": "0925e8ad7bd971391a8b1e98be8e87a6971919eb5b60c196485941c3c1df089a",
+          "3.5.0": "c4dccdd9ae25b64078e0c73f273de94f8894d5c99e4741645ece29aeefc9c5a4",
+          "3.5.1": "f7f6a5894f1d19ddad6fa392b2ece2c5e578cbf7da4ea805b6885eb6985b6e3d",
+          "3.6.0": "ff1523fb7389539c84c65aba19260648793bb4f5e29329d2ee8804bc37a3fe6e",
+          "3.6.1": "a3cf00c109d907e543bc4f6dbc85eb31068f94515251347e9e57509b52ee3d74",
+          "3.6.2": "da4ad864a87ffcf71c851b5df87f95cb242867f7b711cae4c6133cc9cc0048f0",
+          "3.6.3": "a6f3f0faea4b3d48e03176341bef0ed3151ffbf226d4c6635f1c6039c0500575",
           "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
+          "3.7.0": "d8f9afbf492e4c139e9d2bcb9ba6ef7c14921eb509fb703bc7a3f911b774eff8",
           "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
         }
       },
@@ -70,7 +264,19 @@
         "url": "https://ajax.aspnetcdn.com/ajax/jQuery/jquery-{version}.min.js",
         "file": "dist/jquery.min.js",
         "cdnSha256": {
+          "1.12.4": "668b046d12db350ccba6728890476b3efee53b2f42dbb84743e5e9f1ae0cc404",
+          "2.2.4": "05b85d96f41fff14d8f608dad03ab71e2c1017c2da0914d7c59291bad7a54f8e",
+          "3.2.1": "87083882cc6015984eb0411a99d3981817f5dc5c90ba24f0940420c5548d82de",
+          "3.3.1": "160a426ff2894252cd7cebbdd6d6b7da8fcd319c65b70468f10b6690c45d02ef",
+          "3.4.1": "0925e8ad7bd971391a8b1e98be8e87a6971919eb5b60c196485941c3c1df089a",
+          "3.5.0": "c4dccdd9ae25b64078e0c73f273de94f8894d5c99e4741645ece29aeefc9c5a4",
+          "3.5.1": "f7f6a5894f1d19ddad6fa392b2ece2c5e578cbf7da4ea805b6885eb6985b6e3d",
+          "3.6.0": "ff1523fb7389539c84c65aba19260648793bb4f5e29329d2ee8804bc37a3fe6e",
+          "3.6.1": "a3cf00c109d907e543bc4f6dbc85eb31068f94515251347e9e57509b52ee3d74",
+          "3.6.2": "da4ad864a87ffcf71c851b5df87f95cb242867f7b711cae4c6133cc9cc0048f0",
+          "3.6.3": "a6f3f0faea4b3d48e03176341bef0ed3151ffbf226d4c6635f1c6039c0500575",
           "3.6.4": "a0fe8723dcf55da64d06b25446d0a8513e52527c45afcb37073465f9c6f352af",
+          "3.7.0": "d8f9afbf492e4c139e9d2bcb9ba6ef7c14921eb509fb703bc7a3f911b774eff8",
           "3.7.1": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
         }
       }
@@ -81,6 +287,206 @@
     "npm": "bootstrap",
     "license": "MIT",
     "versions": [
+      {
+        "version": "4.5.3",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "f77c0d1739b618edc4a01ca3f6b2990b01a3009030af49ee8cf68e83052df194"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "8d7089253dca29c9cd8d9deb7ec69b0a3d445f88f6a26478c719be1f90adcb01"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "d8968086f7509df34c3278563dab87399da4f9dcdfb419818e3a309eedc70b88"
+          }
+        ]
+      },
+      {
+        "version": "4.6.0",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "4ffcc598ee6cff4692c1cea272cd8a2f195f6dec32473e94370d6cdcfa5fe601"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "b0212543cc5a4a0a31c1b5a9d1e8973261992116b4cfde3e7dfcf33b4e81a97b"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "edd03b96ae4ff7886406c59d7dfeeaa1b624a7da297bf2f92d0cb6b7f9633cba"
+          }
+        ]
+      },
+      {
+        "version": "4.6.1",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "0c5ed985fdbddc027124d4e6879ce1a1860832cda85e2b517c18d8fbd2fffc06"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "7e02c082fedfc821a8a51fe004dab6896dd928876a21ccac8675142c2e2f7b1f"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "4b24eee82c2b7ce85ace76193e8a25570dabc6863b94a60a42fa9bb6a37ddc72"
+          }
+        ]
+      },
+      {
+        "version": "4.6.2",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "f886516f3d41e9e7bd994c7f7a39a89cafae9483f90396cb0ddeafe8d1ea5e72"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "19126b874a32753d42c12dfa6c17892bfd93820a5a5100ba1b34da4d07599b49"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "423217abf8775cea2dc30fa1fe3e1c5e24dc359a80f1c37ad29a86094bfe81d1"
+          }
+        ]
+      },
+      {
+        "version": "5.0.2",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "7633b7c0c97d19e682feee8afa2738523fcb2a14544a550572caeecd2eefe66b"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "7e1f1503df765cca5e099891b94e318a2ef95081ba2af1eb6d417cc884bfdbfe"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "5c36e28c9a7bd864b673e223db7e1934923227536ffbdf871f58b6f09b9ac8c9"
+          }
+        ]
+      },
+      {
+        "version": "5.1.3",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "62f74b1cf824a89f03554c638e719594c309b4d8a627a758928c0516fa7890ab"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "f5210fa3e7f0245a4c51eb7f280092c0ef99fdd28c45e17dab8cc5854fdf4fd3"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "70c3d690bdc5ce3b9a1527c46044989a3176e610882fa99f4523e75bc395bcce"
+          }
+        ]
+      },
+      {
+        "version": "5.2.3",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "c0bcf7898fdc3b87babca678cd19a8e3ef570e931c80a3afbffcc453738c951a"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "9520018fa5d81f4e4dc9d06afb576f90cbbaba209cfcc6cb60e1464647f7890b"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "9bcd4d0f29dc6556ebeeff44eaa0965f0c7f7308ee58394708cce2f698cca1b0"
+          }
+        ]
+      },
+      {
+        "version": "5.3.0",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "7f1d37f0d90b6385354c2ac10e2bb91563c46bd7a266ed351222ebcac8496c2a"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "aa53d582f97eb594c2a5cc5824574707f9ba9837bce3046bfa5f3556860f4e04"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "59e2e3c3c25802d3547328ea96e1eb91560dd5fa4bed3b5a930461691814c7cb"
+          }
+        ]
+      },
+      {
+        "version": "5.3.1",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "d939d21f27010c09b6c2966681d8b4cfcd64ca418f240922518f967fded16ef6"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "d2ea6c1e0cabca20d18e924b25a1cd0187c38ba7c33f60ab06e1b0402b9bcdb5"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "80e40921af7e2bf5dd7c0b81920d8e340770e449d06e8930fecd9bf01aac4458"
+          }
+        ]
+      },
+      {
+        "version": "5.3.2",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "3017df4a76db5f01c2b99b603d88b03106df13bcfe18e67b7c13c2341d3a67df"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "82f64f62bb03c1bc1824b0f9c9e05f70dba33e146818e63cdf5c306c8cf3dedd"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "60c6bec0033a424572cfdf7da1d5fb94f4719286006a7f2cb9e76ee24d99babf"
+          }
+        ]
+      },
       {
         "version": "5.3.3",
         "files": [
@@ -100,6 +506,66 @@
             "sha256": "de040986d9a3ed89d5d5f9ad6d5727015e9e238c2cd13af8f1b55909386d0864"
           }
         ]
+      },
+      {
+        "version": "5.3.6",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "a31a97d0b41c95bbebb09b7c2329a4c672129f8369d96cb6ad8f638e84250c48"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "cb789b7cec81aa580177e1b3c0561011539974d243d3a1de0d78a1a278015cab"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "4243f57cf0983c1329b1fd8e9de6fa1eb5e78d2a032186c8ccc55f8ad6410050"
+          }
+        ]
+      },
+      {
+        "version": "5.3.7",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "cd1826581e4f2b80af4f1e05897b316c7698441063cffaefbbdeec382ee4cd72"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "35f4547d9364111aca4850347356bc5660a994f0d8b694d88f995098a7b547fa"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "95e979ec98a6d7f096e08d621246877b12bf27d87f6519de78e44a890b8d3888"
+          }
+        ]
+      },
+      {
+        "version": "5.3.8",
+        "files": [
+          {
+            "path": "dist/css/bootstrap.min.css",
+            "type": "stylesheet",
+            "sha256": "d85327d99c7a3ee1f9b5d0500d1370acea3ad2db39c163c2f51f232baedbdede"
+          },
+          {
+            "path": "dist/js/bootstrap.bundle.min.js",
+            "type": "script",
+            "sha256": "e4fd49181388c48ec5040bd3fe66f57c29c8e67fcd8502b3354b96ec7ab47cc7"
+          },
+          {
+            "path": "dist/js/bootstrap.min.js",
+            "type": "script",
+            "sha256": "7b0f14895d69247fd88e93840489cfd47c55bd3fd27eb0a6c12a14cc5f492207"
+          }
+        ]
       }
     ],
     "patterns": [
@@ -107,56 +573,160 @@
         "url": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{version}/css/bootstrap.min.css",
         "file": "dist/css/bootstrap.min.css",
         "cdnSha256": {
-          "5.3.3": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8"
+          "4.5.3": "f77c0d1739b618edc4a01ca3f6b2990b01a3009030af49ee8cf68e83052df194",
+          "4.6.0": "4ffcc598ee6cff4692c1cea272cd8a2f195f6dec32473e94370d6cdcfa5fe601",
+          "4.6.1": "0c5ed985fdbddc027124d4e6879ce1a1860832cda85e2b517c18d8fbd2fffc06",
+          "4.6.2": "f886516f3d41e9e7bd994c7f7a39a89cafae9483f90396cb0ddeafe8d1ea5e72",
+          "5.0.2": "7633b7c0c97d19e682feee8afa2738523fcb2a14544a550572caeecd2eefe66b",
+          "5.1.3": "62f74b1cf824a89f03554c638e719594c309b4d8a627a758928c0516fa7890ab",
+          "5.2.3": "c0bcf7898fdc3b87babca678cd19a8e3ef570e931c80a3afbffcc453738c951a",
+          "5.3.0": "7f1d37f0d90b6385354c2ac10e2bb91563c46bd7a266ed351222ebcac8496c2a",
+          "5.3.1": "d939d21f27010c09b6c2966681d8b4cfcd64ca418f240922518f967fded16ef6",
+          "5.3.2": "3017df4a76db5f01c2b99b603d88b03106df13bcfe18e67b7c13c2341d3a67df",
+          "5.3.3": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8",
+          "5.3.6": "a31a97d0b41c95bbebb09b7c2329a4c672129f8369d96cb6ad8f638e84250c48",
+          "5.3.7": "cd1826581e4f2b80af4f1e05897b316c7698441063cffaefbbdeec382ee4cd72",
+          "5.3.8": "d85327d99c7a3ee1f9b5d0500d1370acea3ad2db39c163c2f51f232baedbdede"
         }
       },
       {
         "url": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{version}/js/bootstrap.bundle.min.js",
         "file": "dist/js/bootstrap.bundle.min.js",
         "cdnSha256": {
-          "5.3.3": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c"
+          "4.5.3": "8d7089253dca29c9cd8d9deb7ec69b0a3d445f88f6a26478c719be1f90adcb01",
+          "4.6.0": "b0212543cc5a4a0a31c1b5a9d1e8973261992116b4cfde3e7dfcf33b4e81a97b",
+          "4.6.1": "7e02c082fedfc821a8a51fe004dab6896dd928876a21ccac8675142c2e2f7b1f",
+          "4.6.2": "19126b874a32753d42c12dfa6c17892bfd93820a5a5100ba1b34da4d07599b49",
+          "5.0.2": "7e1f1503df765cca5e099891b94e318a2ef95081ba2af1eb6d417cc884bfdbfe",
+          "5.1.3": "f5210fa3e7f0245a4c51eb7f280092c0ef99fdd28c45e17dab8cc5854fdf4fd3",
+          "5.2.3": "9520018fa5d81f4e4dc9d06afb576f90cbbaba209cfcc6cb60e1464647f7890b",
+          "5.3.0": "aa53d582f97eb594c2a5cc5824574707f9ba9837bce3046bfa5f3556860f4e04",
+          "5.3.1": "d2ea6c1e0cabca20d18e924b25a1cd0187c38ba7c33f60ab06e1b0402b9bcdb5",
+          "5.3.2": "82f64f62bb03c1bc1824b0f9c9e05f70dba33e146818e63cdf5c306c8cf3dedd",
+          "5.3.3": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c",
+          "5.3.6": "cb789b7cec81aa580177e1b3c0561011539974d243d3a1de0d78a1a278015cab",
+          "5.3.7": "35f4547d9364111aca4850347356bc5660a994f0d8b694d88f995098a7b547fa",
+          "5.3.8": "e4fd49181388c48ec5040bd3fe66f57c29c8e67fcd8502b3354b96ec7ab47cc7"
         }
       },
       {
         "url": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{version}/js/bootstrap.min.js",
         "file": "dist/js/bootstrap.min.js",
         "cdnSha256": {
-          "5.3.3": "de040986d9a3ed89d5d5f9ad6d5727015e9e238c2cd13af8f1b55909386d0864"
+          "4.5.3": "d8968086f7509df34c3278563dab87399da4f9dcdfb419818e3a309eedc70b88",
+          "4.6.0": "edd03b96ae4ff7886406c59d7dfeeaa1b624a7da297bf2f92d0cb6b7f9633cba",
+          "4.6.1": "4b24eee82c2b7ce85ace76193e8a25570dabc6863b94a60a42fa9bb6a37ddc72",
+          "4.6.2": "423217abf8775cea2dc30fa1fe3e1c5e24dc359a80f1c37ad29a86094bfe81d1",
+          "5.0.2": "5c36e28c9a7bd864b673e223db7e1934923227536ffbdf871f58b6f09b9ac8c9",
+          "5.1.3": "70c3d690bdc5ce3b9a1527c46044989a3176e610882fa99f4523e75bc395bcce",
+          "5.2.3": "9bcd4d0f29dc6556ebeeff44eaa0965f0c7f7308ee58394708cce2f698cca1b0",
+          "5.3.0": "59e2e3c3c25802d3547328ea96e1eb91560dd5fa4bed3b5a930461691814c7cb",
+          "5.3.1": "80e40921af7e2bf5dd7c0b81920d8e340770e449d06e8930fecd9bf01aac4458",
+          "5.3.2": "60c6bec0033a424572cfdf7da1d5fb94f4719286006a7f2cb9e76ee24d99babf",
+          "5.3.3": "de040986d9a3ed89d5d5f9ad6d5727015e9e238c2cd13af8f1b55909386d0864",
+          "5.3.6": "4243f57cf0983c1329b1fd8e9de6fa1eb5e78d2a032186c8ccc55f8ad6410050",
+          "5.3.7": "95e979ec98a6d7f096e08d621246877b12bf27d87f6519de78e44a890b8d3888",
+          "5.3.8": "7b0f14895d69247fd88e93840489cfd47c55bd3fd27eb0a6c12a14cc5f492207"
         }
       },
       {
         "url": "https://cdn.jsdelivr.net/npm/bootstrap@{version}/dist/css/bootstrap.min.css",
         "file": "dist/css/bootstrap.min.css",
         "cdnSha256": {
-          "5.3.3": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8"
+          "4.5.3": "f77c0d1739b618edc4a01ca3f6b2990b01a3009030af49ee8cf68e83052df194",
+          "4.6.0": "4ffcc598ee6cff4692c1cea272cd8a2f195f6dec32473e94370d6cdcfa5fe601",
+          "4.6.1": "0c5ed985fdbddc027124d4e6879ce1a1860832cda85e2b517c18d8fbd2fffc06",
+          "4.6.2": "f886516f3d41e9e7bd994c7f7a39a89cafae9483f90396cb0ddeafe8d1ea5e72",
+          "5.0.2": "7633b7c0c97d19e682feee8afa2738523fcb2a14544a550572caeecd2eefe66b",
+          "5.1.3": "62f74b1cf824a89f03554c638e719594c309b4d8a627a758928c0516fa7890ab",
+          "5.2.3": "c0bcf7898fdc3b87babca678cd19a8e3ef570e931c80a3afbffcc453738c951a",
+          "5.3.0": "7f1d37f0d90b6385354c2ac10e2bb91563c46bd7a266ed351222ebcac8496c2a",
+          "5.3.1": "d939d21f27010c09b6c2966681d8b4cfcd64ca418f240922518f967fded16ef6",
+          "5.3.2": "3017df4a76db5f01c2b99b603d88b03106df13bcfe18e67b7c13c2341d3a67df",
+          "5.3.3": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8",
+          "5.3.6": "a31a97d0b41c95bbebb09b7c2329a4c672129f8369d96cb6ad8f638e84250c48",
+          "5.3.7": "cd1826581e4f2b80af4f1e05897b316c7698441063cffaefbbdeec382ee4cd72",
+          "5.3.8": "d85327d99c7a3ee1f9b5d0500d1370acea3ad2db39c163c2f51f232baedbdede"
         }
       },
       {
         "url": "https://cdn.jsdelivr.net/npm/bootstrap@{version}/dist/js/bootstrap.bundle.min.js",
         "file": "dist/js/bootstrap.bundle.min.js",
         "cdnSha256": {
-          "5.3.3": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c"
+          "4.5.3": "8d7089253dca29c9cd8d9deb7ec69b0a3d445f88f6a26478c719be1f90adcb01",
+          "4.6.0": "b0212543cc5a4a0a31c1b5a9d1e8973261992116b4cfde3e7dfcf33b4e81a97b",
+          "4.6.1": "7e02c082fedfc821a8a51fe004dab6896dd928876a21ccac8675142c2e2f7b1f",
+          "4.6.2": "19126b874a32753d42c12dfa6c17892bfd93820a5a5100ba1b34da4d07599b49",
+          "5.0.2": "7e1f1503df765cca5e099891b94e318a2ef95081ba2af1eb6d417cc884bfdbfe",
+          "5.1.3": "f5210fa3e7f0245a4c51eb7f280092c0ef99fdd28c45e17dab8cc5854fdf4fd3",
+          "5.2.3": "9520018fa5d81f4e4dc9d06afb576f90cbbaba209cfcc6cb60e1464647f7890b",
+          "5.3.0": "aa53d582f97eb594c2a5cc5824574707f9ba9837bce3046bfa5f3556860f4e04",
+          "5.3.1": "d2ea6c1e0cabca20d18e924b25a1cd0187c38ba7c33f60ab06e1b0402b9bcdb5",
+          "5.3.2": "82f64f62bb03c1bc1824b0f9c9e05f70dba33e146818e63cdf5c306c8cf3dedd",
+          "5.3.3": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c",
+          "5.3.6": "cb789b7cec81aa580177e1b3c0561011539974d243d3a1de0d78a1a278015cab",
+          "5.3.7": "35f4547d9364111aca4850347356bc5660a994f0d8b694d88f995098a7b547fa",
+          "5.3.8": "e4fd49181388c48ec5040bd3fe66f57c29c8e67fcd8502b3354b96ec7ab47cc7"
         }
       },
       {
         "url": "https://cdn.jsdelivr.net/npm/bootstrap@{version}/dist/js/bootstrap.min.js",
         "file": "dist/js/bootstrap.min.js",
         "cdnSha256": {
-          "5.3.3": "de040986d9a3ed89d5d5f9ad6d5727015e9e238c2cd13af8f1b55909386d0864"
+          "4.5.3": "d8968086f7509df34c3278563dab87399da4f9dcdfb419818e3a309eedc70b88",
+          "4.6.0": "edd03b96ae4ff7886406c59d7dfeeaa1b624a7da297bf2f92d0cb6b7f9633cba",
+          "4.6.1": "4b24eee82c2b7ce85ace76193e8a25570dabc6863b94a60a42fa9bb6a37ddc72",
+          "4.6.2": "423217abf8775cea2dc30fa1fe3e1c5e24dc359a80f1c37ad29a86094bfe81d1",
+          "5.0.2": "5c36e28c9a7bd864b673e223db7e1934923227536ffbdf871f58b6f09b9ac8c9",
+          "5.1.3": "70c3d690bdc5ce3b9a1527c46044989a3176e610882fa99f4523e75bc395bcce",
+          "5.2.3": "9bcd4d0f29dc6556ebeeff44eaa0965f0c7f7308ee58394708cce2f698cca1b0",
+          "5.3.0": "59e2e3c3c25802d3547328ea96e1eb91560dd5fa4bed3b5a930461691814c7cb",
+          "5.3.1": "80e40921af7e2bf5dd7c0b81920d8e340770e449d06e8930fecd9bf01aac4458",
+          "5.3.2": "60c6bec0033a424572cfdf7da1d5fb94f4719286006a7f2cb9e76ee24d99babf",
+          "5.3.3": "de040986d9a3ed89d5d5f9ad6d5727015e9e238c2cd13af8f1b55909386d0864",
+          "5.3.6": "4243f57cf0983c1329b1fd8e9de6fa1eb5e78d2a032186c8ccc55f8ad6410050",
+          "5.3.7": "95e979ec98a6d7f096e08d621246877b12bf27d87f6519de78e44a890b8d3888",
+          "5.3.8": "7b0f14895d69247fd88e93840489cfd47c55bd3fd27eb0a6c12a14cc5f492207"
         }
       },
       {
         "url": "https://unpkg.com/bootstrap@{version}/dist/css/bootstrap.min.css",
         "file": "dist/css/bootstrap.min.css",
         "cdnSha256": {
-          "5.3.3": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8"
+          "4.5.3": "f77c0d1739b618edc4a01ca3f6b2990b01a3009030af49ee8cf68e83052df194",
+          "4.6.0": "4ffcc598ee6cff4692c1cea272cd8a2f195f6dec32473e94370d6cdcfa5fe601",
+          "4.6.1": "0c5ed985fdbddc027124d4e6879ce1a1860832cda85e2b517c18d8fbd2fffc06",
+          "4.6.2": "f886516f3d41e9e7bd994c7f7a39a89cafae9483f90396cb0ddeafe8d1ea5e72",
+          "5.0.2": "7633b7c0c97d19e682feee8afa2738523fcb2a14544a550572caeecd2eefe66b",
+          "5.1.3": "62f74b1cf824a89f03554c638e719594c309b4d8a627a758928c0516fa7890ab",
+          "5.2.3": "c0bcf7898fdc3b87babca678cd19a8e3ef570e931c80a3afbffcc453738c951a",
+          "5.3.0": "7f1d37f0d90b6385354c2ac10e2bb91563c46bd7a266ed351222ebcac8496c2a",
+          "5.3.1": "d939d21f27010c09b6c2966681d8b4cfcd64ca418f240922518f967fded16ef6",
+          "5.3.2": "3017df4a76db5f01c2b99b603d88b03106df13bcfe18e67b7c13c2341d3a67df",
+          "5.3.3": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8",
+          "5.3.6": "a31a97d0b41c95bbebb09b7c2329a4c672129f8369d96cb6ad8f638e84250c48",
+          "5.3.7": "cd1826581e4f2b80af4f1e05897b316c7698441063cffaefbbdeec382ee4cd72",
+          "5.3.8": "d85327d99c7a3ee1f9b5d0500d1370acea3ad2db39c163c2f51f232baedbdede"
         }
       },
       {
         "url": "https://unpkg.com/bootstrap@{version}/dist/js/bootstrap.bundle.min.js",
         "file": "dist/js/bootstrap.bundle.min.js",
         "cdnSha256": {
-          "5.3.3": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c"
+          "4.5.3": "8d7089253dca29c9cd8d9deb7ec69b0a3d445f88f6a26478c719be1f90adcb01",
+          "4.6.0": "b0212543cc5a4a0a31c1b5a9d1e8973261992116b4cfde3e7dfcf33b4e81a97b",
+          "4.6.1": "7e02c082fedfc821a8a51fe004dab6896dd928876a21ccac8675142c2e2f7b1f",
+          "4.6.2": "19126b874a32753d42c12dfa6c17892bfd93820a5a5100ba1b34da4d07599b49",
+          "5.0.2": "7e1f1503df765cca5e099891b94e318a2ef95081ba2af1eb6d417cc884bfdbfe",
+          "5.1.3": "f5210fa3e7f0245a4c51eb7f280092c0ef99fdd28c45e17dab8cc5854fdf4fd3",
+          "5.2.3": "9520018fa5d81f4e4dc9d06afb576f90cbbaba209cfcc6cb60e1464647f7890b",
+          "5.3.0": "aa53d582f97eb594c2a5cc5824574707f9ba9837bce3046bfa5f3556860f4e04",
+          "5.3.1": "d2ea6c1e0cabca20d18e924b25a1cd0187c38ba7c33f60ab06e1b0402b9bcdb5",
+          "5.3.2": "82f64f62bb03c1bc1824b0f9c9e05f70dba33e146818e63cdf5c306c8cf3dedd",
+          "5.3.3": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c",
+          "5.3.6": "cb789b7cec81aa580177e1b3c0561011539974d243d3a1de0d78a1a278015cab",
+          "5.3.7": "35f4547d9364111aca4850347356bc5660a994f0d8b694d88f995098a7b547fa",
+          "5.3.8": "e4fd49181388c48ec5040bd3fe66f57c29c8e67fcd8502b3354b96ec7ab47cc7"
         }
       }
     ]
@@ -167,12 +737,52 @@
     "license": "MIT",
     "versions": [
       {
+        "version": "3.2.47",
+        "files": [
+          {
+            "path": "dist/vue.global.prod.js",
+            "type": "script",
+            "sha256": "9c3fb85ff50d62a9d7a962483586d0da9b5dff417bd8607be5b1a021d5ad62c3"
+          }
+        ]
+      },
+      {
+        "version": "3.3.13",
+        "files": [
+          {
+            "path": "dist/vue.global.prod.js",
+            "type": "script",
+            "sha256": "2d2858d80a3cc80badb94c8aa1619a4d14bd12bb37b0aaf69056ba8615fc9b8d"
+          }
+        ]
+      },
+      {
+        "version": "3.4.38",
+        "files": [
+          {
+            "path": "dist/vue.global.prod.js",
+            "type": "script",
+            "sha256": "b50eeefe35d41636bb96c92b40f1df0b4fb7914e07b3c625b1ec15e9748767b9"
+          }
+        ]
+      },
+      {
         "version": "3.5.13",
         "files": [
           {
             "path": "dist/vue.global.prod.js",
             "type": "script",
             "sha256": "c459ba7cc8db65c982589fa5d64c7ff478877e8e5b0fd75683207cec6a4e89e8"
+          }
+        ]
+      },
+      {
+        "version": "3.5.44",
+        "files": [
+          {
+            "path": "dist/vue.global.prod.js",
+            "type": "script",
+            "sha256": "e0a2a0866a8de8887542e24f3c218aad3d907b88f30966068792ba992296dc9f"
           }
         ]
       }
@@ -182,21 +792,33 @@
         "url": "https://cdnjs.cloudflare.com/ajax/libs/vue/{version}/vue.global.prod.min.js",
         "file": "dist/vue.global.prod.js",
         "cdnSha256": {
-          "3.5.13": "220ffd8a70f6161104efbf08802375364d9e4579f2552ba412cf80437f1692fe"
+          "3.2.47": "3ec0c588d15ca1cbb917c3fca22309a4bf1de7b94d3fd3f3db01f3487c9b2599",
+          "3.3.13": "d5df751e493c01a24f3536ae65218f95ff26d42173cda379dc5e6cee9fb0ab58",
+          "3.4.38": "e706b992e8c044076dc0e742b6e7719b36b1e7435881e42d20d0b39c4b6b7830",
+          "3.5.13": "220ffd8a70f6161104efbf08802375364d9e4579f2552ba412cf80437f1692fe",
+          "3.5.44": "dc4e55e5fb5e344b741e5d37cbf4ffe852f28342896cc1af2b651363c56d793f"
         }
       },
       {
         "url": "https://cdn.jsdelivr.net/npm/vue@{version}/dist/vue.global.prod.js",
         "file": "dist/vue.global.prod.js",
         "cdnSha256": {
-          "3.5.13": "c459ba7cc8db65c982589fa5d64c7ff478877e8e5b0fd75683207cec6a4e89e8"
+          "3.2.47": "9c3fb85ff50d62a9d7a962483586d0da9b5dff417bd8607be5b1a021d5ad62c3",
+          "3.3.13": "2d2858d80a3cc80badb94c8aa1619a4d14bd12bb37b0aaf69056ba8615fc9b8d",
+          "3.4.38": "b50eeefe35d41636bb96c92b40f1df0b4fb7914e07b3c625b1ec15e9748767b9",
+          "3.5.13": "c459ba7cc8db65c982589fa5d64c7ff478877e8e5b0fd75683207cec6a4e89e8",
+          "3.5.44": "e0a2a0866a8de8887542e24f3c218aad3d907b88f30966068792ba992296dc9f"
         }
       },
       {
         "url": "https://unpkg.com/vue@{version}/dist/vue.global.prod.js",
         "file": "dist/vue.global.prod.js",
         "cdnSha256": {
-          "3.5.13": "c459ba7cc8db65c982589fa5d64c7ff478877e8e5b0fd75683207cec6a4e89e8"
+          "3.2.47": "9c3fb85ff50d62a9d7a962483586d0da9b5dff417bd8607be5b1a021d5ad62c3",
+          "3.3.13": "2d2858d80a3cc80badb94c8aa1619a4d14bd12bb37b0aaf69056ba8615fc9b8d",
+          "3.4.38": "b50eeefe35d41636bb96c92b40f1df0b4fb7914e07b3c625b1ec15e9748767b9",
+          "3.5.13": "c459ba7cc8db65c982589fa5d64c7ff478877e8e5b0fd75683207cec6a4e89e8",
+          "3.5.44": "e0a2a0866a8de8887542e24f3c218aad3d907b88f30966068792ba992296dc9f"
         }
       }
     ]
@@ -206,6 +828,36 @@
     "npm": "react",
     "license": "MIT",
     "versions": [
+      {
+        "version": "16.14.0",
+        "files": [
+          {
+            "path": "umd/react.production.min.js",
+            "type": "script",
+            "sha256": "5cef9367d2bcaba25b74d20e0e139d2cf900e9123e5fde26101aee7f40f6b5cf"
+          }
+        ]
+      },
+      {
+        "version": "17.0.2",
+        "files": [
+          {
+            "path": "umd/react.production.min.js",
+            "type": "script",
+            "sha256": "229bbf4d0e7488209564152c6723497f1ac3934136ca1684233d2fa88fa4146f"
+          }
+        ]
+      },
+      {
+        "version": "18.2.0",
+        "files": [
+          {
+            "path": "umd/react.production.min.js",
+            "type": "script",
+            "sha256": "4b4969fa4ef3594324da2c6d78ce8766fbbc2fd121fff395aedf997db0a99a06"
+          }
+        ]
+      },
       {
         "version": "18.3.1",
         "files": [
@@ -222,6 +874,9 @@
         "url": "https://cdnjs.cloudflare.com/ajax/libs/react/{version}/umd/react.production.min.js",
         "file": "umd/react.production.min.js",
         "cdnSha256": {
+          "16.14.0": "5cef9367d2bcaba25b74d20e0e139d2cf900e9123e5fde26101aee7f40f6b5cf",
+          "17.0.2": "229bbf4d0e7488209564152c6723497f1ac3934136ca1684233d2fa88fa4146f",
+          "18.2.0": "4b4969fa4ef3594324da2c6d78ce8766fbbc2fd121fff395aedf997db0a99a06",
           "18.3.1": "d949f1c3687aedadcedac85261865f29b17cd273997e7f6b2bfc53b2f9d4c4dd"
         }
       },
@@ -229,6 +884,9 @@
         "url": "https://cdn.jsdelivr.net/npm/react@{version}/umd/react.production.min.js",
         "file": "umd/react.production.min.js",
         "cdnSha256": {
+          "16.14.0": "5cef9367d2bcaba25b74d20e0e139d2cf900e9123e5fde26101aee7f40f6b5cf",
+          "17.0.2": "229bbf4d0e7488209564152c6723497f1ac3934136ca1684233d2fa88fa4146f",
+          "18.2.0": "4b4969fa4ef3594324da2c6d78ce8766fbbc2fd121fff395aedf997db0a99a06",
           "18.3.1": "d949f1c3687aedadcedac85261865f29b17cd273997e7f6b2bfc53b2f9d4c4dd"
         }
       },
@@ -236,6 +894,9 @@
         "url": "https://unpkg.com/react@{version}/umd/react.production.min.js",
         "file": "umd/react.production.min.js",
         "cdnSha256": {
+          "16.14.0": "5cef9367d2bcaba25b74d20e0e139d2cf900e9123e5fde26101aee7f40f6b5cf",
+          "17.0.2": "229bbf4d0e7488209564152c6723497f1ac3934136ca1684233d2fa88fa4146f",
+          "18.2.0": "4b4969fa4ef3594324da2c6d78ce8766fbbc2fd121fff395aedf997db0a99a06",
           "18.3.1": "d949f1c3687aedadcedac85261865f29b17cd273997e7f6b2bfc53b2f9d4c4dd"
         }
       }
@@ -246,6 +907,36 @@
     "npm": "react-dom",
     "license": "MIT",
     "versions": [
+      {
+        "version": "16.14.0",
+        "files": [
+          {
+            "path": "umd/react-dom.production.min.js",
+            "type": "script",
+            "sha256": "4949f4e1cff9e8a960b44c9a8be70bc4bb10216eb4d0123ca61753e0908a0f87"
+          }
+        ]
+      },
+      {
+        "version": "17.0.2",
+        "files": [
+          {
+            "path": "umd/react-dom.production.min.js",
+            "type": "script",
+            "sha256": "9db33292007ab6c38527b39d5663e976a305564e19b2a5a8713ea2b2c00f505d"
+          }
+        ]
+      },
+      {
+        "version": "18.2.0",
+        "files": [
+          {
+            "path": "umd/react-dom.production.min.js",
+            "type": "script",
+            "sha256": "21758ed084cd0e37e735722ee4f3957ea960628a29dfa6c3ce1a1d47a2d6e4f7"
+          }
+        ]
+      },
       {
         "version": "18.3.1",
         "files": [
@@ -262,6 +953,9 @@
         "url": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/{version}/umd/react-dom.production.min.js",
         "file": "umd/react-dom.production.min.js",
         "cdnSha256": {
+          "16.14.0": "4949f4e1cff9e8a960b44c9a8be70bc4bb10216eb4d0123ca61753e0908a0f87",
+          "17.0.2": "9db33292007ab6c38527b39d5663e976a305564e19b2a5a8713ea2b2c00f505d",
+          "18.2.0": "21758ed084cd0e37e735722ee4f3957ea960628a29dfa6c3ce1a1d47a2d6e4f7",
           "18.3.1": "35f4f974f4b2bcd44da73963347f8952e341f83909e4498227d4e26b98f66f0d"
         }
       },
@@ -269,6 +963,9 @@
         "url": "https://cdn.jsdelivr.net/npm/react-dom@{version}/umd/react-dom.production.min.js",
         "file": "umd/react-dom.production.min.js",
         "cdnSha256": {
+          "16.14.0": "4949f4e1cff9e8a960b44c9a8be70bc4bb10216eb4d0123ca61753e0908a0f87",
+          "17.0.2": "9db33292007ab6c38527b39d5663e976a305564e19b2a5a8713ea2b2c00f505d",
+          "18.2.0": "21758ed084cd0e37e735722ee4f3957ea960628a29dfa6c3ce1a1d47a2d6e4f7",
           "18.3.1": "35f4f974f4b2bcd44da73963347f8952e341f83909e4498227d4e26b98f66f0d"
         }
       },
@@ -276,6 +973,9 @@
         "url": "https://unpkg.com/react-dom@{version}/umd/react-dom.production.min.js",
         "file": "umd/react-dom.production.min.js",
         "cdnSha256": {
+          "16.14.0": "4949f4e1cff9e8a960b44c9a8be70bc4bb10216eb4d0123ca61753e0908a0f87",
+          "17.0.2": "9db33292007ab6c38527b39d5663e976a305564e19b2a5a8713ea2b2c00f505d",
+          "18.2.0": "21758ed084cd0e37e735722ee4f3957ea960628a29dfa6c3ce1a1d47a2d6e4f7",
           "18.3.1": "35f4f974f4b2bcd44da73963347f8952e341f83909e4498227d4e26b98f66f0d"
         }
       }
@@ -287,12 +987,52 @@
     "license": "MIT",
     "versions": [
       {
+        "version": "4.17.15",
+        "files": [
+          {
+            "path": "lodash.min.js",
+            "type": "script",
+            "sha256": "55e35a1415438685f71fe809dfb0e94ff9d3b994dd8d8ae8f7206bb878d59a84"
+          }
+        ]
+      },
+      {
+        "version": "4.17.19",
+        "files": [
+          {
+            "path": "lodash.min.js",
+            "type": "script",
+            "sha256": "26f87df80e0735b6d6b169750f0ee403336c537cbc7a51888cb9d449434cb4b8"
+          }
+        ]
+      },
+      {
+        "version": "4.17.20",
+        "files": [
+          {
+            "path": "lodash.min.js",
+            "type": "script",
+            "sha256": "babfd8947314f7a3311c4b32ddf1c6b336476acecdcc7e114250f8b4356f161c"
+          }
+        ]
+      },
+      {
         "version": "4.17.21",
         "files": [
           {
             "path": "lodash.min.js",
             "type": "script",
             "sha256": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9"
+          }
+        ]
+      },
+      {
+        "version": "4.18.1",
+        "files": [
+          {
+            "path": "lodash.min.js",
+            "type": "script",
+            "sha256": "a8d7e6291ad80256f976ace90824a71018d2f706992c9107b20bdced97bee27b"
           }
         ]
       }
@@ -302,6 +1042,9 @@
         "url": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/{version}/lodash.min.js",
         "file": "lodash.min.js",
         "cdnSha256": {
+          "4.17.15": "55e35a1415438685f71fe809dfb0e94ff9d3b994dd8d8ae8f7206bb878d59a84",
+          "4.17.19": "26f87df80e0735b6d6b169750f0ee403336c537cbc7a51888cb9d449434cb4b8",
+          "4.17.20": "babfd8947314f7a3311c4b32ddf1c6b336476acecdcc7e114250f8b4356f161c",
           "4.17.21": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9"
         }
       },
@@ -309,14 +1052,22 @@
         "url": "https://cdn.jsdelivr.net/npm/lodash@{version}/lodash.min.js",
         "file": "lodash.min.js",
         "cdnSha256": {
-          "4.17.21": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9"
+          "4.17.15": "55e35a1415438685f71fe809dfb0e94ff9d3b994dd8d8ae8f7206bb878d59a84",
+          "4.17.19": "26f87df80e0735b6d6b169750f0ee403336c537cbc7a51888cb9d449434cb4b8",
+          "4.17.20": "babfd8947314f7a3311c4b32ddf1c6b336476acecdcc7e114250f8b4356f161c",
+          "4.17.21": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9",
+          "4.18.1": "a8d7e6291ad80256f976ace90824a71018d2f706992c9107b20bdced97bee27b"
         }
       },
       {
         "url": "https://unpkg.com/lodash@{version}/lodash.min.js",
         "file": "lodash.min.js",
         "cdnSha256": {
-          "4.17.21": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9"
+          "4.17.15": "55e35a1415438685f71fe809dfb0e94ff9d3b994dd8d8ae8f7206bb878d59a84",
+          "4.17.19": "26f87df80e0735b6d6b169750f0ee403336c537cbc7a51888cb9d449434cb4b8",
+          "4.17.20": "babfd8947314f7a3311c4b32ddf1c6b336476acecdcc7e114250f8b4356f161c",
+          "4.17.21": "a9705dfc47c0763380d851ab1801be6f76019f6b67e40e9b873f8b4a0603f7a9",
+          "4.18.1": "a8d7e6291ad80256f976ace90824a71018d2f706992c9107b20bdced97bee27b"
         }
       }
     ]
@@ -326,6 +1077,81 @@
     "npm": "@fortawesome/fontawesome-free",
     "license": "(CC-BY-4.0 AND OFL-1.1 AND MIT)",
     "versions": [
+      {
+        "version": "5.15.4",
+        "files": [
+          {
+            "path": "css/all.min.css",
+            "type": "stylesheet",
+            "sha256": "99464ceb71bc9bbdcc72275faefe44f98eb5cbb6b5d8ee665b87b35376f1a96e"
+          },
+          {
+            "path": "webfonts/fa-solid-900.woff2",
+            "type": "font",
+            "sha256": "9834b82ad26e2a37583d22676a12dd2eb0fe7c80356a2114d0db1aa8b3899537"
+          },
+          {
+            "path": "webfonts/fa-regular-400.woff2",
+            "type": "font",
+            "sha256": "e42a88444448ac3d60549cc7c1ff2c8a9cac721034c073d80a14a44e79730cca"
+          },
+          {
+            "path": "webfonts/fa-brands-400.woff2",
+            "type": "font",
+            "sha256": "8ea8791754915a898a3100e63e32978a6d1763be6df8e73a39d3a90d691cdeef"
+          }
+        ]
+      },
+      {
+        "version": "6.4.2",
+        "files": [
+          {
+            "path": "css/all.min.css",
+            "type": "stylesheet",
+            "sha256": "0934b1fc0d3a766d41d3adf5e7a115875e66e98ebba408d965a41cf3d2cb4ab5"
+          },
+          {
+            "path": "webfonts/fa-solid-900.woff2",
+            "type": "font",
+            "sha256": "886c86112a804ef1ddd1cb206af4c8c40e34b73c26652ca231404aa35a6b30d9"
+          },
+          {
+            "path": "webfonts/fa-regular-400.woff2",
+            "type": "font",
+            "sha256": "9169d8be7a8177e5a92a4d04b6de7f6504b938573bf4da5889871c4f376d3849"
+          },
+          {
+            "path": "webfonts/fa-brands-400.woff2",
+            "type": "font",
+            "sha256": "faae6fc0aa94cc5bde5076647c817a23206096a1cbeda10d1c6f3d89d6163ed1"
+          }
+        ]
+      },
+      {
+        "version": "6.5.1",
+        "files": [
+          {
+            "path": "css/all.min.css",
+            "type": "stylesheet",
+            "sha256": "c22cfb6520a7fdbb738632834019acf47c78b1279462c0eb4cb83bae83ecb5a7"
+          },
+          {
+            "path": "webfonts/fa-solid-900.woff2",
+            "type": "font",
+            "sha256": "9fc85f3a4544ab0d570c7f8f9bbb88db8d92c359b2707580ea8b07c75673eae2"
+          },
+          {
+            "path": "webfonts/fa-regular-400.woff2",
+            "type": "font",
+            "sha256": "2bccecf0bc7e96cd5ce4003abeb3ae9ee4a3d19158c4e6edfd2df32d2f0d5721"
+          },
+          {
+            "path": "webfonts/fa-brands-400.woff2",
+            "type": "font",
+            "sha256": "3a8924cd5203a28628716aedb5cef0943da4c3b44e3ffcee90ab06387b41c490"
+          }
+        ]
+      },
       {
         "version": "6.5.2",
         "files": [
@@ -350,6 +1176,81 @@
             "sha256": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92"
           }
         ]
+      },
+      {
+        "version": "6.6.0",
+        "files": [
+          {
+            "path": "css/all.min.css",
+            "type": "stylesheet",
+            "sha256": "e5e202e3c899507992952533f57b634722b69b34241d271963559d31aa33ef81"
+          },
+          {
+            "path": "webfonts/fa-solid-900.woff2",
+            "type": "font",
+            "sha256": "1f0189e087fcefbf654fad74a3a06668b782c01353a61d5c0b7f0bf23e33c020"
+          },
+          {
+            "path": "webfonts/fa-regular-400.woff2",
+            "type": "font",
+            "sha256": "c732f106e91bc618767fbac8e2c7b27e5c736d477b2bb4fb83f597a43198c33c"
+          },
+          {
+            "path": "webfonts/fa-brands-400.woff2",
+            "type": "font",
+            "sha256": "c411f11975d26eb04cd2aa3c071181d4b18e489f1fb97060d4176a3531dfb36e"
+          }
+        ]
+      },
+      {
+        "version": "6.7.2",
+        "files": [
+          {
+            "path": "css/all.min.css",
+            "type": "stylesheet",
+            "sha256": "74005d7c17d4a02f2f25404ec0655d9bc2fdaa53166874c87d7b7eec69d9088a"
+          },
+          {
+            "path": "webfonts/fa-solid-900.woff2",
+            "type": "font",
+            "sha256": "aa75998623a391e61c6901794ace832e3ecdd288b56d608f21bea0411acc0b8e"
+          },
+          {
+            "path": "webfonts/fa-regular-400.woff2",
+            "type": "font",
+            "sha256": "e3456d1283b9d75337a773dfd147bf908fd02c01b4bf48576d8603a69b13cbe5"
+          },
+          {
+            "path": "webfonts/fa-brands-400.woff2",
+            "type": "font",
+            "sha256": "d7236a19bf23cbb2027280e8f51dc99d6c45976a2ed60de73382b034b18a2b68"
+          }
+        ]
+      },
+      {
+        "version": "7.3.1",
+        "files": [
+          {
+            "path": "css/all.min.css",
+            "type": "stylesheet",
+            "sha256": "e0b69df26e19596d4b81bf7eb0c54b6047e7221ec18d5d4d40c11eefd3ef8a4b"
+          },
+          {
+            "path": "webfonts/fa-solid-900.woff2",
+            "type": "font",
+            "sha256": "24e5fae26b41c08b2df81c91669f5aaae71d81a84a4713fc56b5c621b78dd456"
+          },
+          {
+            "path": "webfonts/fa-regular-400.woff2",
+            "type": "font",
+            "sha256": "f4722d10b9e1b41eefe3b51a026312ee1970edb7782f94b0080d3d475945734c"
+          },
+          {
+            "path": "webfonts/fa-brands-400.woff2",
+            "type": "font",
+            "sha256": "ff66d1cfb67dbe3da432bbe36572cabfa4eef0e591303c2cba111474ba1d15bc"
+          }
+        ]
       }
     ],
     "patterns": [
@@ -357,84 +1258,1033 @@
         "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/css/all.min.css",
         "file": "css/all.min.css",
         "cdnSha256": {
-          "6.5.2": "5ceaaba22d75b58e04150311f596306562a3e595e27ed4b1dfa451b82dda9e50"
+          "5.15.4": "99464ceb71bc9bbdcc72275faefe44f98eb5cbb6b5d8ee665b87b35376f1a96e",
+          "6.4.2": "0934b1fc0d3a766d41d3adf5e7a115875e66e98ebba408d965a41cf3d2cb4ab5",
+          "6.5.1": "c22cfb6520a7fdbb738632834019acf47c78b1279462c0eb4cb83bae83ecb5a7",
+          "6.5.2": "5ceaaba22d75b58e04150311f596306562a3e595e27ed4b1dfa451b82dda9e50",
+          "6.6.0": "e5e202e3c899507992952533f57b634722b69b34241d271963559d31aa33ef81",
+          "6.7.2": "74005d7c17d4a02f2f25404ec0655d9bc2fdaa53166874c87d7b7eec69d9088a",
+          "7.3.1": "e0b69df26e19596d4b81bf7eb0c54b6047e7221ec18d5d4d40c11eefd3ef8a4b"
         }
       },
       {
         "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{version}/css/all.min.css",
         "file": "css/all.min.css",
         "cdnSha256": {
-          "6.5.2": "5ceaaba22d75b58e04150311f596306562a3e595e27ed4b1dfa451b82dda9e50"
+          "5.15.4": "99464ceb71bc9bbdcc72275faefe44f98eb5cbb6b5d8ee665b87b35376f1a96e",
+          "6.4.2": "0934b1fc0d3a766d41d3adf5e7a115875e66e98ebba408d965a41cf3d2cb4ab5",
+          "6.5.1": "c22cfb6520a7fdbb738632834019acf47c78b1279462c0eb4cb83bae83ecb5a7",
+          "6.5.2": "5ceaaba22d75b58e04150311f596306562a3e595e27ed4b1dfa451b82dda9e50",
+          "6.6.0": "e5e202e3c899507992952533f57b634722b69b34241d271963559d31aa33ef81",
+          "6.7.2": "74005d7c17d4a02f2f25404ec0655d9bc2fdaa53166874c87d7b7eec69d9088a",
+          "7.3.1": "e0b69df26e19596d4b81bf7eb0c54b6047e7221ec18d5d4d40c11eefd3ef8a4b"
         }
       },
       {
         "url": "https://unpkg.com/@fortawesome/fontawesome-free@{version}/css/all.min.css",
         "file": "css/all.min.css",
         "cdnSha256": {
-          "6.5.2": "5ceaaba22d75b58e04150311f596306562a3e595e27ed4b1dfa451b82dda9e50"
+          "5.15.4": "99464ceb71bc9bbdcc72275faefe44f98eb5cbb6b5d8ee665b87b35376f1a96e",
+          "6.4.2": "0934b1fc0d3a766d41d3adf5e7a115875e66e98ebba408d965a41cf3d2cb4ab5",
+          "6.5.1": "c22cfb6520a7fdbb738632834019acf47c78b1279462c0eb4cb83bae83ecb5a7",
+          "6.5.2": "5ceaaba22d75b58e04150311f596306562a3e595e27ed4b1dfa451b82dda9e50",
+          "6.6.0": "e5e202e3c899507992952533f57b634722b69b34241d271963559d31aa33ef81",
+          "6.7.2": "74005d7c17d4a02f2f25404ec0655d9bc2fdaa53166874c87d7b7eec69d9088a",
+          "7.3.1": "e0b69df26e19596d4b81bf7eb0c54b6047e7221ec18d5d4d40c11eefd3ef8a4b"
         }
       },
       {
         "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/webfonts/fa-solid-900.woff2",
         "file": "webfonts/fa-solid-900.woff2",
         "cdnSha256": {
-          "6.5.2": "ae17c16afbea216707b2203ea1cf9bdb45b9bfe47d0f4ae3258ddbc6294dd02f"
+          "5.15.4": "9834b82ad26e2a37583d22676a12dd2eb0fe7c80356a2114d0db1aa8b3899537",
+          "6.4.2": "886c86112a804ef1ddd1cb206af4c8c40e34b73c26652ca231404aa35a6b30d9",
+          "6.5.1": "9fc85f3a4544ab0d570c7f8f9bbb88db8d92c359b2707580ea8b07c75673eae2",
+          "6.5.2": "ae17c16afbea216707b2203ea1cf9bdb45b9bfe47d0f4ae3258ddbc6294dd02f",
+          "6.6.0": "1f0189e087fcefbf654fad74a3a06668b782c01353a61d5c0b7f0bf23e33c020",
+          "6.7.2": "aa75998623a391e61c6901794ace832e3ecdd288b56d608f21bea0411acc0b8e",
+          "7.3.1": "24e5fae26b41c08b2df81c91669f5aaae71d81a84a4713fc56b5c621b78dd456"
         }
       },
       {
         "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/webfonts/fa-regular-400.woff2",
         "file": "webfonts/fa-regular-400.woff2",
         "cdnSha256": {
-          "6.5.2": "c27da6f833431da5aa295c44540bfac0fd8270ba6a3c4346427006d8a7b34b76"
+          "5.15.4": "e42a88444448ac3d60549cc7c1ff2c8a9cac721034c073d80a14a44e79730cca",
+          "6.4.2": "9169d8be7a8177e5a92a4d04b6de7f6504b938573bf4da5889871c4f376d3849",
+          "6.5.1": "2bccecf0bc7e96cd5ce4003abeb3ae9ee4a3d19158c4e6edfd2df32d2f0d5721",
+          "6.5.2": "c27da6f833431da5aa295c44540bfac0fd8270ba6a3c4346427006d8a7b34b76",
+          "6.6.0": "c732f106e91bc618767fbac8e2c7b27e5c736d477b2bb4fb83f597a43198c33c",
+          "6.7.2": "e3456d1283b9d75337a773dfd147bf908fd02c01b4bf48576d8603a69b13cbe5",
+          "7.3.1": "f4722d10b9e1b41eefe3b51a026312ee1970edb7782f94b0080d3d475945734c"
         }
       },
       {
         "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/webfonts/fa-brands-400.woff2",
         "file": "webfonts/fa-brands-400.woff2",
         "cdnSha256": {
-          "6.5.2": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92"
+          "5.15.4": "8ea8791754915a898a3100e63e32978a6d1763be6df8e73a39d3a90d691cdeef",
+          "6.4.2": "faae6fc0aa94cc5bde5076647c817a23206096a1cbeda10d1c6f3d89d6163ed1",
+          "6.5.1": "3a8924cd5203a28628716aedb5cef0943da4c3b44e3ffcee90ab06387b41c490",
+          "6.5.2": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92",
+          "6.6.0": "c411f11975d26eb04cd2aa3c071181d4b18e489f1fb97060d4176a3531dfb36e",
+          "6.7.2": "d7236a19bf23cbb2027280e8f51dc99d6c45976a2ed60de73382b034b18a2b68",
+          "7.3.1": "ff66d1cfb67dbe3da432bbe36572cabfa4eef0e591303c2cba111474ba1d15bc"
         }
       },
       {
         "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{version}/webfonts/fa-solid-900.woff2",
         "file": "webfonts/fa-solid-900.woff2",
         "cdnSha256": {
-          "6.5.2": "ae17c16afbea216707b2203ea1cf9bdb45b9bfe47d0f4ae3258ddbc6294dd02f"
+          "5.15.4": "9834b82ad26e2a37583d22676a12dd2eb0fe7c80356a2114d0db1aa8b3899537",
+          "6.4.2": "886c86112a804ef1ddd1cb206af4c8c40e34b73c26652ca231404aa35a6b30d9",
+          "6.5.1": "9fc85f3a4544ab0d570c7f8f9bbb88db8d92c359b2707580ea8b07c75673eae2",
+          "6.5.2": "ae17c16afbea216707b2203ea1cf9bdb45b9bfe47d0f4ae3258ddbc6294dd02f",
+          "6.6.0": "1f0189e087fcefbf654fad74a3a06668b782c01353a61d5c0b7f0bf23e33c020",
+          "6.7.2": "aa75998623a391e61c6901794ace832e3ecdd288b56d608f21bea0411acc0b8e",
+          "7.3.1": "24e5fae26b41c08b2df81c91669f5aaae71d81a84a4713fc56b5c621b78dd456"
         }
       },
       {
         "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{version}/webfonts/fa-regular-400.woff2",
         "file": "webfonts/fa-regular-400.woff2",
         "cdnSha256": {
-          "6.5.2": "c27da6f833431da5aa295c44540bfac0fd8270ba6a3c4346427006d8a7b34b76"
+          "5.15.4": "e42a88444448ac3d60549cc7c1ff2c8a9cac721034c073d80a14a44e79730cca",
+          "6.4.2": "9169d8be7a8177e5a92a4d04b6de7f6504b938573bf4da5889871c4f376d3849",
+          "6.5.1": "2bccecf0bc7e96cd5ce4003abeb3ae9ee4a3d19158c4e6edfd2df32d2f0d5721",
+          "6.5.2": "c27da6f833431da5aa295c44540bfac0fd8270ba6a3c4346427006d8a7b34b76",
+          "6.6.0": "c732f106e91bc618767fbac8e2c7b27e5c736d477b2bb4fb83f597a43198c33c",
+          "6.7.2": "e3456d1283b9d75337a773dfd147bf908fd02c01b4bf48576d8603a69b13cbe5",
+          "7.3.1": "f4722d10b9e1b41eefe3b51a026312ee1970edb7782f94b0080d3d475945734c"
         }
       },
       {
         "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{version}/webfonts/fa-brands-400.woff2",
         "file": "webfonts/fa-brands-400.woff2",
         "cdnSha256": {
-          "6.5.2": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92"
+          "5.15.4": "8ea8791754915a898a3100e63e32978a6d1763be6df8e73a39d3a90d691cdeef",
+          "6.4.2": "faae6fc0aa94cc5bde5076647c817a23206096a1cbeda10d1c6f3d89d6163ed1",
+          "6.5.1": "3a8924cd5203a28628716aedb5cef0943da4c3b44e3ffcee90ab06387b41c490",
+          "6.5.2": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92",
+          "6.6.0": "c411f11975d26eb04cd2aa3c071181d4b18e489f1fb97060d4176a3531dfb36e",
+          "6.7.2": "d7236a19bf23cbb2027280e8f51dc99d6c45976a2ed60de73382b034b18a2b68",
+          "7.3.1": "ff66d1cfb67dbe3da432bbe36572cabfa4eef0e591303c2cba111474ba1d15bc"
         }
       },
       {
         "url": "https://unpkg.com/@fortawesome/fontawesome-free@{version}/webfonts/fa-solid-900.woff2",
         "file": "webfonts/fa-solid-900.woff2",
         "cdnSha256": {
-          "6.5.2": "ae17c16afbea216707b2203ea1cf9bdb45b9bfe47d0f4ae3258ddbc6294dd02f"
+          "5.15.4": "9834b82ad26e2a37583d22676a12dd2eb0fe7c80356a2114d0db1aa8b3899537",
+          "6.4.2": "886c86112a804ef1ddd1cb206af4c8c40e34b73c26652ca231404aa35a6b30d9",
+          "6.5.1": "9fc85f3a4544ab0d570c7f8f9bbb88db8d92c359b2707580ea8b07c75673eae2",
+          "6.5.2": "ae17c16afbea216707b2203ea1cf9bdb45b9bfe47d0f4ae3258ddbc6294dd02f",
+          "6.6.0": "1f0189e087fcefbf654fad74a3a06668b782c01353a61d5c0b7f0bf23e33c020",
+          "6.7.2": "aa75998623a391e61c6901794ace832e3ecdd288b56d608f21bea0411acc0b8e",
+          "7.3.1": "24e5fae26b41c08b2df81c91669f5aaae71d81a84a4713fc56b5c621b78dd456"
         }
       },
       {
         "url": "https://unpkg.com/@fortawesome/fontawesome-free@{version}/webfonts/fa-regular-400.woff2",
         "file": "webfonts/fa-regular-400.woff2",
         "cdnSha256": {
-          "6.5.2": "c27da6f833431da5aa295c44540bfac0fd8270ba6a3c4346427006d8a7b34b76"
+          "5.15.4": "e42a88444448ac3d60549cc7c1ff2c8a9cac721034c073d80a14a44e79730cca",
+          "6.4.2": "9169d8be7a8177e5a92a4d04b6de7f6504b938573bf4da5889871c4f376d3849",
+          "6.5.1": "2bccecf0bc7e96cd5ce4003abeb3ae9ee4a3d19158c4e6edfd2df32d2f0d5721",
+          "6.5.2": "c27da6f833431da5aa295c44540bfac0fd8270ba6a3c4346427006d8a7b34b76",
+          "6.6.0": "c732f106e91bc618767fbac8e2c7b27e5c736d477b2bb4fb83f597a43198c33c",
+          "6.7.2": "e3456d1283b9d75337a773dfd147bf908fd02c01b4bf48576d8603a69b13cbe5",
+          "7.3.1": "f4722d10b9e1b41eefe3b51a026312ee1970edb7782f94b0080d3d475945734c"
         }
       },
       {
         "url": "https://unpkg.com/@fortawesome/fontawesome-free@{version}/webfonts/fa-brands-400.woff2",
         "file": "webfonts/fa-brands-400.woff2",
         "cdnSha256": {
-          "6.5.2": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92"
+          "5.15.4": "8ea8791754915a898a3100e63e32978a6d1763be6df8e73a39d3a90d691cdeef",
+          "6.4.2": "faae6fc0aa94cc5bde5076647c817a23206096a1cbeda10d1c6f3d89d6163ed1",
+          "6.5.1": "3a8924cd5203a28628716aedb5cef0943da4c3b44e3ffcee90ab06387b41c490",
+          "6.5.2": "232c6f6a7678304f9efaa26f30b1610debc2ba9f4cd636b5e6751c8d73761b92",
+          "6.6.0": "c411f11975d26eb04cd2aa3c071181d4b18e489f1fb97060d4176a3531dfb36e",
+          "6.7.2": "d7236a19bf23cbb2027280e8f51dc99d6c45976a2ed60de73382b034b18a2b68",
+          "7.3.1": "ff66d1cfb67dbe3da432bbe36572cabfa4eef0e591303c2cba111474ba1d15bc"
+        }
+      }
+    ]
+  },
+  {
+    "name": "jquery-ui",
+    "npm": "jquery-ui",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "1.13.2",
+        "files": [
+          {
+            "path": "dist/jquery-ui.min.js",
+            "type": "script",
+            "sha256": "9528ca634fecad433d044ddd3e6f9ce1f068d5d932dafdbb19d8e6daea1968bd"
+          }
+        ]
+      },
+      {
+        "version": "1.13.3",
+        "files": [
+          {
+            "path": "dist/jquery-ui.min.js",
+            "type": "script",
+            "sha256": "b30d2234d5e63896d085816e0bd385da43a50f929029ed72e657c19f80bd4a38"
+          }
+        ]
+      },
+      {
+        "version": "1.14.1",
+        "files": [
+          {
+            "path": "dist/jquery-ui.min.js",
+            "type": "script",
+            "sha256": "0254e2768f39b973e54b2c9a64db23257782b34ede4afdebe3793209573c0a12"
+          }
+        ]
+      },
+      {
+        "version": "1.14.2",
+        "files": [
+          {
+            "path": "dist/jquery-ui.min.js",
+            "type": "script",
+            "sha256": "99b95259f6d8cdaabf7fee1a93232113a5c42c2a2ee236e480fbfe2503c44763"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/jquery-ui@{version}/dist/jquery-ui.min.js",
+        "file": "dist/jquery-ui.min.js",
+        "cdnSha256": {
+          "1.13.2": "9528ca634fecad433d044ddd3e6f9ce1f068d5d932dafdbb19d8e6daea1968bd",
+          "1.13.3": "b30d2234d5e63896d085816e0bd385da43a50f929029ed72e657c19f80bd4a38",
+          "1.14.1": "0254e2768f39b973e54b2c9a64db23257782b34ede4afdebe3793209573c0a12",
+          "1.14.2": "99b95259f6d8cdaabf7fee1a93232113a5c42c2a2ee236e480fbfe2503c44763"
+        }
+      },
+      {
+        "url": "https://unpkg.com/jquery-ui@{version}/dist/jquery-ui.min.js",
+        "file": "dist/jquery-ui.min.js",
+        "cdnSha256": {
+          "1.13.2": "9528ca634fecad433d044ddd3e6f9ce1f068d5d932dafdbb19d8e6daea1968bd",
+          "1.13.3": "b30d2234d5e63896d085816e0bd385da43a50f929029ed72e657c19f80bd4a38",
+          "1.14.1": "0254e2768f39b973e54b2c9a64db23257782b34ede4afdebe3793209573c0a12",
+          "1.14.2": "99b95259f6d8cdaabf7fee1a93232113a5c42c2a2ee236e480fbfe2503c44763"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/{version}/jquery-ui.min.js",
+        "file": "dist/jquery-ui.min.js",
+        "cdnSha256": {
+          "1.13.2": "9528ca634fecad433d044ddd3e6f9ce1f068d5d932dafdbb19d8e6daea1968bd",
+          "1.13.3": "b30d2234d5e63896d085816e0bd385da43a50f929029ed72e657c19f80bd4a38",
+          "1.14.1": "0254e2768f39b973e54b2c9a64db23257782b34ede4afdebe3793209573c0a12",
+          "1.14.2": "99b95259f6d8cdaabf7fee1a93232113a5c42c2a2ee236e480fbfe2503c44763"
+        }
+      },
+      {
+        "url": "https://code.jquery.com/ui/{version}/jquery-ui.min.js",
+        "file": "dist/jquery-ui.min.js",
+        "cdnSha256": {
+          "1.13.2": "9528ca634fecad433d044ddd3e6f9ce1f068d5d932dafdbb19d8e6daea1968bd",
+          "1.13.3": "b30d2234d5e63896d085816e0bd385da43a50f929029ed72e657c19f80bd4a38",
+          "1.14.1": "0254e2768f39b973e54b2c9a64db23257782b34ede4afdebe3793209573c0a12",
+          "1.14.2": "99b95259f6d8cdaabf7fee1a93232113a5c42c2a2ee236e480fbfe2503c44763"
+        }
+      },
+      {
+        "url": "https://ajax.googleapis.com/ajax/libs/jqueryui/{version}/jquery-ui.min.js",
+        "file": "dist/jquery-ui.min.js",
+        "cdnSha256": {
+          "1.13.2": "9528ca634fecad433d044ddd3e6f9ce1f068d5d932dafdbb19d8e6daea1968bd",
+          "1.13.3": "b30d2234d5e63896d085816e0bd385da43a50f929029ed72e657c19f80bd4a38",
+          "1.14.1": "0254e2768f39b973e54b2c9a64db23257782b34ede4afdebe3793209573c0a12"
+        }
+      }
+    ]
+  },
+  {
+    "name": "popperjs-core",
+    "npm": "@popperjs/core",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "2.9.3",
+        "files": [
+          {
+            "path": "dist/umd/popper.min.js",
+            "type": "script",
+            "sha256": "ccc0ee783158d1ab3ae590ef8c982a827e38e8b82fd121551cdd4c20041fcd1b"
+          }
+        ]
+      },
+      {
+        "version": "2.10.2",
+        "files": [
+          {
+            "path": "dist/umd/popper.min.js",
+            "type": "script",
+            "sha256": "f395875eb5d58c5128c434812cd0a53d438b11536f7fd1577077d8a5c612e1fd"
+          }
+        ]
+      },
+      {
+        "version": "2.11.6",
+        "files": [
+          {
+            "path": "dist/umd/popper.min.js",
+            "type": "script",
+            "sha256": "051a8137b75880006ab58f47778ca713ed6c967130faba043c5cd0ed34517dc8"
+          }
+        ]
+      },
+      {
+        "version": "2.11.7",
+        "files": [
+          {
+            "path": "dist/umd/popper.min.js",
+            "type": "script",
+            "sha256": "de33b12c8e78a06c52d09a5acbe7476ff23229b465a08ccaabafd504b05573e0"
+          }
+        ]
+      },
+      {
+        "version": "2.11.8",
+        "files": [
+          {
+            "path": "dist/umd/popper.min.js",
+            "type": "script",
+            "sha256": "c212f4b505a86352aed62b24a8f16f999f821ecbe6456c7f3c8a04bc87968782"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@popperjs/core@{version}/dist/umd/popper.min.js",
+        "file": "dist/umd/popper.min.js",
+        "cdnSha256": {
+          "2.9.3": "ccc0ee783158d1ab3ae590ef8c982a827e38e8b82fd121551cdd4c20041fcd1b",
+          "2.10.2": "f395875eb5d58c5128c434812cd0a53d438b11536f7fd1577077d8a5c612e1fd",
+          "2.11.6": "051a8137b75880006ab58f47778ca713ed6c967130faba043c5cd0ed34517dc8",
+          "2.11.7": "de33b12c8e78a06c52d09a5acbe7476ff23229b465a08ccaabafd504b05573e0",
+          "2.11.8": "c212f4b505a86352aed62b24a8f16f999f821ecbe6456c7f3c8a04bc87968782"
+        }
+      },
+      {
+        "url": "https://unpkg.com/@popperjs/core@{version}/dist/umd/popper.min.js",
+        "file": "dist/umd/popper.min.js",
+        "cdnSha256": {
+          "2.9.3": "ccc0ee783158d1ab3ae590ef8c982a827e38e8b82fd121551cdd4c20041fcd1b",
+          "2.10.2": "f395875eb5d58c5128c434812cd0a53d438b11536f7fd1577077d8a5c612e1fd",
+          "2.11.6": "051a8137b75880006ab58f47778ca713ed6c967130faba043c5cd0ed34517dc8",
+          "2.11.7": "de33b12c8e78a06c52d09a5acbe7476ff23229b465a08ccaabafd504b05573e0",
+          "2.11.8": "c212f4b505a86352aed62b24a8f16f999f821ecbe6456c7f3c8a04bc87968782"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/popper.js/{version}/umd/popper.min.js",
+        "file": "dist/umd/popper.min.js",
+        "cdnSha256": {
+          "2.9.3": "ccc0ee783158d1ab3ae590ef8c982a827e38e8b82fd121551cdd4c20041fcd1b",
+          "2.10.2": "f395875eb5d58c5128c434812cd0a53d438b11536f7fd1577077d8a5c612e1fd",
+          "2.11.6": "051a8137b75880006ab58f47778ca713ed6c967130faba043c5cd0ed34517dc8",
+          "2.11.7": "de33b12c8e78a06c52d09a5acbe7476ff23229b465a08ccaabafd504b05573e0",
+          "2.11.8": "c212f4b505a86352aed62b24a8f16f999f821ecbe6456c7f3c8a04bc87968782"
+        }
+      }
+    ]
+  },
+  {
+    "name": "axios",
+    "npm": "axios",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "0.27.2",
+        "files": [
+          {
+            "path": "dist/axios.min.js",
+            "type": "script",
+            "sha256": "e373b70a5167485c73a265421bcfcd1fdddbae49c9c51605e6d2918a3de4ae0d"
+          }
+        ]
+      },
+      {
+        "version": "1.4.0",
+        "files": [
+          {
+            "path": "dist/axios.min.js",
+            "type": "script",
+            "sha256": "fd4ce12a87594281afcee9c73a40fe7acc282bcc9e764fbb3afa1481a96a091e"
+          }
+        ]
+      },
+      {
+        "version": "1.6.8",
+        "files": [
+          {
+            "path": "dist/axios.min.js",
+            "type": "script",
+            "sha256": "29d600462a30694efd15b9848b4ca42d178cd067009275c35a30580121114304"
+          }
+        ]
+      },
+      {
+        "version": "1.7.7",
+        "files": [
+          {
+            "path": "dist/axios.min.js",
+            "type": "script",
+            "sha256": "f5b2b26071bb59f466683356df11b5392614cf6966586917990c65d48af0dcb9"
+          }
+        ]
+      },
+      {
+        "version": "1.7.9",
+        "files": [
+          {
+            "path": "dist/axios.min.js",
+            "type": "script",
+            "sha256": "9cf48244581d6cb6486d6702f7372292284faef2489a3be419ac1bc70606be72"
+          }
+        ]
+      },
+      {
+        "version": "1.21.0",
+        "files": [
+          {
+            "path": "dist/axios.min.js",
+            "type": "script",
+            "sha256": "2a9316e1bafbc5f42a01905df13aeb44bf0b90818fde948c13a7938f7f849327"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/axios@{version}/dist/axios.min.js",
+        "file": "dist/axios.min.js",
+        "cdnSha256": {
+          "0.27.2": "e373b70a5167485c73a265421bcfcd1fdddbae49c9c51605e6d2918a3de4ae0d",
+          "1.4.0": "fd4ce12a87594281afcee9c73a40fe7acc282bcc9e764fbb3afa1481a96a091e",
+          "1.6.8": "29d600462a30694efd15b9848b4ca42d178cd067009275c35a30580121114304",
+          "1.7.7": "f5b2b26071bb59f466683356df11b5392614cf6966586917990c65d48af0dcb9",
+          "1.7.9": "9cf48244581d6cb6486d6702f7372292284faef2489a3be419ac1bc70606be72",
+          "1.21.0": "2a9316e1bafbc5f42a01905df13aeb44bf0b90818fde948c13a7938f7f849327"
+        }
+      },
+      {
+        "url": "https://unpkg.com/axios@{version}/dist/axios.min.js",
+        "file": "dist/axios.min.js",
+        "cdnSha256": {
+          "0.27.2": "e373b70a5167485c73a265421bcfcd1fdddbae49c9c51605e6d2918a3de4ae0d",
+          "1.4.0": "fd4ce12a87594281afcee9c73a40fe7acc282bcc9e764fbb3afa1481a96a091e",
+          "1.6.8": "29d600462a30694efd15b9848b4ca42d178cd067009275c35a30580121114304",
+          "1.7.7": "f5b2b26071bb59f466683356df11b5392614cf6966586917990c65d48af0dcb9",
+          "1.7.9": "9cf48244581d6cb6486d6702f7372292284faef2489a3be419ac1bc70606be72",
+          "1.21.0": "2a9316e1bafbc5f42a01905df13aeb44bf0b90818fde948c13a7938f7f849327"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/axios/{version}/axios.min.js",
+        "file": "dist/axios.min.js",
+        "cdnSha256": {
+          "0.27.2": "e373b70a5167485c73a265421bcfcd1fdddbae49c9c51605e6d2918a3de4ae0d",
+          "1.4.0": "fd4ce12a87594281afcee9c73a40fe7acc282bcc9e764fbb3afa1481a96a091e",
+          "1.6.8": "29d600462a30694efd15b9848b4ca42d178cd067009275c35a30580121114304",
+          "1.7.7": "f5b2b26071bb59f466683356df11b5392614cf6966586917990c65d48af0dcb9",
+          "1.21.0": "2a9316e1bafbc5f42a01905df13aeb44bf0b90818fde948c13a7938f7f849327"
+        }
+      }
+    ]
+  },
+  {
+    "name": "moment",
+    "npm": "moment",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "2.29.1",
+        "files": [
+          {
+            "path": "min/moment.min.js",
+            "type": "script",
+            "sha256": "73de4254959530e4d1d9bec586379184f96b4953dacf9cd5e5e2bdd7bfeceef7"
+          }
+        ]
+      },
+      {
+        "version": "2.29.4",
+        "files": [
+          {
+            "path": "min/moment.min.js",
+            "type": "script",
+            "sha256": "f343aa319a17a3fc372ee6ad5af482b9bf6a298cb22652b4aa7502604821071f"
+          }
+        ]
+      },
+      {
+        "version": "2.30.1",
+        "files": [
+          {
+            "path": "min/moment.min.js",
+            "type": "script",
+            "sha256": "845c524969edd5b3af9aa6d8718d29fe92e8dbe25b955214a8e064a05a9a5027"
+          }
+        ]
+      },
+      {
+        "version": "2.31.0",
+        "files": [
+          {
+            "path": "min/moment.min.js",
+            "type": "script",
+            "sha256": "c111ad2e4447c253765e679bb4a40ba91a3e23d80b4b69d603a0fd25164cb9de"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/moment@{version}/min/moment.min.js",
+        "file": "min/moment.min.js",
+        "cdnSha256": {
+          "2.29.1": "73de4254959530e4d1d9bec586379184f96b4953dacf9cd5e5e2bdd7bfeceef7",
+          "2.29.4": "f343aa319a17a3fc372ee6ad5af482b9bf6a298cb22652b4aa7502604821071f",
+          "2.30.1": "845c524969edd5b3af9aa6d8718d29fe92e8dbe25b955214a8e064a05a9a5027",
+          "2.31.0": "c111ad2e4447c253765e679bb4a40ba91a3e23d80b4b69d603a0fd25164cb9de"
+        }
+      },
+      {
+        "url": "https://unpkg.com/moment@{version}/min/moment.min.js",
+        "file": "min/moment.min.js",
+        "cdnSha256": {
+          "2.29.1": "73de4254959530e4d1d9bec586379184f96b4953dacf9cd5e5e2bdd7bfeceef7",
+          "2.29.4": "f343aa319a17a3fc372ee6ad5af482b9bf6a298cb22652b4aa7502604821071f",
+          "2.30.1": "845c524969edd5b3af9aa6d8718d29fe92e8dbe25b955214a8e064a05a9a5027",
+          "2.31.0": "c111ad2e4447c253765e679bb4a40ba91a3e23d80b4b69d603a0fd25164cb9de"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/moment.js/{version}/moment.min.js",
+        "file": "min/moment.min.js",
+        "cdnSha256": {
+          "2.29.1": "73de4254959530e4d1d9bec586379184f96b4953dacf9cd5e5e2bdd7bfeceef7",
+          "2.29.4": "081737985335af4be15fc676ed4ccc0703c7446c6b5cbc9317e40bcdc6428e5d",
+          "2.30.1": "5b3eef58af8f051a73350fb530ccd1826e6a21ea840a60d5a9b81acb6d3823a0",
+          "2.31.0": "c111ad2e4447c253765e679bb4a40ba91a3e23d80b4b69d603a0fd25164cb9de"
+        }
+      }
+    ]
+  },
+  {
+    "name": "chartjs",
+    "npm": "chart.js",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "4.3.0",
+        "files": [
+          {
+            "path": "dist/chart.umd.js",
+            "type": "script",
+            "sha256": "e5db0fd655737163e7e5a3b0bbececf86f93a80bbda13f0d50d3340b89f71fee"
+          }
+        ]
+      },
+      {
+        "version": "4.4.0",
+        "files": [
+          {
+            "path": "dist/chart.umd.js",
+            "type": "script",
+            "sha256": "321e3a3fa98da4aaa957d10be57cbb514de0989eed8f9d726b5d05902cd01904"
+          }
+        ]
+      },
+      {
+        "version": "4.4.1",
+        "files": [
+          {
+            "path": "dist/chart.umd.js",
+            "type": "script",
+            "sha256": "74401d738dd3e03ee5dfb3b6841210fe2c4ead8a960c4011ca4ba0b78a9fd8f3"
+          }
+        ]
+      },
+      {
+        "version": "4.4.3",
+        "files": [
+          {
+            "path": "dist/chart.umd.js",
+            "type": "script",
+            "sha256": "6e708cb2c2b41604db1f5dec01724856ec53ac867899a1e4e2cfb8f0ace6bed9"
+          }
+        ]
+      },
+      {
+        "version": "4.4.7",
+        "files": [
+          {
+            "path": "dist/chart.umd.js",
+            "type": "script",
+            "sha256": "2812cb8825fdc57469eb2f7bb055e9429244e599920511ee477e828499b632cb"
+          }
+        ]
+      },
+      {
+        "version": "4.6.1",
+        "files": [
+          {
+            "path": "dist/chart.umd.js",
+            "type": "script",
+            "sha256": "338399fb5bafe598d21cfc471b0590b61ceb321a985fade4f68499b151f67fbf"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/chart.js@{version}/dist/chart.umd.js",
+        "file": "dist/chart.umd.js",
+        "cdnSha256": {
+          "4.3.0": "e5db0fd655737163e7e5a3b0bbececf86f93a80bbda13f0d50d3340b89f71fee",
+          "4.4.0": "321e3a3fa98da4aaa957d10be57cbb514de0989eed8f9d726b5d05902cd01904",
+          "4.4.1": "74401d738dd3e03ee5dfb3b6841210fe2c4ead8a960c4011ca4ba0b78a9fd8f3",
+          "4.4.3": "6e708cb2c2b41604db1f5dec01724856ec53ac867899a1e4e2cfb8f0ace6bed9",
+          "4.4.7": "2812cb8825fdc57469eb2f7bb055e9429244e599920511ee477e828499b632cb",
+          "4.6.1": "338399fb5bafe598d21cfc471b0590b61ceb321a985fade4f68499b151f67fbf"
+        }
+      },
+      {
+        "url": "https://unpkg.com/chart.js@{version}/dist/chart.umd.js",
+        "file": "dist/chart.umd.js",
+        "cdnSha256": {
+          "4.3.0": "e5db0fd655737163e7e5a3b0bbececf86f93a80bbda13f0d50d3340b89f71fee",
+          "4.4.0": "321e3a3fa98da4aaa957d10be57cbb514de0989eed8f9d726b5d05902cd01904",
+          "4.4.1": "74401d738dd3e03ee5dfb3b6841210fe2c4ead8a960c4011ca4ba0b78a9fd8f3",
+          "4.4.3": "6e708cb2c2b41604db1f5dec01724856ec53ac867899a1e4e2cfb8f0ace6bed9",
+          "4.4.7": "2812cb8825fdc57469eb2f7bb055e9429244e599920511ee477e828499b632cb",
+          "4.6.1": "338399fb5bafe598d21cfc471b0590b61ceb321a985fade4f68499b151f67fbf"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/{version}/chart.umd.js",
+        "file": "dist/chart.umd.js",
+        "cdnSha256": {
+          "4.3.0": "e5db0fd655737163e7e5a3b0bbececf86f93a80bbda13f0d50d3340b89f71fee",
+          "4.4.0": "321e3a3fa98da4aaa957d10be57cbb514de0989eed8f9d726b5d05902cd01904",
+          "4.4.1": "74401d738dd3e03ee5dfb3b6841210fe2c4ead8a960c4011ca4ba0b78a9fd8f3",
+          "4.6.1": "338399fb5bafe598d21cfc471b0590b61ceb321a985fade4f68499b151f67fbf"
+        }
+      }
+    ]
+  },
+  {
+    "name": "d3",
+    "npm": "d3",
+    "license": "ISC",
+    "versions": [
+      {
+        "version": "7.8.5",
+        "files": [
+          {
+            "path": "dist/d3.min.js",
+            "type": "script",
+            "sha256": "d6b03aefc9f6c44c7bc78713679c78c295028fa914319119e5cc4b4954855b1c"
+          }
+        ]
+      },
+      {
+        "version": "7.9.0",
+        "files": [
+          {
+            "path": "dist/d3.min.js",
+            "type": "script",
+            "sha256": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/d3@{version}/dist/d3.min.js",
+        "file": "dist/d3.min.js",
+        "cdnSha256": {
+          "7.8.5": "d6b03aefc9f6c44c7bc78713679c78c295028fa914319119e5cc4b4954855b1c",
+          "7.9.0": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539"
+        }
+      },
+      {
+        "url": "https://unpkg.com/d3@{version}/dist/d3.min.js",
+        "file": "dist/d3.min.js",
+        "cdnSha256": {
+          "7.8.5": "d6b03aefc9f6c44c7bc78713679c78c295028fa914319119e5cc4b4954855b1c",
+          "7.9.0": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/d3/{version}/d3.min.js",
+        "file": "dist/d3.min.js",
+        "cdnSha256": {
+          "7.8.5": "d6b03aefc9f6c44c7bc78713679c78c295028fa914319119e5cc4b4954855b1c",
+          "7.9.0": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539"
+        }
+      }
+    ]
+  },
+  {
+    "name": "animate-css",
+    "npm": "animate.css",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "4.1.1",
+        "files": [
+          {
+            "path": "animate.min.css",
+            "type": "stylesheet",
+            "sha256": "5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/animate.css@{version}/animate.min.css",
+        "file": "animate.min.css",
+        "cdnSha256": {
+          "4.1.1": "5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f"
+        }
+      },
+      {
+        "url": "https://unpkg.com/animate.css@{version}/animate.min.css",
+        "file": "animate.min.css",
+        "cdnSha256": {
+          "4.1.1": "5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/animate.css/{version}/animate.min.css",
+        "file": "animate.min.css",
+        "cdnSha256": {
+          "4.1.1": "5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f"
+        }
+      }
+    ]
+  },
+  {
+    "name": "htmx",
+    "npm": "htmx.org",
+    "license": "0BSD",
+    "versions": [
+      {
+        "version": "1.9.12",
+        "files": [
+          {
+            "path": "dist/htmx.min.js",
+            "type": "script",
+            "sha256": "449317ade7881e949510db614991e195c3a099c4c791c24dacec55f9f4a2a452"
+          }
+        ]
+      },
+      {
+        "version": "2.0.3",
+        "files": [
+          {
+            "path": "dist/htmx.min.js",
+            "type": "script",
+            "sha256": "491955cd1810747d7d7b9ccb936400afb760e06d25d53e4572b64b6563b2784e"
+          }
+        ]
+      },
+      {
+        "version": "2.0.4",
+        "files": [
+          {
+            "path": "dist/htmx.min.js",
+            "type": "script",
+            "sha256": "e209dda5c8235479f3166defc7750e1dbcd5a5c1808b7792fc2e6733768fb447"
+          }
+        ]
+      },
+      {
+        "version": "2.0.11",
+        "files": [
+          {
+            "path": "dist/htmx.min.js",
+            "type": "script",
+            "sha256": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/htmx.org@{version}/dist/htmx.min.js",
+        "file": "dist/htmx.min.js",
+        "cdnSha256": {
+          "1.9.12": "449317ade7881e949510db614991e195c3a099c4c791c24dacec55f9f4a2a452",
+          "2.0.3": "491955cd1810747d7d7b9ccb936400afb760e06d25d53e4572b64b6563b2784e",
+          "2.0.4": "e209dda5c8235479f3166defc7750e1dbcd5a5c1808b7792fc2e6733768fb447",
+          "2.0.11": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717"
+        }
+      },
+      {
+        "url": "https://unpkg.com/htmx.org@{version}/dist/htmx.min.js",
+        "file": "dist/htmx.min.js",
+        "cdnSha256": {
+          "1.9.12": "449317ade7881e949510db614991e195c3a099c4c791c24dacec55f9f4a2a452",
+          "2.0.3": "491955cd1810747d7d7b9ccb936400afb760e06d25d53e4572b64b6563b2784e",
+          "2.0.4": "e209dda5c8235479f3166defc7750e1dbcd5a5c1808b7792fc2e6733768fb447",
+          "2.0.11": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/htmx/{version}/htmx.min.js",
+        "file": "dist/htmx.min.js",
+        "cdnSha256": {
+          "1.9.12": "449317ade7881e949510db614991e195c3a099c4c791c24dacec55f9f4a2a452",
+          "2.0.3": "491955cd1810747d7d7b9ccb936400afb760e06d25d53e4572b64b6563b2784e",
+          "2.0.4": "e209dda5c8235479f3166defc7750e1dbcd5a5c1808b7792fc2e6733768fb447",
+          "2.0.11": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717"
+        }
+      }
+    ]
+  },
+  {
+    "name": "underscore",
+    "npm": "underscore",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "1.13.6",
+        "files": [
+          {
+            "path": "underscore-min.js",
+            "type": "script",
+            "sha256": "25f436e933246f279adc4967725a4d915e0fc7a6419d3b956a945bb5782dc6e5"
+          }
+        ]
+      },
+      {
+        "version": "1.13.7",
+        "files": [
+          {
+            "path": "underscore-min.js",
+            "type": "script",
+            "sha256": "c12dae551a8773812f3c6b682e8e66ecf71c729bf7e83f295747c0773e76cabb"
+          }
+        ]
+      },
+      {
+        "version": "1.13.8",
+        "files": [
+          {
+            "path": "underscore-min.js",
+            "type": "script",
+            "sha256": "89e99999dfa83ee9fb88e58beb7820961dbfcf391cee2f361ffd4a3489309c69"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/underscore@{version}/underscore-min.js",
+        "file": "underscore-min.js",
+        "cdnSha256": {
+          "1.13.6": "25f436e933246f279adc4967725a4d915e0fc7a6419d3b956a945bb5782dc6e5",
+          "1.13.7": "c12dae551a8773812f3c6b682e8e66ecf71c729bf7e83f295747c0773e76cabb",
+          "1.13.8": "89e99999dfa83ee9fb88e58beb7820961dbfcf391cee2f361ffd4a3489309c69"
+        }
+      },
+      {
+        "url": "https://unpkg.com/underscore@{version}/underscore-min.js",
+        "file": "underscore-min.js",
+        "cdnSha256": {
+          "1.13.6": "25f436e933246f279adc4967725a4d915e0fc7a6419d3b956a945bb5782dc6e5",
+          "1.13.7": "c12dae551a8773812f3c6b682e8e66ecf71c729bf7e83f295747c0773e76cabb",
+          "1.13.8": "89e99999dfa83ee9fb88e58beb7820961dbfcf391cee2f361ffd4a3489309c69"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/{version}/underscore-min.js",
+        "file": "underscore-min.js",
+        "cdnSha256": {
+          "1.13.6": "25f436e933246f279adc4967725a4d915e0fc7a6419d3b956a945bb5782dc6e5",
+          "1.13.7": "c12dae551a8773812f3c6b682e8e66ecf71c729bf7e83f295747c0773e76cabb",
+          "1.13.8": "89e99999dfa83ee9fb88e58beb7820961dbfcf391cee2f361ffd4a3489309c69"
+        }
+      }
+    ]
+  },
+  {
+    "name": "sweetalert2",
+    "npm": "sweetalert2",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "11.10.8",
+        "files": [
+          {
+            "path": "dist/sweetalert2.all.min.js",
+            "type": "script",
+            "sha256": "ef7aceda0ec9484ac6f22b195c2b1edfd29fe721ae78f823cafa2dffc71108d4"
+          }
+        ]
+      },
+      {
+        "version": "11.14.5",
+        "files": [
+          {
+            "path": "dist/sweetalert2.all.min.js",
+            "type": "script",
+            "sha256": "d66e2a55bb1d712535f6dba55536de4117a0d018d9896eb219f7e796bfcd26ee"
+          }
+        ]
+      },
+      {
+        "version": "11.26.25",
+        "files": [
+          {
+            "path": "dist/sweetalert2.all.min.js",
+            "type": "script",
+            "sha256": "4e86f0e22e4771b5b8aac24c613c661806a678b1afa284d03cf6ad03d3e21a0a"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/sweetalert2@{version}/dist/sweetalert2.all.min.js",
+        "file": "dist/sweetalert2.all.min.js",
+        "cdnSha256": {
+          "11.10.8": "ef7aceda0ec9484ac6f22b195c2b1edfd29fe721ae78f823cafa2dffc71108d4",
+          "11.14.5": "d66e2a55bb1d712535f6dba55536de4117a0d018d9896eb219f7e796bfcd26ee",
+          "11.26.25": "4e86f0e22e4771b5b8aac24c613c661806a678b1afa284d03cf6ad03d3e21a0a"
+        }
+      },
+      {
+        "url": "https://unpkg.com/sweetalert2@{version}/dist/sweetalert2.all.min.js",
+        "file": "dist/sweetalert2.all.min.js",
+        "cdnSha256": {
+          "11.10.8": "ef7aceda0ec9484ac6f22b195c2b1edfd29fe721ae78f823cafa2dffc71108d4",
+          "11.14.5": "d66e2a55bb1d712535f6dba55536de4117a0d018d9896eb219f7e796bfcd26ee",
+          "11.26.25": "4e86f0e22e4771b5b8aac24c613c661806a678b1afa284d03cf6ad03d3e21a0a"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/{version}/sweetalert2.all.min.js",
+        "file": "dist/sweetalert2.all.min.js",
+        "cdnSha256": {
+          "11.10.8": "ef7aceda0ec9484ac6f22b195c2b1edfd29fe721ae78f823cafa2dffc71108d4",
+          "11.14.5": "d66e2a55bb1d712535f6dba55536de4117a0d018d9896eb219f7e796bfcd26ee",
+          "11.26.25": "4e86f0e22e4771b5b8aac24c613c661806a678b1afa284d03cf6ad03d3e21a0a"
+        }
+      }
+    ]
+  },
+  {
+    "name": "bootstrap-icons",
+    "npm": "bootstrap-icons",
+    "license": "MIT",
+    "versions": [
+      {
+        "version": "1.11.3",
+        "files": [
+          {
+            "path": "font/bootstrap-icons.min.css",
+            "type": "stylesheet",
+            "sha256": "f643d6fe7e679f9de3e16311600c5ef5cd6b098f7a3a8828fcc29255d2b33e62"
+          },
+          {
+            "path": "font/fonts/bootstrap-icons.woff2",
+            "type": "font",
+            "sha256": "476adf42b40325098fcfa8b36ab3e769186bb4f6ce6a249753e2e1a9c22bf99e"
+          },
+          {
+            "path": "font/fonts/bootstrap-icons.woff",
+            "type": "font",
+            "sha256": "bb1de989b83970f6f4e54de1cd974c5cba55b73582da5e1b225a6d0edf029483"
+          }
+        ]
+      },
+      {
+        "version": "1.13.2",
+        "files": [
+          {
+            "path": "font/bootstrap-icons.min.css",
+            "type": "stylesheet",
+            "sha256": "79c99c1a1e0e937f808a58165728b7ed00800f02ef5efcfcd10dfe71464e675d"
+          },
+          {
+            "path": "font/fonts/bootstrap-icons.woff2",
+            "type": "font",
+            "sha256": "2b7689746f87e0beeae25338bc021dd2515c2f6f003f3d3d064d878d380b2150"
+          },
+          {
+            "path": "font/fonts/bootstrap-icons.woff",
+            "type": "font",
+            "sha256": "24929e8a44da027588f833d4e82240ee734bd65bf962b08b0545af58a9ce80fa"
+          }
+        ]
+      }
+    ],
+    "patterns": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/bootstrap-icons@{version}/font/bootstrap-icons.min.css",
+        "file": "font/bootstrap-icons.min.css",
+        "cdnSha256": {
+          "1.11.3": "f643d6fe7e679f9de3e16311600c5ef5cd6b098f7a3a8828fcc29255d2b33e62",
+          "1.13.2": "79c99c1a1e0e937f808a58165728b7ed00800f02ef5efcfcd10dfe71464e675d"
+        }
+      },
+      {
+        "url": "https://unpkg.com/bootstrap-icons@{version}/font/bootstrap-icons.min.css",
+        "file": "font/bootstrap-icons.min.css",
+        "cdnSha256": {
+          "1.11.3": "f643d6fe7e679f9de3e16311600c5ef5cd6b098f7a3a8828fcc29255d2b33e62",
+          "1.13.2": "79c99c1a1e0e937f808a58165728b7ed00800f02ef5efcfcd10dfe71464e675d"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/{version}/font/bootstrap-icons.min.css",
+        "file": "font/bootstrap-icons.min.css",
+        "cdnSha256": {
+          "1.11.3": "f643d6fe7e679f9de3e16311600c5ef5cd6b098f7a3a8828fcc29255d2b33e62",
+          "1.13.2": "79c99c1a1e0e937f808a58165728b7ed00800f02ef5efcfcd10dfe71464e675d"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/bootstrap-icons@{version}/font/fonts/bootstrap-icons.woff2",
+        "file": "font/fonts/bootstrap-icons.woff2",
+        "cdnSha256": {
+          "1.11.3": "476adf42b40325098fcfa8b36ab3e769186bb4f6ce6a249753e2e1a9c22bf99e",
+          "1.13.2": "2b7689746f87e0beeae25338bc021dd2515c2f6f003f3d3d064d878d380b2150"
+        }
+      },
+      {
+        "url": "https://unpkg.com/bootstrap-icons@{version}/font/fonts/bootstrap-icons.woff2",
+        "file": "font/fonts/bootstrap-icons.woff2",
+        "cdnSha256": {
+          "1.11.3": "476adf42b40325098fcfa8b36ab3e769186bb4f6ce6a249753e2e1a9c22bf99e",
+          "1.13.2": "2b7689746f87e0beeae25338bc021dd2515c2f6f003f3d3d064d878d380b2150"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/{version}/font/fonts/bootstrap-icons.woff2",
+        "file": "font/fonts/bootstrap-icons.woff2",
+        "cdnSha256": {
+          "1.11.3": "476adf42b40325098fcfa8b36ab3e769186bb4f6ce6a249753e2e1a9c22bf99e",
+          "1.13.2": "2b7689746f87e0beeae25338bc021dd2515c2f6f003f3d3d064d878d380b2150"
         }
       }
     ]

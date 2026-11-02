@@ -62,12 +62,12 @@ test("query strings redirect, the source map and unknown versions do not", async
       base + "?v=1",
       base + ".map",
       "https://cdnjs.cloudflare.com/ajax/libs/jquery/9.9.9/jquery.min.js",
-      "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.9/jquery.min.js",
     ]);
     expect(out[base + "?v=1"]).toBe(JQ);
     expect(out[base + ".map"]).toBe("");
     expect(out["https://cdnjs.cloudflare.com/ajax/libs/jquery/9.9.9/jquery.min.js"]).toBe("");
-    expect(out["https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"]).toBe("");
+    expect(out["https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.9/jquery.min.js"]).toBe("");
   });
 });
 
@@ -90,8 +90,8 @@ test("a cdn pattern with different bytes (vue on cdnjs) is not redirected", asyn
 
 test("the substitute ruleset is off by default and, once enabled, maps same-major versions only", async () => {
   await withCtx(async (_ctx, sw) => {
-    const same = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js";
-    const other = "https://cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0/jquery.min.js";
+    const same = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.9/jquery.min.js";
+    const other = "https://cdnjs.cloudflare.com/ajax/libs/jquery/5.0.0/jquery.min.js";
     expect((await outcomes(sw, [same]))[same]).toBe("");
     await sw.evaluate(() => chrome.declarativeNetRequest.updateEnabledRulesets({ enableRulesetIds: ["substitute"] }));
     const out = await outcomes(sw, [same, other]);
