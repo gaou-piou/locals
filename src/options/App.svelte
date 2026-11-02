@@ -10,11 +10,11 @@
   import Stats from "./pages/Stats.svelte";
 
   const store = new SettingsStore();
-  const tab = new PersistedState("cdn-mirror:options-tab", "general");
+  const tab = new PersistedState("locals:options-tab", "general");
 </script>
 
 <main class="mx-auto flex max-w-3xl flex-col gap-6 p-6">
-  <h1 class="text-xl font-semibold">cdn-mirror</h1>
+  <h1 class="text-xl font-semibold">Locals</h1>
   <Tabs.Root value={tab.current} onValueChange={(v) => (tab.current = v)}>
     <Tabs.List>
       <Tabs.Trigger value="general">General</Tabs.Trigger>

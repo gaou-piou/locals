@@ -25,7 +25,7 @@ const isEntry = (e: unknown): e is LearnedEntry => {
   );
 };
 
-/** Reads `libs/learned/index.json`, written by `cdn-mirror-learn`; anything malformed is ignored. */
+/** Reads `libs/learned/index.json`, written by `locals-learn`; anything malformed is ignored. */
 export function parseLearnedIndex(raw: unknown): LearnedEntry[] {
   if (typeof raw !== "object" || raw === null) return [];
   const r = raw as { schema?: unknown; entries?: unknown };

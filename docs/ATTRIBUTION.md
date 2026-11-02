@@ -1,6 +1,6 @@
 # Attribution
 
-cdn-mirror is inspired by two earlier projects and shares their idea, not their code:
+locals is inspired by two earlier projects and shares their idea, not their code:
 
 - [Decentraleyes](https://github.com/Synzvato/decentraleyes) (MPL-2.0) — the original local CDN emulation extension.
 - [LocalCDN](https://codeberg.org/nobody/LocalCDN) (MPL-2.0, see its `LICENSE.txt`) — its list of supported CDN hosts and libraries guided which libraries and CDNs `libraries.json` covers.

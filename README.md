@@ -1,10 +1,10 @@
-# cdn-mirror
+# locals
 
 A Manifest V3 Chromium extension that serves popular JavaScript libraries, stylesheets and fonts from a local copy instead of letting pages contact third-party CDNs (cdnjs, jsDelivr, unpkg, Google Hosted Libraries, Microsoft Ajax CDN, code.jquery.com).
 
 ## Why
 
-[Decentraleyes](https://github.com/Synzvato/decentraleyes) is archived and its Chromium code lived on an MV2 branch. [LocalCDN](https://codeberg.org/nobody/LocalCDN) is maintained but Firefox-only: its author states that MV3 removed APIs it needs. cdn-mirror fills the gap for Chromium MV3 with `declarativeNetRequest` redirects to `web_accessible_resources`, a full UI, and a pipeline that keeps the bundled libraries current. See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md).
+[Decentraleyes](https://github.com/Synzvato/decentraleyes) is archived and its Chromium code lived on an MV2 branch. [LocalCDN](https://codeberg.org/nobody/LocalCDN) is maintained but Firefox-only: its author states that MV3 removed APIs it needs. Locals fills the gap for Chromium MV3 with `declarativeNetRequest` redirects to `web_accessible_resources`, a full UI, and a pipeline that keeps the bundled libraries current. See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md).
 
 What it does:
 
@@ -21,22 +21,22 @@ What it cannot do in MV3 is in [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 ### Arch Linux (AUR)
 
 ```sh
-yay -S cdn-mirror        # or any AUR helper
+yay -S locals        # or any AUR helper
 ```
 
-The package installs the extension to `/usr/share/cdn-mirror/` and a helper that makes a user-writable copy (Chromium writes an `_metadata/` folder into every unpacked extension, which fails in a root-owned directory):
+The package installs the extension to `/usr/share/locals/` and a helper that makes a user-writable copy (Chromium writes an `_metadata/` folder into every unpacked extension, which fails in a root-owned directory):
 
 ```sh
-cdn-mirror-install      # copies to ~/.local/share/cdn-mirror and prints the path
+locals-install      # copies to ~/.local/share/locals and prints the path
 ```
 
 Then load that folder with *Load unpacked* (below). Run the helper again after each package upgrade and reload the extension.
 
 ### Load unpacked (any distribution)
 
-1. Download `cdn-mirror-<version>.zip` from the GitHub releases and check it against the `.sha256` file.
+1. Download `locals-<version>.zip` from the GitHub releases and check it against the `.sha256` file.
 2. Unzip it.
-3. Open `chrome://extensions` (Brave: `brave://extensions`), enable *Developer mode*, choose *Load unpacked* and pick the unzipped folder (AUR: the folder printed by `cdn-mirror-install`). The folder must be writable.
+3. Open `chrome://extensions` (Brave: `brave://extensions`), enable *Developer mode*, choose *Load unpacked* and pick the unzipped folder (AUR: the folder printed by `locals-install`). The folder must be writable.
 
 Unpacked extensions are not auto-updated: reload the extension card after upgrading.
 

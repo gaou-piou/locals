@@ -6,8 +6,8 @@ import path from "node:path";
 import { launchWithExtension } from "./extension";
 import { startServer } from "./server";
 
-test("a file written by cdn-mirror-learn after load is served instead of the CDN, even under CSP", async () => {
-  const dir = await mkdtemp(path.join(os.tmpdir(), "cdn-mirror-learned-"));
+test("a file written by locals-learn after load is served instead of the CDN, even under CSP", async () => {
+  const dir = await mkdtemp(path.join(os.tmpdir(), "locals-learned-"));
   await cp("dist", dir, { recursive: true });
   const body = "window.__learned = 'yes';";
   const sha = createHash("sha256").update(body).digest("hex");

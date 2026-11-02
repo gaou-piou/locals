@@ -33,7 +33,7 @@ jobs:
       - name: Package
         run: |
           v="${GITHUB_REF_NAME#v}"
-          stage="cdn-mirror-${v}"
+          stage="locals-${v}"
           mkdir "$stage"
           cp -r dist/. "$stage/"
           rm -rf "$stage/_metadata"
@@ -46,6 +46,6 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           files: |
-            cdn-mirror-*.zip
-            cdn-mirror-*.zip.sha256
+            locals-*.zip
+            locals-*.zip.sha256
           generate_release_notes: true

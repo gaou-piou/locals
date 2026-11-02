@@ -10,7 +10,7 @@ import { root } from "../scripts/manifest-io.ts";
 import { parseLearnedIndex } from "../src/background/learned.ts";
 import { tmp } from "./helpers.ts";
 
-const script = join(root, "packaging/aur/cdn-mirror-learn.cjs");
+const script = join(root, "packaging/aur/locals-learn.cjs");
 const sha = (s: string) => createHash("sha256").update(s).digest("hex");
 
 let server: http.Server;
@@ -36,7 +36,7 @@ async function learn(urls: string[], dir = tmp()) {
 }
 const index = (dir: string) => parseLearnedIndex(JSON.parse(readFileSync(join(dir, "libs/learned/index.json"), "utf8")));
 
-describe("cdn-mirror-learn", () => {
+describe("locals-learn", () => {
   it("stores a stable file under its hash and lists it in the index", async () => {
     const { dir } = await learn([`${origin}/ok@1.2.3.js`]);
     const h = sha("console.log(1)");

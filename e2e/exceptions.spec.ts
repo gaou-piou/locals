@@ -75,7 +75,7 @@ test("redirects work by default (control)", async () => {
 });
 
 test("a disabled site is left alone, including a third-party iframe; survives worker stop and relaunch", async () => {
-  const userDataDir = await mkdtemp(path.join(os.tmpdir(), "cdn-mirror-exc-"));
+  const userDataDir = await mkdtemp(path.join(os.tmpdir(), "locals-exc-"));
   let ctx = await open(userDataDir);
   try {
     await send(ctx, { type: "set-settings", patch: { disabledSites: ["localhost"] } });

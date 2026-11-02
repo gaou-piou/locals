@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Downloads the candidates exported from the extension's "Discovered" tab into libs/learned/.
 // A URL is only kept when two downloads return identical bytes, so it is safe to serve instead of the CDN.
-// Usage: cdn-mirror-learn candidates.json [--dir ~/.local/share/cdn-mirror]
+// Usage: locals-learn candidates.json [--dir ~/.local/share/locals]
 "use strict";
 const { createHash } = require("node:crypto");
 const fs = require("node:fs");
@@ -14,10 +14,10 @@ const FONT_EXT = /\.(woff2?)$/i;
 
 const args = process.argv.slice(2);
 const dirAt = args.indexOf("--dir");
-const dir = dirAt >= 0 ? args.splice(dirAt, 2)[1] : path.join(process.env.XDG_DATA_HOME || path.join(os.homedir(), ".local/share"), "cdn-mirror");
+const dir = dirAt >= 0 ? args.splice(dirAt, 2)[1] : path.join(process.env.XDG_DATA_HOME || path.join(os.homedir(), ".local/share"), "locals");
 const input = args[0];
 if (!input) {
-  console.error("usage: cdn-mirror-learn candidates.json [--dir <extension folder>]");
+  console.error("usage: locals-learn candidates.json [--dir <extension folder>]");
   process.exit(2);
 }
 const allowHttp = process.env.CDN_MIRROR_ALLOW_HTTP === "1";
@@ -27,7 +27,7 @@ const indexPath = path.join(learnedDir, "index.json");
 const sha256 = (buf) => createHash("sha256").update(buf).digest("hex");
 
 async function download(url) {
-  const res = await fetch(url, { redirect: "follow", headers: { "user-agent": "cdn-mirror-learn" } });
+  const res = await fetch(url, { redirect: "follow", headers: { "user-agent": "locals-learn" } });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const buf = Buffer.from(await res.arrayBuffer());
   if (buf.length === 0 || buf.length > MAX_BYTES) throw new Error(`size ${buf.length}`);
@@ -83,6 +83,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error(`cdn-mirror-learn: ${err.message}`);
+  console.error(`locals-learn: ${err.message}`);
   process.exit(1);
 });

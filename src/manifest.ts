@@ -4,7 +4,7 @@ export const EXTENSION_KEY =
 export function createManifest(version: string): chrome.runtime.ManifestV3 {
   return {
     manifest_version: 3,
-    name: "cdn-mirror",
+    name: "Locals",
     description: "Serves popular JavaScript libraries, stylesheets and fonts from a local copy instead of a CDN.",
     version,
     key: EXTENSION_KEY,
@@ -12,7 +12,7 @@ export function createManifest(version: string): chrome.runtime.ManifestV3 {
     permissions: ["declarativeNetRequest", "declarativeNetRequestFeedback", "storage", "webRequest"],
     host_permissions: ["<all_urls>"],
     background: { service_worker: "background.js", type: "module" },
-    action: { default_title: "cdn-mirror", default_popup: "popup/index.html" },
+    action: { default_title: "Locals", default_popup: "popup/index.html" },
     options_ui: { page: "options/index.html", open_in_tab: true },
   };
 }

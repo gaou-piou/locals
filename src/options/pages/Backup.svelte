@@ -8,7 +8,7 @@
 
   async function download() {
     const url = URL.createObjectURL(new Blob([await exportConfig()], { type: "application/json" }));
-    const a = Object.assign(document.createElement("a"), { href: url, download: "cdn-mirror-settings.json" });
+    const a = Object.assign(document.createElement("a"), { href: url, download: "locals-settings.json" });
     a.click();
     URL.revokeObjectURL(url);
   }

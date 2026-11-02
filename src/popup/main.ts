@@ -8,7 +8,7 @@ const target = document.getElementById("app")!;
 const showError = (err: unknown) => {
   const p = Object.assign(document.createElement("p"), {
     className: "p-4 text-sm text-red-600",
-    textContent: `cdn-mirror popup failed: ${err instanceof Error ? err.message : String(err)}`,
+    textContent: `locals popup failed: ${err instanceof Error ? err.message : String(err)}`,
   });
   target.replaceChildren(p);
 };

@@ -21,7 +21,7 @@
   function download() {
     const body = JSON.stringify({ schema: 1, candidates: readyRows }, null, 2);
     const url = URL.createObjectURL(new Blob([body], { type: "application/json" }));
-    Object.assign(document.createElement("a"), { href: url, download: "cdn-mirror-candidates.json" }).click();
+    Object.assign(document.createElement("a"), { href: url, download: "locals-candidates.json" }).click();
     URL.revokeObjectURL(url);
   }
 
@@ -43,7 +43,7 @@
       <Card.Description>
         Versioned third-party scripts, styles and fonts. A URL is first <em>waiting</em>; once a second, different site loads it, it becomes
         <em>ready</em>. Only the URL and counts are kept, never which sites you visited. The extension downloads nothing: export the ready list, run
-        <code>cdn-mirror-learn</code> on it, then press Apply learned.
+        <code>locals-learn</code> on it, then press Apply learned.
       </Card.Description>
     </Card.Header>
     <Card.Content class="flex flex-wrap items-center gap-2">

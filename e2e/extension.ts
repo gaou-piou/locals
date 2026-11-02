@@ -8,7 +8,7 @@ export async function launchWithExtension(
   extensionDir: string,
   opts: { blockedHosts?: string[]; userDataDir?: string } = {},
 ): Promise<BrowserContext> {
-  const userDataDir = opts.userDataDir ?? (await mkdtemp(path.join(os.tmpdir(), "cdn-mirror-")));
+  const userDataDir = opts.userDataDir ?? (await mkdtemp(path.join(os.tmpdir(), "locals-")));
   const rules = (opts.blockedHosts ?? []).map((h) => `MAP ${h} ~NOTFOUND`).join(",");
   const launch = () =>
     chromium.launchPersistentContext(userDataDir, {

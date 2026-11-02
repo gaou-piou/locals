@@ -13,7 +13,7 @@
     { value: "year", label: "Year" },
   ];
 
-  const range = new PersistedState<StatsRange>("cdn-mirror:stats-range", "week");
+  const range = new PersistedState<StatsRange>("locals:stats-range", "week");
   const stats = resource(
     () => range.current,
     (r) => getStats(r),
