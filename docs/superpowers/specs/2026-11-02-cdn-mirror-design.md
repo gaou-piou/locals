@@ -67,6 +67,24 @@ libraries current ("alive"). Distributed as an AUR package.
 - DNR approach is untested: static rule count limits and redirect-to-extension-resource
   behaviour should be verified in a spike before committing to the architecture.
 
+## Additional calls from the builder check (assistant's calls, please check)
+
+- **Spike first:** the first plan step is a go/no-go spike of DNR redirect to
+  `web_accessible_resources` (CORS, `crossorigin`, SRI pages). UI work waits on it.
+  If it only partly works: ship with a documented caveat (SRI pages are not
+  replaced), restricted to resource types that work.
+- **Host permissions:** requested at install, so the extension works with zero
+  configuration. Per-site allow/deny uses `initiatorDomains` / `excludedInitiatorDomains`.
+- **Versions:** the manifest may hold several pinned versions per library for exact
+  matches. Substituting a nearby version is opt-in, same major only, off by default.
+- **Statistics:** may be approximate (per-tab/badge counts via `getMatchedRules`);
+  exact per-request logs are a nice-to-have, not required. This relaxes the
+  "see what was replaced" anti-goal to "see per-tab counts and the library list".
+- **License:** repo is MPL-2.0 (LocalCDN's Codeberg page states MPL-2.0; Decentraleyes
+  is MPL-2.0). Verify the LICENSE file in LocalCDN before copying its mappings.
+- AUR checksum bumps are manual per release at first. First-release CDN scope is the
+  builder's choice (cdnjs, jsDelivr, unpkg, Google/Microsoft hosted libraries, ajax.aspnetcdn).
+
 ## Constraints
 
 - Chromium MV3 only; optional host permissions model must be considered.
