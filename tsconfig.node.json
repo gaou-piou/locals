@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node", "chrome"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "paths": { "$lib": ["./src/lib"], "$lib/*": ["./src/lib/*"] }
+  },
+  "include": ["vite.config.ts", "scripts/**/*.ts", "e2e/**/*.ts", "playwright.config.ts", "tests/**/*.ts", "src/manifest.ts", "src/shared/**/*.ts"]
+}
