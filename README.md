@@ -23,7 +23,7 @@ What it cannot do in MV3 is in [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 ### Arch Linux (AUR)
 
 ```sh
-yay -S locals        # or any AUR helper
+yay -S chromium-extension-locals-git        # or any AUR helper
 ```
 
 The package installs the extension to `/usr/share/locals/` and a helper that makes a user-writable copy (Chromium writes an `_metadata/` folder into every unpacked extension, which fails in a root-owned directory):
