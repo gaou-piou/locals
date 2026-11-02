@@ -1,5 +1,5 @@
 import { parseManifest, type LibraryEntry } from "../shared/manifest-schema.ts";
-import { send, type Settings, type StatsRange, type StatsResult } from "../shared/messages.ts";
+import { send, type Candidate, type Settings, type StatsRange, type StatsResult } from "../shared/messages.ts";
 import { parseConfig, serializeConfig, toggleSitePatch } from "./config.ts";
 
 export type PopupState = { settings: Settings; tab: { host: string; count: number } };
@@ -31,6 +31,12 @@ export async function toggleSite(host: string, enabled: boolean): Promise<void> 
 }
 
 export const getStats = (range: StatsRange): Promise<StatsResult> => send({ type: "get-stats", range });
+
+export const getObserved = (): Promise<Candidate[]> => send({ type: "get-observed" });
+
+export async function clearObserved(): Promise<void> {
+  await send({ type: "clear-observed" });
+}
 
 export async function exportConfig(): Promise<string> {
   return serializeConfig(await getSettings());

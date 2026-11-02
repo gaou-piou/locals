@@ -9,7 +9,7 @@ export function createManifest(version: string): chrome.runtime.ManifestV3 {
     version,
     key: EXTENSION_KEY,
     minimum_chrome_version: "120",
-    permissions: ["declarativeNetRequest", "declarativeNetRequestFeedback", "storage"],
+    permissions: ["declarativeNetRequest", "declarativeNetRequestFeedback", "storage", "webRequest"],
     host_permissions: ["<all_urls>"],
     background: { service_worker: "background.js", type: "module" },
     action: { default_title: "cdn-mirror", default_popup: "popup/index.html" },
