@@ -1,13 +1,12 @@
 import { createHash } from "node:crypto";
 import { chain, groupBy, map, values } from "ramda";
 import { EXTENSION_KEY } from "../src/manifest.ts";
+import { PRIORITY } from "../src/shared/priorities.ts";
 import type { LibraryEntry, LibraryFile } from "../src/shared/manifest-schema.ts";
 
 /** Limits observed in Chromium 156 (docs/spike-results.md). */
 export const RULE_LIMITS = { staticRules: 30_000, regexRules: 1_000 } as const;
 
-/** Exact (pinned-version) redirects win over opt-in same-major substitution. */
-export const PRIORITY = { exact: 2, substitute: 1 } as const;
 
 type Rule = chrome.declarativeNetRequest.Rule;
 export type RuleMode = "exact" | "substitute";
