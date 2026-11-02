@@ -20,7 +20,9 @@ manifest.declarative_net_request = {
     { id: "substitute", enabled: false, path: "rules/substitute.json" },
   ],
 };
-manifest.web_accessible_resources = generateWar(entries).map((w) => ({ ...w, use_dynamic_url: false }));
+// libs/learned/ is filled at runtime by cdn-mirror-learn; the glob also covers files added after load
+const war = generateWar(entries).map((w) => ({ ...w, resources: [...w.resources, "libs/learned/*"], use_dynamic_url: false }));
+manifest.web_accessible_resources = war;
 writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
 
 console.log(`rules: ${exact.rules.length} exact, ${substitute.rules.length} substitute; ${manifest.web_accessible_resources[0].resources.length} web-accessible files`);

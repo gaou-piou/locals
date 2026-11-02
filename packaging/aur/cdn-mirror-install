@@ -6,8 +6,20 @@ set -eu
 src="${CDN_MIRROR_SRC:-/usr/share/cdn-mirror}"
 dest="${XDG_DATA_HOME:-$HOME/.local/share}/cdn-mirror"
 [ -f "$src/manifest.json" ] || { echo "cdn-mirror-install: no extension found in $src" >&2; exit 1; }
+# libs/learned/ holds what cdn-mirror-learn downloaded; it survives upgrades
+keep=""
+if [ -d "$dest/libs/learned" ]; then
+  keep="$(mktemp -d)"
+  mv "$dest/libs/learned" "$keep/learned"
+fi
 rm -rf "$dest"
 mkdir -p "$dest"
 cp -R "$src/." "$dest/"
+if [ -n "$keep" ]; then
+  mkdir -p "$dest/libs"
+  rm -rf "$dest/libs/learned"
+  mv "$keep/learned" "$dest/libs/learned"
+  rmdir "$keep"
+fi
 chmod -R u+rwX "$dest"
 echo "$dest"

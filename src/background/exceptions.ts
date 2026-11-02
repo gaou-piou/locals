@@ -44,7 +44,8 @@ export function exceptionRules(lists: { disabledSites: string[]; allowedSites: s
 export async function applyExceptions(lists: { disabledSites: string[]; allowedSites: string[] }): Promise<void> {
   const existing = await chrome.declarativeNetRequest.getDynamicRules();
   await chrome.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds: existing.map((r) => r.id),
+    // ids from LEARNED_ID_BASE up belong to learned.ts
+    removeRuleIds: existing.filter((r) => r.id < 200_000).map((r) => r.id),
     addRules: exceptionRules(lists),
   });
 }

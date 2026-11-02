@@ -1,4 +1,5 @@
 import type { Message } from "../shared/messages.ts";
+import { applyLearned } from "./learned.ts";
 import { createObserver } from "./observe.ts";
 import { getSettings, restoreSettings, setSettings } from "./settings.ts";
 import { createStats, dayKey, isLibraryMatch } from "./stats.ts";
@@ -12,12 +13,16 @@ const observer = createObserver();
 /** Re-applies stored settings; rulesets reset to the manifest defaults when the extension updates. */
 async function init(): Promise<void> {
   await restoreSettings();
+  await applyLearned();
   await chrome.declarativeNetRequest.setExtensionActionOptions({ displayActionCountAsBadgeText: true });
 }
 
 // Listeners are registered synchronously at top level: MV3 wakes the worker for them.
 chrome.runtime.onInstalled.addListener(() => void init());
-chrome.runtime.onStartup.addListener(() => void chrome.declarativeNetRequest.setExtensionActionOptions({ displayActionCountAsBadgeText: true }));
+chrome.runtime.onStartup.addListener(() => {
+  void chrome.declarativeNetRequest.setExtensionActionOptions({ displayActionCountAsBadgeText: true });
+  void applyLearned();
+});
 chrome.runtime.onSuspend.addListener(() => void Promise.all([stats.flush(), observer.flush()]));
 
 // Only fires for unpacked extensions (declarativeNetRequestFeedback); this is the source of the stats.
@@ -49,6 +54,8 @@ chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) =
         return stats.getTabCount(message.tabId);
       case "get-observed":
         return observer.getCandidates();
+      case "refresh-learned":
+        return applyLearned();
       case "clear-observed":
         await observer.clear();
         return null;

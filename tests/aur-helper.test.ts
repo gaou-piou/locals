@@ -40,3 +40,17 @@ describe("cdn-mirror-install", () => {
     expect(() => run(join(tmp(), "nope"), tmp())).toThrow();
   });
 });
+
+describe("cdn-mirror-install and learned files", () => {
+  it("keeps libs/learned from the previous install", () => {
+    const src = tmp();
+    mkdirSync(join(src, "libs"), { recursive: true });
+    writeFileSync(join(src, "manifest.json"), "{}");
+    const data = tmp();
+    const dest = join(data, "cdn-mirror");
+    mkdirSync(join(dest, "libs/learned"), { recursive: true });
+    writeFileSync(join(dest, "libs/learned/index.json"), '{"schema":1,"entries":[]}');
+    run(src, data);
+    expect(readFileSync(join(dest, "libs/learned/index.json"), "utf8")).toBe('{"schema":1,"entries":[]}');
+  });
+});

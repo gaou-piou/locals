@@ -3,7 +3,7 @@
   import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
   import * as Table from "$lib/components/ui/table";
-  import { clearObserved, getObserved } from "$lib/api";
+  import { clearObserved, getObserved, refreshLearned } from "$lib/api";
 
   const observed = resource(
     () => true,
@@ -18,6 +18,11 @@
     URL.revokeObjectURL(url);
   }
 
+  let applied = $state<number>();
+  async function apply() {
+    applied = await refreshLearned();
+  }
+
   async function clear() {
     await clearObserved();
     await observed.refetch();
@@ -30,12 +35,14 @@
       <Card.Title>Discovered</Card.Title>
       <Card.Description>
         Versioned third-party scripts, styles and fonts seen on at least two different sites. Only the URL and a count are kept, never which sites
-        you visited. Nothing is downloaded or sent anywhere.
+        you visited. Nothing is downloaded or sent by the extension: export the JSON, run `cdn-mirror-learn` on it in a terminal, then press Apply learned.
       </Card.Description>
     </Card.Header>
-    <Card.Content class="flex gap-2">
+    <Card.Content class="flex flex-wrap items-center gap-2">
       <Button variant="secondary" onclick={download} disabled={!rows.length}>Export JSON</Button>
       <Button variant="outline" onclick={clear} disabled={!rows.length}>Clear</Button>
+      <Button variant="outline" onclick={apply}>Apply learned</Button>
+      {#if applied !== undefined}<span class="text-muted-foreground text-sm">{applied} learned libraries active</span>{/if}
     </Card.Content>
   </Card.Root>
 

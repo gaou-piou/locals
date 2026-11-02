@@ -9,7 +9,8 @@ export type Message =
   | { type: "get-stats"; range: StatsRange }
   | { type: "get-tab-count"; tabId: number }
   | { type: "get-observed" }
-  | { type: "clear-observed" };
+  | { type: "clear-observed" }
+  | { type: "refresh-learned" };
 
 export type Response<M extends Message> = M extends { type: "get-settings" }
   ? Settings
@@ -23,7 +24,9 @@ export type Response<M extends Message> = M extends { type: "get-settings" }
           ? Candidate[]
           : M extends { type: "clear-observed" }
             ? null
-            : never;
+            : M extends { type: "refresh-learned" }
+              ? number
+              : never;
 
 export type { Candidate, Settings, StatsRange, StatsResult };
 

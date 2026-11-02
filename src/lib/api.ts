@@ -34,6 +34,8 @@ export const getStats = (range: StatsRange): Promise<StatsResult> => send({ type
 
 export const getObserved = (): Promise<Candidate[]> => send({ type: "get-observed" });
 
+export const refreshLearned = (): Promise<number> => send({ type: "refresh-learned" });
+
 export async function clearObserved(): Promise<void> {
   await send({ type: "clear-observed" });
 }
