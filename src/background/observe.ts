@@ -30,13 +30,17 @@ export const sameSite = (a: string, b: string): boolean => registrable(a) === re
 
 /** URL whose content can be assumed fixed: an explicit full version or a content hash. */
 export function isImmutableUrl(url: string): boolean {
-  const path = (() => {
-    try {
-      return new URL(url).pathname;
-    } catch {
-      return url;
-    }
-  })();
+  let host = "";
+  let path = url;
+  try {
+    const u = new URL(url);
+    host = u.hostname;
+    path = u.pathname;
+  } catch {
+    // keep the raw string
+  }
+  // Google Fonts files are content-addressed: /s/<family>/v<N>/<file> never changes once published
+  if (host === "fonts.gstatic.com" && /^\/s\/[^/]+\/v\d+\/[^/]+\.woff2?$/.test(path)) return true;
   if (/(?<![\d.])\d+\.\d+\.\d+(?!\d)/.test(path)) return true;
   const hashed = /[.-]([0-9a-f]{8,})\.(?:js|css|woff2?)$/.exec(path);
   return !!hashed && /\d/.test(hashed[1]);

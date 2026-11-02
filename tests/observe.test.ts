@@ -38,12 +38,16 @@ describe("isImmutableUrl", () => {
     "https://x.com/ajax/libs/slick/1.8.1/slick.min.js",
     "https://x.com/lib-2.3.1.min.js",
     "https://x.com/assets/app.3f9a1c7e2b.js",
+    "https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff2",
+    "https://c0.wp.com/c/6.8.2/wp-includes/js/jquery/jquery.min.js",
   ])("accepts %s", (u) => expect(isImmutableUrl(u)).toBe(true));
   it.each([
     "https://x.com/analytics.js",
     "https://x.com/npm/swiper@latest/swiper.min.js",
     "https://x.com/npm/swiper@11/swiper.min.js",
     "https://x.com/v1/widget.js",
+    "https://fonts.gstatic.com/l/font?kit=abc",
+    "https://evil.example/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff2",
   ])("rejects %s", (u) => expect(isImmutableUrl(u)).toBe(false));
 });
 
