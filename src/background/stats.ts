@@ -1,3 +1,5 @@
+import { LEARNED_ID_BASE } from "./learned.ts";
+
 export type StatsRange = "day" | "week" | "month" | "year";
 export type StatsResult = { total: number; byLibrary: Record<string, number> };
 
@@ -85,7 +87,7 @@ export function createStats(deps: {
         if (day < from || day > to) continue;
         for (const [id, n] of Object.entries(rules)) {
           out.total += n;
-          const lib = idx[Number(id)] ?? "unknown";
+          const lib = Number(id) >= LEARNED_ID_BASE ? "learned" : (idx[Number(id)] ?? "unknown");
           out.byLibrary[lib] = (out.byLibrary[lib] ?? 0) + n;
         }
       }
@@ -106,5 +108,6 @@ export function createStats(deps: {
 
 export type Stats = ReturnType<typeof createStats>;
 
-/** Only the static redirect rulesets serve a library; dynamic site-exception rules (`_dynamic`) do not. */
-export const isLibraryMatch = (rule: { rulesetId: string }): boolean => rule.rulesetId === "exact" || rule.rulesetId === "substitute";
+/** Static redirect rulesets and learned redirects (dynamic, ids from LEARNED_ID_BASE) serve a library; site-exception rules do not. */
+export const isLibraryMatch = (rule: { rulesetId: string; ruleId?: number }): boolean =>
+  rule.rulesetId === "exact" || rule.rulesetId === "substitute" || (rule.rulesetId === "_dynamic" && (rule.ruleId ?? 0) >= LEARNED_ID_BASE);

@@ -97,7 +97,15 @@ describe("stats", () => {
   it("only matches of the static redirect rulesets count; site-exception rules do not", () => {
     expect(isLibraryMatch({ rulesetId: "exact" })).toBe(true);
     expect(isLibraryMatch({ rulesetId: "substitute" })).toBe(true);
-    expect(isLibraryMatch({ rulesetId: "_dynamic" })).toBe(false);
+    expect(isLibraryMatch({ rulesetId: "_dynamic", ruleId: 5 })).toBe(false);
     expect(isLibraryMatch({ rulesetId: "_session" })).toBe(false);
+  });
+
+  it("learned redirects (dynamic rules from LEARNED_ID_BASE) count too, listed as \"learned\"", async () => {
+    expect(isLibraryMatch({ rulesetId: "_dynamic", ruleId: 200_000 })).toBe(true);
+    const s = createStats({ loadIndex: async () => ({}), flushDelayMs: 1 });
+    s.recordMatch(200_003, dayKey(new Date()), 4);
+    expect((await s.getStats("day")).byLibrary).toEqual({ learned: 1 });
+    expect(await s.getTabCount(4)).toBe(1);
   });
 });
