@@ -11,6 +11,7 @@
     "gen:rules": "tsx scripts/gen-rules.ts",
     "libs:hash": "tsx scripts/hash-libs.ts",
     "libs:bump": "tsx scripts/bump-libs.ts",
+    "libs:expand": "tsx scripts/expand-libs.ts",
     "size": "tsx scripts/size-check.ts",
     "test": "vitest run",
     "test:e2e": "playwright test",

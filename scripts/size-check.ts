@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 /** Extension size budget, recorded in docs/spike-results.md. */
-export const BUDGET_BYTES = 25 * 1024 * 1024;
+export const BUDGET_BYTES = 128 * 1024 * 1024;
 
 export function dirSize(dir: string): number {
   return readdirSync(dir, { withFileTypes: true }).reduce(

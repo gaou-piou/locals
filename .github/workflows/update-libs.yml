@@ -19,7 +19,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm libs:bump
+      - run: pnpm libs:expand
       # A PR opened with GITHUB_TOKEN does not trigger ci.yml, so verify here before proposing the change.
       - run: pnpm test
       - run: pnpm build:libs
@@ -31,8 +31,8 @@ jobs:
           title: "chore(libs): update bundled libraries"
           commit-message: "chore(libs): update bundled libraries"
           body: |
-            Weekly run of `pnpm libs:bump`: newest npm release of each library added as a pinned
-            version (3 newest per major kept), hashes recomputed.
+            Weekly run of `pnpm libs:expand`: newest npm releases of every library added as pinned
+            versions (only where a CDN serves byte-identical files), hashes recomputed.
             The job already ran the unit tests, built the libraries and the extension, and checked
             the size budget with the new versions (a PR opened with GITHUB_TOKEN does not trigger ci.yml).
           add-paths: libraries.json

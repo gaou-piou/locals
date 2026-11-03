@@ -5,8 +5,8 @@ import { BUDGET_BYTES, dirSize, checkSize } from "../scripts/size-check.ts";
 import { tmp } from "./helpers.ts";
 
 describe("size-check", () => {
-  it("budget is the 25 MB recorded in docs/spike-results.md", () => {
-    expect(BUDGET_BYTES).toBe(25 * 1024 * 1024);
+  it("budget is the 128 MB agreed for the wide library set", () => {
+    expect(BUDGET_BYTES).toBe(128 * 1024 * 1024);
   });
 
   it("sums file sizes recursively", () => {

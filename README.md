@@ -2,7 +2,7 @@
 
 > A Chromium browser extension (Manifest V3). Load it from `dist/` after `pnpm build`, or from a release zip; see [Install](#install).
 
-A Manifest V3 Chromium extension that serves popular JavaScript libraries, stylesheets and fonts from a local copy instead of letting pages contact third-party CDNs (cdnjs, jsDelivr, unpkg, Google Hosted Libraries, Microsoft Ajax CDN, code.jquery.com).
+A Manifest V3 Chromium extension that serves popular JavaScript libraries, stylesheets and fonts from a local copy instead of letting pages contact third-party CDNs (cdnjs and its mirrors BootCDN, Staticfile and Baomitu, jsDelivr, unpkg, Google Hosted Libraries, Microsoft Ajax CDN, code.jquery.com, BootstrapCDN, Font Awesome, DataTables, Video.js). About 70 libraries and ~630 pinned versions are bundled; a URL is redirected only when the CDN serves byte-identical content, so pages with Subresource Integrity keep working.
 
 ## Why
 
@@ -55,9 +55,10 @@ pnpm build          # vite build + manifest + libs + generated DNR rulesets  -> 
 pnpm test           # unit tests (vitest)
 pnpm test:e2e       # Playwright with the bundled Chromium (loads dist/ as an extension)
 pnpm typecheck
-pnpm size           # fails above the 25 MB budget
+pnpm size           # fails above the 128 MB budget
 pnpm libs:hash      # recompute sha256 values in libraries.json
-pnpm libs:bump      # add the newest npm release of each library as a new pinned version
+pnpm libs:expand    # probe npm + every CDN for the libraries in scripts/libs-spec.ts and pin what is byte-identical
+pnpm libs:bump      # older, smaller variant: newest npm release of each library only
 ```
 
 Load `dist/` unpacked to try a build. Releases are cut by pushing a `v<version>` tag: the workflow checks that the tag equals the `package.json` and manifest version, then publishes the zip and its checksum. After a release, update `pkgver` and the first `sha256sums` entry (the zip) in `packaging/aur/PKGBUILD`; it ships as a placeholder that makes `makepkg` fail until replaced.

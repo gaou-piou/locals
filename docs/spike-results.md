@@ -26,7 +26,7 @@ Every probe in the plan's checklist behaved as the design needs.
 - Stats: use `onRuleMatchedDebug` as the source, as planned.
 - Header stripping (LocalCDN's metadata stripping) is feasible with `modifyHeaders` for CDN requests that remain on the network; record as an optional follow-up, not part of v0.1.
 - HTML filter (removing `integrity` attributes) is still impossible in MV3; SRI pages work only when bytes are identical.
-- Size budget for the extension zip: set at 25 MB until the real library set is known (LocalCDN is ~17 MB).
+- Size budget: 128 MB since the library set grew to ~70 libraries and ~630 pinned versions (dist is ~79 MB; LocalCDN ships about 85 MB). Loaded unpacked, so no Web Store limit applies.
 
 ## Not verified here
 

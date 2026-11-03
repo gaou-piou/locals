@@ -9,8 +9,8 @@ import type { LibraryEntry } from "../src/shared/manifest-schema.ts";
 export type FetchTarball = (pkg: string, version: string) => Promise<Buffer>;
 export type FetchUrl = (url: string) => Promise<Buffer>;
 
-const sha256 = (b: Buffer) => createHash("sha256").update(b).digest("hex");
-const LICENSE_RE = /^(?:licen[cs]e|copying)(?:[.-][\w.-]+)?$/i;
+export const sha256 = (b: Buffer) => createHash("sha256").update(b).digest("hex");
+export const LICENSE_RE = /^(?:licen[cs]e|copying)(?:[.-][\w.-]+)?$/i;
 
 export function registryTarballUrl(pkg: string, version: string): string {
   const base = pkg.split("/").pop()!;
@@ -38,7 +38,7 @@ export async function fetchBuffer(url: string): Promise<Buffer> {
 }
 
 /** Reads the files of an npm tarball into memory, keyed by path relative to the package root. */
-async function extract(tgz: Buffer, want: (path: string) => boolean): Promise<Map<string, Buffer>> {
+export async function extract(tgz: Buffer, want: (path: string) => boolean): Promise<Map<string, Buffer>> {
   const out = new Map<string, Buffer>();
   const parser = new Parser({
     filter: (path) => want(path.split("/").slice(1).join("/")),
