@@ -57,4 +57,19 @@ describe("applyExceptions", () => {
     expect(new Set(first).size).toBe(first.length);
     expect(first.every((id) => Number.isInteger(id) && id > 0)).toBe(true);
   });
+
+  it("with the extension switched off, one deny-priority rule exempts every frame so dynamic redirects stop too", async () => {
+    await applyExceptions({ enabled: false, disabledSites: [], allowedSites: [] });
+    expect(env.state.dynamic).toHaveLength(1);
+    const [r] = env.state.dynamic;
+    expect(r.action).toEqual({ type: "allowAllRequests" });
+    expect(r.priority).toBe(PRIORITY.deny);
+    expect(r.condition).toEqual({ resourceTypes: FRAMES });
+  });
+
+  it("switching back on removes the exempt-all rule", async () => {
+    await applyExceptions({ enabled: false, disabledSites: [], allowedSites: [] });
+    await applyExceptions({ enabled: true, disabledSites: [], allowedSites: [] });
+    expect(env.state.dynamic).toEqual([]);
+  });
 });

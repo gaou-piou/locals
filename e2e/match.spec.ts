@@ -24,6 +24,19 @@ test("a site's own byte-identical copy of jQuery is detected and then served fro
     await page.goto(`${server.origin}/selfhosted.html`);
     expect(await page.evaluate(() => (window as any).jQuery?.fn.jquery)).toBe("3.7.1");
     expect(server.requests).not.toContain("/vendor/jquery.min.js");
+
+    // the global switch also stops the dynamic redirects
+    const settings = await page.context().newPage();
+    await settings.goto(ext);
+    await settings.evaluate(() => chrome.runtime.sendMessage({ type: "set-settings", patch: { enabled: false } }));
+    await settings.close();
+    await expect
+      .poll(async () => {
+        server.requests.length = 0;
+        await page.goto(`${server.origin}/selfhosted.html`);
+        return server.requests.includes("/vendor/jquery.min.js");
+      })
+      .toBe(true);
   } finally {
     await ctx.close();
     await server.close();
