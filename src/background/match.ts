@@ -122,6 +122,7 @@ export function createMatcher(deps: {
       digest = hex(await crypto.subtle.digest("SHA-256", body));
       hit = idx.bySha.get(digest);
     }
+    console.debug("locals: match check", url, { bytes: body?.byteLength ?? null, digest, hit: hit?.library ?? null, type: obs.type });
     if (hit && hit.type === obs.type) {
       delete s.tried[url];
       s.entries[url] = { url, library: hit.library, version: hit.version, path: hit.path, sha256: digest, type: hit.type, at: t };

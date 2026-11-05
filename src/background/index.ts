@@ -54,6 +54,7 @@ chrome.webRequest.onCompleted.addListener(
   (d) => {
     if (d.statusCode !== 200 || d.initiator?.startsWith(`chrome-extension://${chrome.runtime.id}`)) return; // not our own fetches
     observer.record({ url: d.url, initiator: d.initiator, type: d.type });
+    console.debug("locals: completed", d.type, d.url);
     considerMatch(d);
   },
   {
