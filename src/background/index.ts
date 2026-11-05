@@ -26,7 +26,7 @@ const considerMatch = (d: { url: string; type: string }) => {
     lastPrune = Date.now();
     void matcher.prune().catch(() => {});
   }
-  void matcher.consider(d);
+  void matcher.consider(d).catch((err) => console.warn("locals: match check failed", err));
 };
 
 /** Re-applies stored settings; rulesets reset to the manifest defaults when the extension updates. */

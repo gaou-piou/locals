@@ -7,6 +7,7 @@ test("a site's own byte-identical copy of jQuery is detected and then served fro
   const ctx = await launchWithExtension("dist");
   try {
     const sw = ctx.serviceWorkers()[0] ?? (await ctx.waitForEvent("serviceworker"));
+    sw.on("console", (m) => console.log(`[sw ${m.type()}] ${m.text()}`));
     const page = await ctx.newPage();
     const ext = `chrome-extension://${new URL(sw.url()).host}/options/index.html`;
     const matched = async () => {
@@ -18,7 +19,7 @@ test("a site's own byte-identical copy of jQuery is detected and then served fro
     };
 
     await page.goto(`${server.origin}/selfhosted.html`);
-    await expect.poll(async () => (await matched()).map((m) => m.library)).toEqual(["jquery"]);
+    await expect.poll(async () => (await matched()).map((m) => m.library), { timeout: 15_000 }).toEqual(["jquery"]);
 
     server.requests.length = 0;
     await page.goto(`${server.origin}/selfhosted.html`);

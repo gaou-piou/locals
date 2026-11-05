@@ -106,7 +106,11 @@ export function createMatcher(deps: {
     const s = await load();
     const t = now();
     if (s.entries[url] || (s.tried[url] !== undefined && t - s.tried[url] < retry)) return;
-    index ??= deps.loadLibraries().then(buildIndex);
+    // a failed load must not be cached: the next request would never get a chance
+    index ??= deps.loadLibraries().then(buildIndex, (err) => {
+      index = undefined;
+      throw err;
+    });
     const idx = await index;
     if (!looksLikeLibrary(url, idx)) return;
     if (Object.keys(s.entries).length >= MAX_ENTRIES) return;
@@ -132,11 +136,11 @@ export function createMatcher(deps: {
       if (seen.has(key) || queued >= MAX_QUEUE) return Promise.resolve();
       seen.add(key);
       queued++;
-      const run = chain.then(() => check(obs)).catch(() => {});
-      chain = run.finally(() => {
+      const run = chain.then(() => check(obs)).finally(() => {
         queued--;
         seen.delete(key);
       });
+      chain = run.catch(() => {});
       return run;
     },
 
