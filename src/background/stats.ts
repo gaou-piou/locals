@@ -1,4 +1,5 @@
 import { LEARNED_ID_BASE } from "./learned.ts";
+import { MATCH_ID_BASE } from "./match.ts";
 
 export type StatsRange = "day" | "week" | "month" | "year";
 export type StatsResult = { total: number; byLibrary: Record<string, number> };
@@ -87,7 +88,7 @@ export function createStats(deps: {
         if (day < from || day > to) continue;
         for (const [id, n] of Object.entries(rules)) {
           out.total += n;
-          const lib = idx[Number(id)] ?? (Number(id) >= LEARNED_ID_BASE ? "learned" : "unknown");
+          const lib = idx[Number(id)] ?? (Number(id) >= MATCH_ID_BASE ? "detected" : Number(id) >= LEARNED_ID_BASE ? "learned" : "unknown");
           out.byLibrary[lib] = (out.byLibrary[lib] ?? 0) + n;
         }
       }

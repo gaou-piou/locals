@@ -1,4 +1,5 @@
 import { PRIORITY } from "../shared/priorities.ts";
+import { MATCH_ID_BASE } from "./match.ts";
 
 type Rule = chrome.declarativeNetRequest.Rule;
 
@@ -58,7 +59,7 @@ export async function applyLearned(): Promise<number> {
   const rules = learnedRules(await loadLearned());
   const existing = await chrome.declarativeNetRequest.getDynamicRules();
   await chrome.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds: existing.filter((r) => r.id >= LEARNED_ID_BASE).map((r) => r.id),
+    removeRuleIds: existing.filter((r) => r.id >= LEARNED_ID_BASE && r.id < MATCH_ID_BASE).map((r) => r.id),
     addRules: rules,
   });
   return rules.length;

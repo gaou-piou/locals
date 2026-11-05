@@ -5,12 +5,20 @@ import type { AddressInfo } from "node:net";
 
 const FIXTURES = path.join(import.meta.dirname, "fixtures");
 
-export type FixtureServer = { origin: string; close: () => Promise<void> };
+export type FixtureServer = { origin: string; requests: string[]; close: () => Promise<void> };
 
 /** Serves e2e/fixtures over HTTP. A `?csp=<policy>` query adds a CSP header. */
 export async function startServer(): Promise<FixtureServer> {
+  const requests: string[] = [];
   const server = http.createServer(async (req, res) => {
     const url = new URL(req.url ?? "/", "http://localhost");
+    requests.push(url.pathname);
+    // a site hosting its own copy of jQuery 3.7.1 (byte-identical to the bundled file)
+    if (url.pathname === "/vendor/jquery.min.js") {
+      res.writeHead(200, { "content-type": "text/javascript" });
+      res.end(await readFile("dist/libs/jquery/3.7.1/dist/jquery.min.js"));
+      return;
+    }
     if (url.pathname === "/echo") {
       res.writeHead(200, { "content-type": "application/json", "access-control-allow-origin": "*" });
       res.end(JSON.stringify(req.headers));
@@ -33,6 +41,7 @@ export async function startServer(): Promise<FixtureServer> {
   const { port } = server.address() as AddressInfo;
   return {
     origin: `http://localhost:${port}`,
+    requests,
     close: () => new Promise((resolve) => server.close(() => resolve())),
   };
 }

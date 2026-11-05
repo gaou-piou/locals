@@ -4,7 +4,7 @@
   import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
   import * as Table from "$lib/components/ui/table";
-  import { clearObserved, getLearned, getObserved, getPending, refreshLearned } from "$lib/api";
+  import { clearObserved, getLearned, getMatched, getObserved, getPending, refreshLearned } from "$lib/api";
 
   let version = $state(0);
   const ready = resource(
@@ -19,6 +19,11 @@
     () => version,
     () => getLearned(),
   );
+  const matched = resource(
+    () => version,
+    () => getMatched(),
+  );
+  const matchedRows = $derived(matched.current ?? []);
   const learnedRows = $derived(learned.current ?? []);
   const readyRows = $derived(ready.current ?? []);
   const waitingRows = $derived(waiting.current ?? []);
@@ -64,6 +69,31 @@
   {#if ready.error || waiting.error || learned.error}
     <p class="text-destructive text-sm" role="alert">{(ready.error ?? waiting.error ?? learned.error)?.message}</p>
   {:else}
+    <section class="flex flex-col gap-2">
+      <h2 class="flex items-center gap-2 text-sm font-medium">Detected <Badge variant="secondary">{matchedRows.length}</Badge></h2>
+      <p class="text-muted-foreground text-sm">Files that other sites host themselves but whose bytes are identical to a bundled library. Re-checked weekly.</p>
+      {#if matchedRows.length}
+        <Table.Root>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>URL</Table.Head>
+              <Table.Head>Served from</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {#each matchedRows as m (m.url)}
+              <Table.Row>
+                <Table.Cell class="break-all">{m.url}</Table.Cell>
+                <Table.Cell>{m.library} {m.version}</Table.Cell>
+              </Table.Row>
+            {/each}
+          </Table.Body>
+        </Table.Root>
+      {:else}
+        <p class="text-muted-foreground text-sm">Nothing detected yet. Browse; matches appear as sites load their own copies of known libraries.</p>
+      {/if}
+    </section>
+
     <section class="flex flex-col gap-2">
       <h2 class="flex items-center gap-2 text-sm font-medium">Learned <Badge variant="secondary">{learnedRows.length}</Badge></h2>
       {#if learnedRows.length}

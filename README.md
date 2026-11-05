@@ -11,6 +11,7 @@ A Manifest V3 Chromium extension that serves popular JavaScript libraries, style
 What it does:
 
 - redirects requests to the supported CDNs to bundled files (exact version matches, and an opt-in version substitution (off by default) that maps older requests of a major to the newest pinned release of that major);
+- detects a site's own copy of a bundled library: when a script, style or font whose URL names a known library is byte-identical (sha256) to a bundled file, that exact URL is redirected to the bundled copy. The match is re-checked weekly because redirected requests never reach the network; see the Detected list in the options;
 - popup with the status of the current site and a one-click per-site toggle;
 - options page: global switch, allow-list / deny-list per site, statistics (day, week, month, year), library browser, config export and import;
 - the library list is a plain file (`libraries.json`); the files themselves are fetched from npm at build time and verified against the recorded sha256, never committed;

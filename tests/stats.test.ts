@@ -108,4 +108,11 @@ describe("stats", () => {
     expect((await s.getStats("day")).byLibrary).toEqual({ learned: 1 });
     expect(await s.getTabCount(4)).toBe(1);
   });
+
+  it("matches of hash-detected self-hosted copies are listed as \"detected\"", async () => {
+    expect(isLibraryMatch({ rulesetId: "_dynamic", ruleId: 300_000 })).toBe(true);
+    const s = createStats({ loadIndex: async () => ({}), flushDelayMs: 1 });
+    s.recordMatch(300_001, dayKey(new Date()));
+    expect((await s.getStats("day")).byLibrary).toEqual({ detected: 1 });
+  });
 });

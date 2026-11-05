@@ -1,5 +1,6 @@
 import type { Message } from "../shared/messages.ts";
 import { applyLearned, excludeLearned, loadLearned } from "./learned.ts";
+import { createMatcher, MAX_BODY_BYTES } from "./match.ts";
 import { createObserver } from "./observe.ts";
 import { getSettings, restoreSettings, setSettings } from "./settings.ts";
 import { createStats, dayKey, isLibraryMatch } from "./stats.ts";
@@ -9,6 +10,24 @@ const stats = createStats({
 });
 
 const observer = createObserver();
+
+const matcher = createMatcher({
+  loadLibraries: async () => (await fetch(chrome.runtime.getURL("libraries.json"))).json(),
+  // the same request the page just made, without cookies; oversized bodies are never bundled libraries
+  fetchBody: async (url) => {
+    const res = await fetch(url, { credentials: "omit", cache: "no-store", signal: AbortSignal.timeout(15_000) });
+    const length = Number(res.headers.get("content-length") ?? 0);
+    return res.ok && length <= MAX_BODY_BYTES ? res.arrayBuffer() : null;
+  },
+});
+let lastPrune = 0;
+const considerMatch = (d: { url: string; type: string }) => {
+  if (Date.now() - lastPrune > 3_600_000) {
+    lastPrune = Date.now();
+    void matcher.prune().catch(() => {});
+  }
+  void matcher.consider(d);
+};
 
 /** Re-applies stored settings; rulesets reset to the manifest defaults when the extension updates. */
 async function init(): Promise<void> {
@@ -31,10 +50,17 @@ chrome.declarativeNetRequest.onRuleMatchedDebug?.addListener((info) => {
   stats.recordMatch(info.rule.ruleId, dayKey(new Date()), info.request.tabId);
 });
 // Observation only: nothing is fetched or redirected. Records third-party scripts/styles/fonts to learn from.
-chrome.webRequest.onCompleted.addListener((d) => d.statusCode === 200 && observer.record({ url: d.url, initiator: d.initiator, type: d.type }), {
+chrome.webRequest.onCompleted.addListener(
+  (d) => {
+    if (d.statusCode !== 200 || d.initiator?.startsWith(`chrome-extension://${chrome.runtime.id}`)) return; // not our own fetches
+    observer.record({ url: d.url, initiator: d.initiator, type: d.type });
+    considerMatch(d);
+  },
+  {
   urls: ["http://*/*", "https://*/*"],
-  types: ["script", "stylesheet", "font"],
-});
+    types: ["script", "stylesheet", "font"],
+  },
+);
 chrome.tabs.onUpdated.addListener((tabId, change) => {
   if (change.status === "loading") stats.resetTab(tabId);
 });
@@ -56,6 +82,8 @@ chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) =
         return excludeLearned(await observer.getCandidates(), await loadLearned());
       case "get-pending":
         return excludeLearned(await observer.getPending(), await loadLearned());
+      case "get-matched":
+        return matcher.getMatched();
       case "get-learned":
         return loadLearned();
       case "refresh-learned":
