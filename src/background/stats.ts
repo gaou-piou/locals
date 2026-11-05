@@ -87,7 +87,7 @@ export function createStats(deps: {
         if (day < from || day > to) continue;
         for (const [id, n] of Object.entries(rules)) {
           out.total += n;
-          const lib = Number(id) >= LEARNED_ID_BASE ? "learned" : (idx[Number(id)] ?? "unknown");
+          const lib = idx[Number(id)] ?? (Number(id) >= LEARNED_ID_BASE ? "learned" : "unknown");
           out.byLibrary[lib] = (out.byLibrary[lib] ?? 0) + n;
         }
       }
