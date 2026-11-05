@@ -18,9 +18,18 @@ test("a site's own byte-identical copy of jQuery is detected and then served fro
       return out as { url: string; library: string }[];
     };
 
-    await page.goto(`${server.origin}/selfhosted.html`);
     try {
-      await expect.poll(async () => (await matched()).map((m) => m.library), { timeout: 15_000 }).toEqual(["jquery"]);
+      // The worker may still be evaluating its module when the first page loads on a slow runner (the webRequest
+      // listener is not registered yet, so that load is never observed). Load again until a load is seen.
+      await expect
+        .poll(
+          async () => {
+            await page.goto(`${server.origin}/selfhosted.html`);
+            return (await matched()).map((m) => m.library);
+          },
+          { timeout: 20_000, intervals: [500, 1000, 2000] },
+        )
+        .toEqual(["jquery"]);
     } catch (err) {
       // the CI runner does not show the worker console; put the evidence in the failure itself
       const state = await sw
