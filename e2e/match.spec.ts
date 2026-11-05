@@ -19,7 +19,18 @@ test("a site's own byte-identical copy of jQuery is detected and then served fro
     };
 
     await page.goto(`${server.origin}/selfhosted.html`);
-    await expect.poll(async () => (await matched()).map((m) => m.library), { timeout: 15_000 }).toEqual(["jquery"]);
+    try {
+      await expect.poll(async () => (await matched()).map((m) => m.library), { timeout: 15_000 }).toEqual(["jquery"]);
+    } catch (err) {
+      // the CI runner does not show the worker console; put the evidence in the failure itself
+      const state = await sw
+        .evaluate(async () => ({
+          storage: await chrome.storage.local.get("matched"),
+          dynamic: (await chrome.declarativeNetRequest.getDynamicRules()).length,
+        }))
+        .catch((e) => String(e));
+      throw new Error(`${err}\nserver.requests=${JSON.stringify(server.requests)}\nstate=${JSON.stringify(state)}\nsw=${sw.url()} workers=${ctx.serviceWorkers().length}`);
+    }
 
     server.requests.length = 0;
     await page.goto(`${server.origin}/selfhosted.html`);
