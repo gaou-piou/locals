@@ -36,6 +36,19 @@ describe("build output", () => {
     );
   });
 
+  it("ships every icon the manifest names", () => {
+    const m = JSON.parse(read("manifest.json"));
+    const paths = [...Object.values(m.icons ?? {}), ...Object.values(m.action.default_icon ?? {})] as string[];
+    expect(Object.keys(m.icons ?? {})).toEqual(expect.arrayContaining(["16", "32", "48", "128"]));
+    for (const p of paths) expect(existsSync(new URL(p, dist)), p).toBe(true);
+  });
+
+  it.each(["popup", "options"])("%s page has a mobile viewport and no fixed minimum width", (name) => {
+    const html = read(`${name}/index.html`);
+    expect(html).toMatch(/<meta name="viewport" content="width=device-width, initial-scale=1"/);
+    expect(html).not.toMatch(/min-w-\[/);
+  });
+
   it.each(["popup", "options"])("%s page is at the dist root and CSP-clean", (name) => {
     const html = read(`${name}/index.html`);
     expect(existsSync(new URL("src/", dist))).toBe(false);

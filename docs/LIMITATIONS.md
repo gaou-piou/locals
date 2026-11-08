@@ -22,7 +22,7 @@ The spike showed `declarativeNetRequest` `modifyHeaders` can remove request head
 - Statistics rely on `onRuleMatchedDebug`, which exists only for unpacked extensions (`declarativeNetRequestFeedback`) — fine for the supported install route.
 - Dynamic font services (e.g. Google Fonts CSS) are deliberately not emulated.
 - Rule limits: well under Chromium's 30000 guaranteed static rules and 1000 regex rules (one regex per library, CDN and major).
-- **Not tested in Brave or other Chromium forks.** Everything, including the end-to-end suite, was run with Playwright's bundled Chromium 156 (headless) over HTTP fixtures; HTTPS pages were not exercised (the patterns are scheme-agnostic). Brave Shields may interact with redirects: please report findings.
+- **Not tested in Brave.** The end-to-end suite runs with Playwright's bundled Chromium 156 (headless) over HTTP fixtures. Lemur Browser on Android (Chromium 154) was checked by hand over HTTPS: redirects, statistics, the per-site switch and the popup work, and Locals wins over LocalCDN when both are installed. Lemur force-darkens extension pages. Brave Shields may interact with redirects: please report findings.
 - The e2e suite and `docs/spike-results.md` describe the probes behind these statements.
 - Turning a site on or off applies to new requests; reload the open tab to see the change.
 - Allow-list mode (a non-empty allow list) exempts everything except the listed sites and their subdomains; third-party iframes embedded on a listed site are not served locally.

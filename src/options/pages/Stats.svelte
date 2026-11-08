@@ -19,6 +19,15 @@
     (r) => getStats(r),
   );
 
+  // the worker flushes counts every few seconds: follow them instead of showing the numbers from when the page opened
+  $effect(() => {
+    const onChanged = (changes: Record<string, chrome.storage.StorageChange>, area: string) => {
+      if (area === "local" && "stats" in changes) void stats.refetch();
+    };
+    chrome.storage.onChanged.addListener(onChanged);
+    return () => chrome.storage.onChanged.removeListener(onChanged);
+  });
+
   const rows = $derived(Object.entries(stats.current?.byLibrary ?? {}).sort(([, a], [, b]) => b - a));
 </script>
 

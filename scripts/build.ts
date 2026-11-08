@@ -16,6 +16,9 @@ run("pnpm", ["exec", "vite", "build"]);
 const { version } = JSON.parse(readFileSync(`${root}package.json`, "utf8"));
 writeFileSync(`${root}dist/manifest.json`, JSON.stringify(createManifest(version), null, 2) + "\n");
 
+// 2b. icons (PNGs rendered once from static/icons/icon.svg and committed: no rasteriser needed to build)
+cpSync(`${root}static/icons`, `${root}dist/icons`, { recursive: true, filter: (p) => !p.endsWith(".svg") });
+
 // 3. bundled libraries
 if (existsSync(`${root}.cache/libs`)) cpSync(`${root}.cache/libs`, `${root}dist/libs`, { recursive: true });
 

@@ -13,10 +13,10 @@
   const tab = new PersistedState("locals:options-tab", "general");
 </script>
 
-<main class="mx-auto flex max-w-3xl flex-col gap-6 p-6">
+<main class="mx-auto flex max-w-3xl flex-col gap-6 p-4 sm:p-6">
   <h1 class="text-xl font-semibold">Locals</h1>
   <Tabs.Root value={tab.current} onValueChange={(v) => (tab.current = v)}>
-    <Tabs.List>
+    <Tabs.List class="max-w-full justify-start overflow-x-auto [scrollbar-width:none]">
       <Tabs.Trigger value="general">General</Tabs.Trigger>
       <Tabs.Trigger value="sites">Sites</Tabs.Trigger>
       <Tabs.Trigger value="stats">Stats</Tabs.Trigger>
