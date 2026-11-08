@@ -85,6 +85,17 @@ describe("options stats page", () => {
     await fireEvent.click(screen.getByRole("tab", { name: /month/i }));
     await waitFor(() => expect(api.getStats).toHaveBeenCalledWith("month"));
   });
+
+  it("reloads when the stored stats change, and ignores other keys", async () => {
+    vi.mocked(api.getStats).mockResolvedValueOnce({ total: 18, byLibrary: {} }).mockResolvedValue({ total: 54, byLibrary: {} });
+    render(Stats);
+    await screen.findByText("18");
+    const listener = vi.mocked(chrome.storage.onChanged.addListener).mock.calls[0][0];
+    listener({ settings: { newValue: {} } }, "local");
+    expect(api.getStats).toHaveBeenCalledTimes(1);
+    listener({ stats: { newValue: {} } }, "local");
+    expect(await screen.findByText("54")).toBeTruthy();
+  });
 });
 
 describe("options libraries page", () => {
