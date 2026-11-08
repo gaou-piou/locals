@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-08
+
 ### Fixed
 
 - Mobile (Lemur on Android): viewport meta and no fixed minimum width on the options page, scrollable tab bar, a switch that stays visible when the browser force-darkens the page.
