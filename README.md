@@ -43,7 +43,7 @@ Then load that folder with *Load unpacked* (below). Run the helper again after e
 
 Unpacked extensions are not auto-updated: reload the extension card after upgrading.
 
-Target browsers: Chromium-based browsers with MV3 support (Chromium 120+). Tested with Chromium; **not yet tested in Brave** (see limitations).
+Target browsers: Chromium-based browsers with MV3 support (Chromium 120+). Tested with Chromium, and by hand in Lemur Browser on Android (Chromium 154); **not yet tested in Brave** (see limitations).
 
 ## Development
 
@@ -68,7 +68,7 @@ Load `dist/` unpacked to try a build. Releases are cut by pushing a `v<version>`
 
 Svelte 5 (no SvelteKit), Tailwind v4, [shadcn-svelte](https://shadcn-svelte.com) components, [runed](https://runed.dev), ramda, zod. Plain Vite with three entry points (popup, options, service worker): a build plugin such as CRXJS or WXT would add a moving part without removing work for a hand-written manifest.
 
-> **shadcn caveat.** `src/lib/components/ui/tabs/*` and `ui/switch/switch.svelte` are patched: the registry classes target `data-active` / `data-horizontal` style attributes, while the installed bits-ui emits `data-state` and `data-orientation`. Re-adding these components with the shadcn CLI would bring the invisible/mis-laid-out tabs and switch back. Re-apply the patch if you do.
+> **shadcn caveat.** `src/lib/components/ui/tabs/*` and `ui/switch/switch.svelte` are patched: the registry classes target `data-active` / `data-horizontal` style attributes, while the installed bits-ui emits `data-state` and `data-orientation`. The switch also uses a fixed emerald "on" colour and a white thumb, because mobile browsers that force-darken extension pages (Lemur) turned the themed colours into an invisible switch. Re-adding these components with the shadcn CLI would bring the invisible/mis-laid-out tabs and switch back. Re-apply the patch if you do.
 
 ## Layout
 
