@@ -15,7 +15,8 @@ async function startSites() {
     const url = new URL(req.url ?? "/", `http://${req.headers.host}`);
     const port = url.port;
     if (url.hostname === "cdn.test") {
-      cdnLog.push(url.pathname);
+      // only what a page asked for: the worker's own downloads (to compare, to keep a copy) come with Sec-Fetch-Dest: empty
+      if (req.headers["sec-fetch-dest"] !== "empty") cdnLog.push(url.pathname);
       const css = url.pathname.endsWith(".css");
       res.writeHead(200, { "content-type": css ? "text/css" : "text/javascript", "cache-control": "no-store", "access-control-allow-origin": "*" });
       res.end(css ? CSS : JS);
