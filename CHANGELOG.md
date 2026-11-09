@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-09
+
 ### Fixed
 
 - Learn from browsing: downloading a file to keep no longer holds up noting a new page's security policy or reloading a page that blocked a copy (up to 15 s before).
