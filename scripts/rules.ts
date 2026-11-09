@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { chain, groupBy, identity, map, sortBy, uniq, values } from "ramda";
+import toRegexRange from "to-regex-range";
 import { EXTENSION_KEY } from "../src/manifest.ts";
 import { PRIORITY } from "../src/shared/priorities.ts";
 import type { LibraryEntry, LibraryFile } from "../src/shared/manifest-schema.ts";
@@ -41,6 +42,12 @@ const compareVersions = (a: string, b: string): number => {
 };
 const major = (v: string) => v.split(".")[0];
 const isStable = (v: string) => !/[-+]/.test(v);
+/** "3.7.1" → a regex for every 3.x.y up to and including 3.7.1: substitution may serve a newer patch or minor, never an older one. */
+const upTo = (version: string) => {
+  const [m, minor, patch] = version.split(".").map(Number);
+  const older = minor > 0 ? `|${toRegexRange(0, minor - 1)}\\.\\d+` : "";
+  return `${m}\\.(?:${minor}\\.${toRegexRange(0, patch)}${older})`;
+};
 
 /** True when the CDN serves, for this version, exactly the bytes we bundle. */
 const identical = (cdn: Record<string, string> | undefined, version: string, file: LibraryFile | undefined) =>
@@ -104,7 +111,8 @@ export function generateRules(
   if (mode === "byname") return assignIds(bynameDrafts(entries), hash);
 
   // substitute: one regex per (library, CDN pattern, major), aimed at the highest stable pinned
-  // version of that major that has the pattern's file and whose CDN bytes match ours.
+  // version of that major that has the pattern's file and whose CDN bytes match ours. It only
+  // covers versions up to that one: a page asking for a newer release may use what ours lacks.
   const id = extensionIdFromKey(EXTENSION_KEY);
   const groups = values(
     groupBy((c) => `${c.entry.name}|${c.url}|${major(c.version)}`, exactCandidates(entries).filter((c) => isStable(c.version))),
@@ -113,7 +121,7 @@ export function generateRules(
     const best = group.reduce((a, b) => (compareVersions(a.version, b.version) >= 0 ? a : b));
     const m = major(best.version);
     const [before, after = ""] = best.url.replace(/^https?:\/\//, "").split("{version}");
-    const regexFilter = `^https?://${escapeRegExp(before)}${escapeRegExp(m)}\\.\\d+\\.\\d+${escapeRegExp(after)}(?:[?#].*)?$`;
+    const regexFilter = `^https?://${escapeRegExp(before)}${upTo(best.version)}${escapeRegExp(after)}(?:[?#].*)?$`;
     return {
       key: `substitute|${best.entry.name}|${best.url}|${m}`,
       library: best.entry.name,

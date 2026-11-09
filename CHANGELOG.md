@@ -19,6 +19,10 @@ All notable changes to this project are documented here. The format follows [Kee
 - The worker's own downloads bypass every redirect, so re-checks see the real file.
 - Validation uses valibot instead of zod, and every state read back from storage (settings, observed and matched files, per-tab counts, the learned index) is checked by a schema: a damaged part falls back to its default instead of breaking the worker.
 
+### Fixed
+
+- Substitute close versions no longer serves an older release than the page asked for (jQuery 3.7.2 got 3.7.1, Font Awesome 6.99 got 6.7.2); it only steps up within the same major.
+
 ## [0.1.0] - 2026-11-08
 
 ### Fixed

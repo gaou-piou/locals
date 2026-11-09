@@ -123,13 +123,13 @@ describe("generateRules exact", () => {
 describe("generateRules substitute", () => {
   const id = extensionIdFromKey(EXTENSION_KEY);
 
-  it("builds one same-major regex per (library, CDN, major) targeting the highest pinned version", () => {
+  it("builds one regex per (library, CDN, major) targeting the highest pinned version", () => {
     const { rules } = generateRules([jq()], "substitute");
     expect(rules).toHaveLength(1);
     const r = rules[0];
     expect(r.action.redirect?.regexSubstitution).toBe(`chrome-extension://${id}/libs/jquery/3.7.1/dist/jquery.min.js`);
     expect(r.condition.regexFilter).toBe(
-      "^https?://cdnjs\\.cloudflare\\.com/ajax/libs/jquery/3\\.\\d+\\.\\d+/jquery\\.min\\.js(?:[?#].*)?$",
+      "^https?://cdnjs\\.cloudflare\\.com/ajax/libs/jquery/3\\.(?:7\\.(?:0|1)|[0-6]\\.\\d+)/jquery\\.min\\.js(?:[?#].*)?$",
     );
   });
 
@@ -141,6 +141,13 @@ describe("generateRules substitute", () => {
     expect(re.test(u("4.0.0"))).toBe(false);
     expect(re.test(u("2.2.4"))).toBe(false);
     expect(re.test(u("3.7.1") + ".map")).toBe(false);
+  });
+
+  it("never serves an older version than the page asked for", () => {
+    const re = new RegExp(generateRules([jq()], "substitute").rules[0].condition.regexFilter!);
+    const u = (v: string) => `https://cdnjs.cloudflare.com/ajax/libs/jquery/${v}/jquery.min.js`;
+    for (const v of ["3.0.0", "3.6.99", "3.7.0", "3.7.1"]) expect(re.test(u(v)), v).toBe(true);
+    for (const v of ["3.7.2", "3.7.10", "3.8.0", "3.10.0", "3.70.1", "3.99.0"]) expect(re.test(u(v)), v).toBe(false);
   });
 
   it("makes one rule per major", () => {
