@@ -216,6 +216,9 @@ export function createMatcher(deps: {
   };
 
   return {
+    /** Whether these bytes are a bundled file (the extension serves those itself). */
+    isBundled: async (body: ArrayBuffer): Promise<boolean> => (await getIndex()).bySha.has(hex(await crypto.subtle.digest("SHA-256", body))),
+
     /** Checks one request that reached the network; resolves when the check (and any rule update) is done. */
     consider: (obs: { url: string; type: string }): Promise<void> => enqueue(obs, "observed"),
 

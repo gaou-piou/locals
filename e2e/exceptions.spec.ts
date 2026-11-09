@@ -87,7 +87,8 @@ test("a disabled site is left alone, including a third-party iframe; survives wo
     await ctx.close();
     ctx = await open(userDataDir);
     const sw = ctx.serviceWorkers()[0];
-    await expect.poll(() => sw.evaluate(async () => (await chrome.declarativeNetRequest.getDynamicRules()).length)).toBe(1);
+    // the exception rule (the auto-cache gate rules live from id 500_000 up)
+    await expect.poll(() => sw.evaluate(async () => (await chrome.declarativeNetRequest.getDynamicRules()).filter((r) => r.id < 500_000).length)).toBe(1);
     await expect.poll(() => probe(ctx), { timeout: 8000 }).toEqual({ main: undefined, inner: undefined });
     expect(await send<{ disabledSites: string[] }>(ctx, { type: "get-settings" })).toMatchObject({ disabledSites: ["localhost"] });
 

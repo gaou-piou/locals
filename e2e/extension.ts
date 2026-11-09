@@ -6,10 +6,10 @@ import { mkdtemp } from "node:fs/promises";
 /** Launches bundled Chromium with an unpacked extension; CDN hosts can be made unreachable. */
 export async function launchWithExtension(
   extensionDir: string,
-  opts: { blockedHosts?: string[]; userDataDir?: string } = {},
+  opts: { blockedHosts?: string[]; userDataDir?: string; hostRules?: string[] } = {},
 ): Promise<BrowserContext> {
   const userDataDir = opts.userDataDir ?? (await mkdtemp(path.join(os.tmpdir(), "locals-")));
-  const rules = (opts.blockedHosts ?? []).map((h) => `MAP ${h} ~NOTFOUND`).join(",");
+  const rules = [...(opts.blockedHosts ?? []).map((h) => `MAP ${h} ~NOTFOUND`), ...(opts.hostRules ?? [])].join(",");
   const launch = () =>
     chromium.launchPersistentContext(userDataDir, {
       channel: "chromium",

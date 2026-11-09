@@ -1,4 +1,5 @@
 import type { Message } from "../shared/messages.ts";
+import { createCache } from "./cache.ts";
 import { applyLearned, excludeLearned, loadLearned } from "./learned.ts";
 import { createMatcher, MAX_BODY_BYTES } from "./match.ts";
 import { createObserver } from "./observe.ts";
@@ -25,25 +26,40 @@ const stats = createStats({
 
 const observer = createObserver();
 
+/** The same request the page just made, without cookies; oversized bodies are never bundled libraries nor cached. */
+const fetchFile = async (url: string): Promise<{ body: ArrayBuffer; contentType: string } | null> => {
+  const res = await fetch(url, { credentials: "omit", cache: "no-store", signal: AbortSignal.timeout(15_000) });
+  const length = Number(res.headers.get("content-length") ?? 0);
+  return res.ok && length <= MAX_BODY_BYTES ? { body: await res.arrayBuffer(), contentType: res.headers.get("content-type") ?? "" } : null;
+};
+
 const matcher = createMatcher({
   loadLibraries: async () => (await fetch(chrome.runtime.getURL("libraries.json"))).json(),
-  // the same request the page just made, without cookies; oversized bodies are never bundled libraries
-  fetchBody: async (url) => {
-    const res = await fetch(url, { credentials: "omit", cache: "no-store", signal: AbortSignal.timeout(15_000) });
-    const length = Number(res.headers.get("content-length") ?? 0);
-    return res.ok && length <= MAX_BODY_BYTES ? res.arrayBuffer() : null;
+  fetchBody: async (url) => (await fetchFile(url))?.body ?? null,
+});
+
+const cache = createCache({
+  fetchBody: fetchFile,
+  sitesOf: observer.sitesOf,
+  isBundled: matcher.isBundled,
+  enabled: async () => {
+    const s = await getSettings();
+    return s.enabled && s.autoCache;
   },
 });
+const refreshGates = () => void cache.refreshGates().catch((err) => console.warn("locals: cache gate failed", err));
 let lastPrune = 0;
 const maybePrune = () => {
   if (Date.now() - lastPrune > 3_600_000) {
     lastPrune = Date.now();
     void matcher.prune().catch(() => {});
+    void cache.prune().catch(() => {});
   }
 };
 const considerMatch = (d: { url: string; type: string }) => {
   maybePrune();
   void matcher.consider(d).catch((err) => console.warn("locals: match check failed", err));
+  void cache.consider(d).catch((err) => console.warn("locals: cache check failed", err));
 };
 
 /** Re-applies stored settings; rulesets reset to the manifest defaults when the extension updates. */
@@ -51,6 +67,7 @@ async function init(): Promise<void> {
   await restoreSettings();
   await applyLearned();
   await setupBadge();
+  refreshGates();
 }
 
 // Listeners are registered synchronously at top level: MV3 wakes the worker for them.
@@ -58,8 +75,9 @@ chrome.runtime.onInstalled.addListener(() => void init());
 chrome.runtime.onStartup.addListener(() => {
   void setupBadge();
   void applyLearned();
+  refreshGates();
 });
-chrome.runtime.onSuspend.addListener(() => void Promise.all([stats.flush(), observer.flush()]));
+chrome.runtime.onSuspend.addListener(() => void Promise.all([stats.flush(), observer.flush(), cache.flush()]));
 
 // Only fires for unpacked extensions (declarativeNetRequestFeedback); this is the source of the stats.
 // It is also what checks a byname redirect: the file was served by its name, its real bytes decide afterwards.
@@ -92,6 +110,33 @@ chrome.webRequest.onBeforeRequest.addListener(
   },
   { urls: ["<all_urls>"], types: ["main_frame"] },
 );
+// auto-cache: which documents allow data: copies (CSP), which copies a page asked for, and which ones it blocked.
+chrome.webRequest.onHeadersReceived.addListener(
+  (d) => {
+    const headers = (d.responseHeaders ?? []).filter((h) => h.name.toLowerCase() === "content-security-policy").map((h) => h.value ?? "");
+    void cache.noteDocument({ url: d.url, headers }).catch(() => {});
+  },
+  { urls: ["http://*/*", "https://*/*"], types: ["main_frame", "sub_frame"] },
+  ["responseHeaders"],
+);
+chrome.webRequest.onBeforeRequest.addListener(
+  (d) => {
+    cache.touch(d.url);
+  },
+  { urls: ["http://*/*", "https://*/*"], types: ["script", "stylesheet", "font"] },
+);
+// A copy the page's CSP blocked (a <meta> policy, a stricter subdomain) aborts: the host stops getting copies and the
+// tab reloads once, now from the network. noteAborted is true only when the host flips, so this cannot loop.
+chrome.webRequest.onErrorOccurred.addListener(
+  (d) => {
+    if (d.error !== "net::ERR_ABORTED") return;
+    void cache
+      .noteAborted({ url: d.url, type: d.type, initiator: d.initiator })
+      .then((flipped) => (flipped && d.tabId >= 0 ? chrome.tabs.reload(d.tabId) : undefined))
+      .catch(() => {});
+  },
+  { urls: ["http://*/*", "https://*/*"], types: ["script", "stylesheet"] },
+);
 chrome.tabs.onRemoved.addListener((tabId) => stats.resetTab(tabId));
 
 chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) => {
@@ -101,6 +146,7 @@ chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) =
         return getSettings();
       case "set-settings":
         await setSettings(message.patch);
+        refreshGates();
         return null;
       case "get-stats":
         return stats.getStats(message.range);
@@ -118,6 +164,11 @@ chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) =
         return loadLearned();
       case "refresh-learned":
         return applyLearned();
+      case "get-cached":
+        return cache.list();
+      case "clear-cached":
+        await cache.clear();
+        return null;
       case "clear-observed":
         await observer.clear();
         return null;

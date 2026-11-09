@@ -1,5 +1,5 @@
 import { parseManifest, type LibraryEntry } from "../shared/manifest-schema.ts";
-import { send, type Candidate, type MatchedEntry, type RejectedEntry, type LearnedEntry, type Settings, type StatsRange, type StatsResult, type TabCount } from "../shared/messages.ts";
+import { send, type CachedFile, type Candidate, type MatchedEntry, type RejectedEntry, type LearnedEntry, type Settings, type StatsRange, type StatsResult, type TabCount } from "../shared/messages.ts";
 import { parseConfig, serializeConfig, toggleSitePatch } from "./config.ts";
 
 export type PopupState = { settings: Settings; tab: { host: string; count: TabCount } };
@@ -43,6 +43,12 @@ export const getMatched = (): Promise<MatchedEntry[]> => send({ type: "get-match
 export const getRejected = (): Promise<RejectedEntry[]> => send({ type: "get-rejected" });
 
 export const refreshLearned = (): Promise<number> => send({ type: "refresh-learned" });
+
+export const getCached = (): Promise<CachedFile[]> => send({ type: "get-cached" });
+
+export async function clearCached(): Promise<void> {
+  await send({ type: "clear-cached" });
+}
 
 export async function clearObserved(): Promise<void> {
   await send({ type: "clear-observed" });

@@ -1,11 +1,27 @@
 <script lang="ts">
+  import { resource } from "runed";
+  import { sum } from "ramda";
+  import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
   import { Switch } from "$lib/components/ui/switch";
-  import { setGlobal } from "$lib/api";
+  import { clearCached, getCached, setGlobal } from "$lib/api";
   import type { SettingsStore } from "$lib/settings-store.svelte";
 
   let { store }: { store: SettingsStore } = $props();
   const s = $derived(store.current);
+
+  let version = $state(0);
+  const cached = resource(
+    () => version,
+    () => getCached(),
+  );
+  const files = $derived(cached.current ?? []);
+  const megabytes = new Intl.NumberFormat(undefined, { style: "unit", unit: "megabyte", maximumFractionDigits: 1 });
+
+  async function forget() {
+    await clearCached();
+    version++;
+  }
 </script>
 
 {#if s}
@@ -57,6 +73,12 @@
           />
         </Card.Action>
       </Card.Header>
+      <Card.Content class="flex items-center justify-between gap-4 text-sm text-muted-foreground">
+        <span data-testid="cached-count">
+          {files.length === 1 ? "1 file kept" : `${files.length} files kept`} · {megabytes.format(sum(files.map((f) => f.bytes)) / 1_000_000)}
+        </span>
+        <Button variant="outline" size="sm" disabled={!files.length} onclick={forget}>Forget</Button>
+      </Card.Content>
     </Card.Root>
 
     <Card.Root>

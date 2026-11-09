@@ -162,6 +162,12 @@ describe("matcher", () => {
     expect(new Set(rules.map((r) => r.id)).size).toBe(2);
   });
 
+  it("isBundled tells whether some bytes are a bundled file", async () => {
+    const m = make();
+    expect(await m.isBundled(new TextEncoder().encode(JQ364).buffer)).toBe(true);
+    expect(await m.isBundled(new TextEncoder().encode("patched").buffer)).toBe(false);
+  });
+
   it("leaves the auto-cache rules (from CACHE_ID_BASE up) alone", async () => {
     expect(CACHE_ID_BASE).toBeGreaterThan(REJECT_ID_BASE);
     const cached = { id: CACHE_ID_BASE + 7, priority: 1, action: { type: "allow" as chrome.declarativeNetRequest.RuleActionType }, condition: {} };

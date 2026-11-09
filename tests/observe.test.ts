@@ -84,6 +84,15 @@ describe("observer", () => {
     expect(out[0].sites).toBe(2);
   });
 
+  it("sitesOf counts the distinct sites that loaded a url (query ignored), 0 when never seen", async () => {
+    const o = make();
+    o.record({ url: URL1, initiator: "https://a.com", type: "script" });
+    o.record({ url: URL1, initiator: "https://www.a.com", type: "script" });
+    o.record({ url: URL1, initiator: "https://b.org", type: "script" });
+    expect(await o.sitesOf(URL1 + "?v=2")).toBe(2);
+    expect(await o.sitesOf("https://never.example/x.js")).toBe(0);
+  });
+
   it("does not store which sites were visited", async () => {
     const o = make();
     o.record({ url: URL1, initiator: "https://secret-site.example", type: "script" });

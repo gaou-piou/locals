@@ -145,6 +145,13 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
     return sortWith([descend(prop("lastSeen")), ascend(prop("url"))], await candidates((n) => n < min));
   }
 
+  /** How many different sites loaded `url` (query ignored); 0 when it was never seen from another site. */
+  async function sitesOf(raw: string): Promise<number> {
+    await chain;
+    const url = normalizeUrl(raw);
+    return url ? ((await load()).entries[url]?.sites.length ?? 0) : 0;
+  }
+
   async function clear(): Promise<void> {
     await chain;
     state = { salt: crypto.randomUUID(), entries: {} };
@@ -152,5 +159,5 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
     await save();
   }
 
-  return { record, flush, getCandidates, getPending, clear };
+  return { record, flush, getCandidates, getPending, sitesOf, clear };
 }
