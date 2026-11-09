@@ -22,7 +22,7 @@ const ext = conditions.filter((c) => c !== "none");
 const fmt = (n: number | undefined, unit = " ms") => (n === undefined || Number.isNaN(n) ? "–" : `${n > 0 ? "+" : ""}${Math.round(n)}${unit}`);
 const pct = (a: number, b: number) => (b ? `${Math.round((100 * a) / b)}%` : "–");
 
-const lines = [`# Live loads (throttle: ${values.throttle})`, ""];
+const lines = [`# Live loads (throttle: ${loads[0]?.throttle ?? values.throttle})`, ""];
 for (const cache of ["cold", "warm"] as const) {
   const set = loads.filter((l) => l.cache === cache);
   const per = groupBy((l: Load) => `${l.site}\u0000${l.condition}`, set);

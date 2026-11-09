@@ -207,7 +207,8 @@ for (const [i, site] of sites.entries()) {
         );
       } finally {
         await ctx.close().catch(() => {});
-        await rm(dir, { recursive: true, force: true });
+        // a crashed browser may still be writing its profile
+        await rm(dir, { recursive: true, force: true, maxRetries: 5, retryDelay: 500 }).catch(() => {});
       }
     }
   }
