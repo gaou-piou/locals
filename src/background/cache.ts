@@ -166,6 +166,8 @@ export function createCache(deps: {
   let state: State | undefined;
   let chain: Promise<unknown> = Promise.resolve();
   let dirty = false;
+  /** Bumped by `clear`: downloads that started before it are dropped. */
+  let epoch = 0;
   const serial = <T>(task: () => Promise<T>): Promise<T> => {
     const run = chain.then(task);
     chain = run.catch(() => {});
@@ -191,16 +193,25 @@ export function createCache(deps: {
     if (ids.length) await chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds: ids });
   };
 
+  /**
+   * Whether a request qualifies is decided in the queue, the download happens outside it (up to 15 s: pages must still
+   * be noted meanwhile), and the copy is stored in the queue again. Marking the URL as tried keeps a second sighting
+   * from downloading it twice; `epoch` drops a download that `clear` overtook.
+   */
   async function check(obs: { url: string; type: string }): Promise<void> {
     const url = normalizeUrl(obs.url);
     const type = obs.type;
     if (!url || /[*|^\s]/.test(url) || !v.is(AssetTypeSchema, type) || !isImmutableUrl(url)) return;
-    const s = await load();
-    const t = now();
-    if (s.entries[url] || (s.tried[url] !== undefined && t - s.tried[url] < retry)) return;
-    if (!(await deps.enabled()) || (await deps.sitesOf(url)) < minSites) return;
-    s.tried[url] = t;
-    s.tried = Object.fromEntries(take(MAX_TRIED, sortBy(([, at]) => -at, Object.entries(s.tried))));
+    const started = await serial(async () => {
+      const s = await load();
+      const t = now();
+      if (s.entries[url] || (s.tried[url] !== undefined && t - s.tried[url] < retry)) return undefined;
+      if (!(await deps.enabled()) || (await deps.sitesOf(url)) < minSites) return undefined;
+      s.tried[url] = t;
+      s.tried = Object.fromEntries(take(MAX_TRIED, sortBy(([, at]) => -at, Object.entries(s.tried))));
+      return { t, epoch };
+    });
+    if (!started) return;
     const res = await deps.fetchBody(url).catch(() => null);
     const ok =
       res &&
@@ -208,7 +219,16 @@ export function createCache(deps: {
       res.body.byteLength <= maxFile &&
       servable(type, new TextDecoder().decode(res.body)) &&
       !(await deps.isBundled(res.body));
-    if (!res || !ok) return save(s);
+    await serial(async () => {
+      if (ok && res) return store(url, type, res, started);
+      if (started.epoch === epoch) await save(await load()); // remember the failed try, so it waits `retryMs`
+    });
+  }
+
+  async function store(url: string, type: CacheType, res: { body: ArrayBuffer; contentType: string }, started: { t: number; epoch: number }): Promise<void> {
+    const s = await load();
+    if (started.epoch !== epoch || s.entries[url] || !(await deps.enabled())) return;
+    const t = started.t;
     delete s.tried[url];
     const bytes = res.body.byteLength;
     const total = () => sum(values(s.entries).map((e) => e.bytes));
@@ -246,7 +266,7 @@ export function createCache(deps: {
   };
 
   return {
-    consider: (obs: { url: string; type: string }): Promise<void> => serial(() => check(obs)),
+    consider: check,
 
     /** A document (frame) arrived with these CSP headers; unsafe verdicts stick while the host keeps being visited. */
     noteDocument: (doc: { url: string; headers: string[] }): Promise<void> =>
@@ -318,6 +338,7 @@ export function createCache(deps: {
         const s = await load();
         await remove(s, keys(s.entries));
         s.tried = {};
+        epoch++;
         await save(s);
       }),
   };

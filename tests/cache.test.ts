@@ -193,6 +193,32 @@ describe("createCache", () => {
     expect(entryRules().map((r) => r.id).sort()).toEqual([ENTRY_ID_BASE, ENTRY_ID_BASE + 1]);
   });
 
+  it("downloads outside its queue: pages are noted while a file is on its way, and Forget wins over a late download", async () => {
+    let release!: () => void;
+    const gate = new Promise<void>((r) => (release = r));
+    const c = make({
+      fetchBody: async (url) => {
+        fetched.push(url);
+        await gate;
+        return { body: new TextEncoder().encode(bodies[url]).buffer, contentType: "text/plain" };
+      },
+    });
+    const pending = c.consider({ url: JS, type: "script" });
+    const second = c.consider({ url: JS, type: "script" });
+    const noted = await Promise.race([c.noteDocument({ url: "https://news.example/", headers: [] }).then(() => true), gate.then(() => false)]);
+    expect(noted).toBe(true);
+    expect(gates()[0].condition).toEqual({ resourceTypes: ["script"], excludedInitiatorDomains: ["news.example"] });
+    await c.clear();
+    release();
+    await Promise.all([pending, second]);
+    expect(fetched).toEqual([JS]);
+    expect(await c.list()).toEqual([]);
+    expect(entryRules()).toEqual([]);
+    // the next sighting fetches it again (Forget also forgets what was tried)
+    await c.consider({ url: JS, type: "script" });
+    expect(await c.list()).toHaveLength(1);
+  });
+
   it("keeps its copies across worker restarts", async () => {
     await make().consider({ url: JS, type: "script" });
     const again = make();
