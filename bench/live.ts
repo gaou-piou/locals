@@ -113,10 +113,11 @@ async function load(ctx: BrowserContext, url: string): Promise<Omit<Load, "site"
   const hosts = new Set<string>();
   const http = new Set<string>(); // requestIds that went to the network (an extension redirect reuses the id)
   cdp.on("Network.requestWillBeSent", (e: any) => {
-    const u = new URL(e.request.url);
+    const u = URL.parse(e.request.url);
+    if (!u) return; // pages do request malformed URLs ("fonts.googleapis.co%20m")
     if (u.protocol.startsWith("http")) http.add(e.requestId);
     else http.delete(e.requestId);
-    if (e.redirectResponse && CDN.has(new URL(e.redirectResponse.url).host)) {
+    if (e.redirectResponse && CDN.has(URL.parse(e.redirectResponse.url)?.host ?? "")) {
       cdnNet.delete(e.requestId);
       if (u.protocol === "chrome-extension:") cdnLocal++;
     }
