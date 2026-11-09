@@ -60,24 +60,31 @@ type Tuple = { entry: LibraryEntry; version: string; files: LibraryEntry["versio
 const tuples = (entries: LibraryEntry[]): Tuple[] =>
   chain((entry) => map((v) => ({ entry, version: v.version, files: v.files }), entry.versions), entries);
 
-const FONT_URL_RE = /url\(\s*(["']?)([^"')]+)\1\s*\)/g;
+const URL_RE = /url\(\s*(["']?)([^"')]+)\1\s*\)/g;
 
-/** The package-relative sources of every @font-face in `css` (at `cssPath`) of which none is in `bundled`.
- *  Served from chrome-extension://, such a face loads nothing and its icons break. Absolute and data: URLs are ignored. */
-export function unservedFontFaces(css: string, cssPath: string, bundled: Set<string>): string[][] {
-  const out: string[][] = [];
-  postcss.parse(css).walkAtRules(/^font-face$/i, (face) => {
-    const srcs: string[] = [];
-    face.walkDecls(/^src$/i, (d) => {
-      for (const [, , url] of d.value.matchAll(FONT_URL_RE)) {
-        if (/^(?:[a-z][\w+.-]*:|\/)/i.test(url)) continue;
-        srcs.push(posix.join(posix.dirname(cssPath), url.replace(/[?#].*$/, "")));
-      }
-    });
-    const local = uniq(srcs);
-    if (local.length && !local.some((p) => bundled.has(p))) out.push(local);
+/** Package-relative paths of the url()s in a CSS value; absolute, protocol-relative and data: URLs are not the package's. */
+const relativeUrls = (value: string, cssPath: string) =>
+  [...value.matchAll(URL_RE)]
+    .map(([, , url]) => url)
+    .filter((url) => !/^(?:[a-z][\w+.-]*:|\/|#)/i.test(url))
+    .map((url) => posix.join(posix.dirname(cssPath), url.replace(/[?#].*$/, "")));
+
+/**
+ * What a stylesheet at `cssPath` loads relative to itself: each @font-face as a group of alternatives (one is enough),
+ * and every other url() (images) on its own. Served from chrome-extension://, the stylesheet finds only bundled files.
+ */
+export function cssNeeds(css: string, cssPath: string): { fonts: string[][]; files: string[] } {
+  const root = postcss.parse(css);
+  const faces: postcss.AtRule[] = [];
+  root.walkAtRules(/^font-face$/i, (r) => void faces.push(r));
+  const fonts = faces
+    .map((r) => uniq(r.nodes?.flatMap((d) => (d.type === "decl" && /^src$/i.test(d.prop) ? relativeUrls(d.value, cssPath) : [])) ?? []))
+    .filter((urls) => urls.length > 0);
+  const files: string[] = [];
+  root.walkDecls((d) => {
+    if (!(d.parent?.type === "atrule" && faces.includes(d.parent as postcss.AtRule))) files.push(...relativeUrls(d.value, cssPath));
   });
-  return out;
+  return { fonts, files: uniq(files) };
 }
 
 export async function buildLibs(
@@ -89,7 +96,8 @@ export async function buildLibs(
   for (const { entry, version, files } of tuples(entries)) {
     const id = `${entry.name}@${version}`;
     const wanted = new Set(files.map((f) => f.path));
-    const got = await extract(await opts.fetchTarball(entry.npm, version), (p) => wanted.has(p) || LICENSE_RE.test(p));
+    // The whole package: a stylesheet's needs are checked against what the package ships.
+    const got = await extract(await opts.fetchTarball(entry.npm, version), () => true);
     const base = join(opts.outDir, entry.name, version);
     for (const f of files) {
       const data = got.get(f.path);
@@ -97,9 +105,16 @@ export async function buildLibs(
       if (sha256(data) !== f.sha256) throw new Error(`sha256 mismatch: ${id}`);
       writes.push({ path: join(base, f.path), data });
     }
-    for (const f of files.filter((f) => f.type === "stylesheet"))
-      for (const srcs of unservedFontFaces(got.get(f.path)!.toString(), f.path, wanted))
-        throw new Error(`font missing: ${id} ${f.path} needs one of ${srcs.join(", ")}`);
+    // Only what the package ships counts: a file it lacks fails on the CDN as well.
+    for (const f of files.filter((f) => f.type === "stylesheet")) {
+      const needs = cssNeeds(got.get(f.path)!.toString(), f.path);
+      for (const face of needs.fonts) {
+        const shipped = face.filter((p) => got.has(p));
+        if (shipped.length && !shipped.some((p) => wanted.has(p))) throw new Error(`font missing: ${id} ${f.path} needs one of ${shipped.join(", ")}`);
+      }
+      const missing = needs.files.find((p) => got.has(p) && !wanted.has(p));
+      if (missing) throw new Error(`file missing: ${id} ${f.path} needs ${missing}`);
+    }
     const licenseName = [...got.keys()].find((k) => LICENSE_RE.test(k));
     if (!licenseName) throw new Error(`license missing: ${id}`);
     writes.push({ path: join(base, "LICENSE"), data: got.get(licenseName)! });

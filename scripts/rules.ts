@@ -17,6 +17,7 @@ const RESOURCE_TYPE: Record<LibraryFile["type"], chrome.declarativeNetRequest.Re
   script: "script" as chrome.declarativeNetRequest.ResourceType,
   stylesheet: "stylesheet" as chrome.declarativeNetRequest.ResourceType,
   font: "font" as chrome.declarativeNetRequest.ResourceType,
+  image: "image" as chrome.declarativeNetRequest.ResourceType,
 };
 
 export function extensionIdFromKey(key: string): string {
@@ -62,7 +63,7 @@ function exactCandidates(entries: LibraryEntry[]): Candidate[] {
         (v) =>
           chain((p) => {
             const file = v.files.find((f) => f.path === p.file);
-            return file && identical(p.cdnSha256, v.version, file) ? [{ entry, version: v.version, url: p.url, file }] : [];
+            return file && file.type !== "image" && identical(p.cdnSha256, v.version, file) ? [{ entry, version: v.version, url: p.url, file }] : [];
           }, entry.patterns),
         entry.versions,
       ),
@@ -193,7 +194,7 @@ function bynameDrafts(entries: LibraryEntry[]) {
   }
   for (const entry of entries)
     for (const v of entry.versions)
-      for (const f of v.files) {
+      for (const f of v.files.filter((f) => f.type !== "image")) {
         const base = f.path.split("/").pop() ?? "";
         if (!GENERIC_STEMS.has(stemOf(base)) && /^[\w.-]+$/.test(base)) add(`/${base}?ver=${v.version}^`, entry, v.version, f);
       }

@@ -6,12 +6,12 @@
 export type FileSpec = {
   /** Path inside the npm tarball. */
   path: string;
-  type: "script" | "stylesheet" | "font";
+  type: "script" | "stylesheet" | "font" | "image";
   /** Path below `<cdnjs name>/{version}/` on cdnjs and its mirrors. Omit when cdnjs ships another build. */
   cdnjs?: string;
   /** Extra full URL templates (`https://host/...{version}...`) serving the same file. */
   hosts?: string[];
-  /** Kept for every bundled version even if no CDN URL points at it (e.g. fonts referenced by a CSS file). */
+  /** Kept for every bundled version even if no CDN URL points at it (fonts and images a bundled CSS file uses). */
   companion?: boolean;
 };
 
@@ -40,6 +40,8 @@ export const CDNJS_MIRRORS = [
 const s = (path: string, o: Partial<FileSpec> = {}): FileSpec => ({ path, type: "script", ...o });
 const c = (path: string, o: Partial<FileSpec> = {}): FileSpec => ({ path, type: "stylesheet", ...o });
 const f = (path: string, o: Partial<FileSpec> = {}): FileSpec => ({ path, type: "font", companion: true, ...o });
+/** An image a bundled stylesheet loads; it is only made web-accessible, never redirected to. */
+const img = (...paths: string[]): FileSpec[] => paths.map((path) => ({ path, type: "image", companion: true }));
 
 const BS_CDN = ["stackpath.bootstrapcdn.com", "maxcdn.bootstrapcdn.com", "netdna.bootstrapcdn.com"];
 const bootstrapcdn = (rest: string) => BS_CDN.map((h) => `https://${h}/${rest}`);
@@ -136,10 +138,10 @@ export const SPEC: LibSpec[] = [
   { name: "aos", npm: "aos", files: [s("dist/aos.js", { cdnjs: "aos.js" }), c("dist/aos.css", { cdnjs: "aos.css" })] },
   { name: "backbone", npm: "backbone", cdnjs: "backbone.js", files: [s("backbone-min.js", { cdnjs: "backbone-min.js" })] },
   { name: "bulma", npm: "bulma", max: 25, files: [c("css/bulma.min.css", { cdnjs: "css/bulma.min.css" })] },
-  { name: "chosen", npm: "chosen-js", cdnjs: "chosen", files: [s("chosen.jquery.min.js", { cdnjs: "chosen.jquery.min.js" }), c("chosen.min.css", { cdnjs: "chosen.min.css" })] },
+  { name: "chosen", npm: "chosen-js", cdnjs: "chosen", files: [s("chosen.jquery.min.js", { cdnjs: "chosen.jquery.min.js" }), c("chosen.min.css", { cdnjs: "chosen.min.css" }), ...img("chosen-sprite.png", "chosen-sprite@2x.png")] },
   { name: "clipboard", npm: "clipboard", cdnjs: "clipboard.js", max: 15, files: [s("dist/clipboard.min.js", { cdnjs: "clipboard.min.js" })] },
   { name: "datatables", npm: "datatables.net", max: 25, files: [s("js/jquery.dataTables.min.js", { hosts: ["https://cdn.datatables.net/{version}/js/jquery.dataTables.min.js"] })] },
-  { name: "datatables-dt", npm: "datatables.net-dt", max: 25, files: [c("css/jquery.dataTables.min.css", { hosts: ["https://cdn.datatables.net/{version}/css/jquery.dataTables.min.css"] })] },
+  { name: "datatables-dt", npm: "datatables.net-dt", max: 25, files: [c("css/jquery.dataTables.min.css", { hosts: ["https://cdn.datatables.net/{version}/css/jquery.dataTables.min.css"] }), ...img(...["asc", "asc_disabled", "both", "desc", "desc_disabled"].map((k) => `images/sort_${k}.png`))] },
   { name: "dayjs", npm: "dayjs", max: 25, files: [s("dayjs.min.js", { cdnjs: "dayjs.min.js" })] },
   { name: "fancybox", npm: "@fancyapps/fancybox", cdnjs: "fancybox", files: [s("dist/jquery.fancybox.min.js", { cdnjs: "jquery.fancybox.min.js" }), c("dist/jquery.fancybox.min.css", { cdnjs: "jquery.fancybox.min.css" })] },
   { name: "feather-icons", npm: "feather-icons", max: 12, files: [s("dist/feather.min.js", { cdnjs: "feather.min.js" })] },
@@ -154,18 +156,18 @@ export const SPEC: LibSpec[] = [
   { name: "jquery-validation", npm: "jquery-validation", cdnjs: "jquery-validate", max: 15, files: [s("dist/jquery.validate.min.js", { cdnjs: "jquery.validate.min.js", hosts: ["https://ajax.aspnetcdn.com/ajax/jquery.validate/{version}/jquery.validate.min.js"] }), s("dist/additional-methods.min.js", { cdnjs: "additional-methods.min.js" })] },
   { name: "js-cookie", npm: "js-cookie", max: 12, files: [s("dist/js.cookie.min.js", { cdnjs: "js.cookie.min.js" })] },
   { name: "jszip", npm: "jszip", max: 10, files: [s("dist/jszip.min.js", { cdnjs: "jszip.min.js" })] },
-  { name: "leaflet", npm: "leaflet", max: 12, files: [s("dist/leaflet.js", { cdnjs: "leaflet.js" }), c("dist/leaflet.css", { cdnjs: "leaflet.css" })] },
-  { name: "lightbox2", npm: "lightbox2", files: [s("dist/js/lightbox.min.js", { cdnjs: "js/lightbox.min.js" }), c("dist/css/lightbox.min.css", { cdnjs: "css/lightbox.min.css" })] },
+  { name: "leaflet", npm: "leaflet", max: 12, files: [s("dist/leaflet.js", { cdnjs: "leaflet.js" }), c("dist/leaflet.css", { cdnjs: "leaflet.css" }), ...img("dist/images/layers.png", "dist/images/layers-2x.png", "dist/images/marker-icon.png")] },
+  { name: "lightbox2", npm: "lightbox2", files: [s("dist/js/lightbox.min.js", { cdnjs: "js/lightbox.min.js" }), c("dist/css/lightbox.min.css", { cdnjs: "css/lightbox.min.css" }), ...img("dist/images/close.png", "dist/images/next.png", "dist/images/prev.png", "dist/images/loading.gif")] },
   { name: "lottie-web", npm: "lottie-web", max: 8, files: [s("build/player/lottie.min.js", { cdnjs: "lottie.min.js" })] },
   { name: "magnific-popup", npm: "magnific-popup", cdnjs: "magnific-popup.js", files: [s("dist/jquery.magnific-popup.min.js", { cdnjs: "jquery.magnific-popup.min.js" }), c("dist/magnific-popup.css", { cdnjs: "magnific-popup.min.css" })] },
   { name: "masonry", npm: "masonry-layout", max: 8, files: [s("dist/masonry.pkgd.min.js", { cdnjs: "masonry.pkgd.min.js" })] },
   { name: "materialize", npm: "materialize-css", max: 8, files: [s("dist/js/materialize.min.js", { cdnjs: "js/materialize.min.js" }), c("dist/css/materialize.min.css", { cdnjs: "css/materialize.min.css" }), f("dist/fonts/roboto/Roboto-Thin.woff2", { cdnjs: "fonts/roboto/Roboto-Thin.woff2" }), f("dist/fonts/roboto/Roboto-Light.woff2", { cdnjs: "fonts/roboto/Roboto-Light.woff2" }), f("dist/fonts/roboto/Roboto-Regular.woff2", { cdnjs: "fonts/roboto/Roboto-Regular.woff2" }), f("dist/fonts/roboto/Roboto-Medium.woff2", { cdnjs: "fonts/roboto/Roboto-Medium.woff2" }), f("dist/fonts/roboto/Roboto-Bold.woff2", { cdnjs: "fonts/roboto/Roboto-Bold.woff2" })] },
   { name: "nprogress", npm: "nprogress", files: [s("nprogress.js", { cdnjs: "nprogress.min.js" }), c("nprogress.css", { cdnjs: "nprogress.min.css" })] },
   { name: "numeral", npm: "numeral", files: [s("min/numeral.min.js", { cdnjs: "numeral.min.js" })] },
-  { name: "owl-carousel", npm: "owl.carousel", cdnjs: "OwlCarousel2", files: [s("dist/owl.carousel.min.js", { cdnjs: "owl.carousel.min.js" }), c("dist/assets/owl.carousel.min.css", { cdnjs: "assets/owl.carousel.min.css" }), c("dist/assets/owl.theme.default.min.css", { cdnjs: "assets/owl.theme.default.min.css" })] },
+  { name: "owl-carousel", npm: "owl.carousel", cdnjs: "OwlCarousel2", files: [s("dist/owl.carousel.min.js", { cdnjs: "owl.carousel.min.js" }), c("dist/assets/owl.carousel.min.css", { cdnjs: "assets/owl.carousel.min.css" }), c("dist/assets/owl.theme.default.min.css", { cdnjs: "assets/owl.theme.default.min.css" }), ...img("dist/assets/owl.video.play.png")] },
   { name: "popperjs-v1", npm: "popper.js", cdnjs: "popper.js", max: 15, files: [s("dist/umd/popper.min.js", { cdnjs: "umd/popper.min.js" })] },
   { name: "select2", npm: "select2", max: 25, files: [s("dist/js/select2.min.js", { cdnjs: "js/select2.min.js" }), c("dist/css/select2.min.css", { cdnjs: "css/select2.min.css" })] },
-  { name: "slick-carousel", npm: "slick-carousel", cdnjs: "slick-carousel", files: [s("slick/slick.min.js", { cdnjs: "slick.min.js" }), c("slick/slick.css", { cdnjs: "slick.min.css" }), c("slick/slick-theme.css", { cdnjs: "slick-theme.min.css" }), f("slick/fonts/slick.woff2", { cdnjs: "fonts/slick.woff2" }), f("slick/fonts/slick.woff", { cdnjs: "fonts/slick.woff" })] },
+  { name: "slick-carousel", npm: "slick-carousel", cdnjs: "slick-carousel", files: [s("slick/slick.min.js", { cdnjs: "slick.min.js" }), c("slick/slick.css", { cdnjs: "slick.min.css" }), c("slick/slick-theme.css", { cdnjs: "slick-theme.min.css" }), f("slick/fonts/slick.woff2", { cdnjs: "fonts/slick.woff2" }), f("slick/fonts/slick.woff", { cdnjs: "fonts/slick.woff" }), ...img("slick/ajax-loader.gif")] },
   { name: "socket-io", npm: "socket.io-client", cdnjs: "socket.io", max: 25, files: [s("dist/socket.io.min.js", { cdnjs: "socket.io.min.js" })] },
   { name: "sortablejs", npm: "sortablejs", cdnjs: "Sortable", max: 20, files: [s("Sortable.min.js", { cdnjs: "Sortable.min.js" })] },
   { name: "swiper", npm: "swiper", cdnjs: "Swiper", max: 14, since: "6.0.0", files: [s("swiper-bundle.min.js", { cdnjs: "swiper-bundle.min.js" }), c("swiper-bundle.min.css", { cdnjs: "swiper-bundle.min.css" })] },
@@ -182,5 +184,5 @@ export const SPEC: LibSpec[] = [
   { name: "tether", npm: "tether", max: 8, files: [s("dist/js/tether.min.js", { cdnjs: "js/tether.min.js" })] },
   { name: "bootstrap-datepicker", npm: "bootstrap-datepicker", max: 10, files: [s("dist/js/bootstrap-datepicker.min.js", { cdnjs: "js/bootstrap-datepicker.min.js" }), c("dist/css/bootstrap-datepicker.min.css", { cdnjs: "css/bootstrap-datepicker.min.css" })] },
   { name: "foundation", npm: "foundation-sites", cdnjs: "foundation", max: 12, files: [s("dist/js/foundation.min.js", { cdnjs: "js/foundation.min.js" }), c("dist/css/foundation.min.css", { cdnjs: "css/foundation.min.css" })] },
-  { name: "semantic-ui", npm: "semantic-ui", max: 4, files: [s("dist/semantic.min.js", { cdnjs: "semantic.min.js" }), c("dist/semantic.min.css", { cdnjs: "semantic.min.css" }), f("dist/themes/default/assets/fonts/icons.woff2", { cdnjs: "themes/default/assets/fonts/icons.woff2" }), f("dist/themes/default/assets/fonts/outline-icons.woff2", { cdnjs: "themes/default/assets/fonts/outline-icons.woff2" }), f("dist/themes/default/assets/fonts/brand-icons.woff2", { cdnjs: "themes/default/assets/fonts/brand-icons.woff2" })] },
+  { name: "semantic-ui", npm: "semantic-ui", max: 4, files: [s("dist/semantic.min.js", { cdnjs: "semantic.min.js" }), c("dist/semantic.min.css", { cdnjs: "semantic.min.css" }), f("dist/themes/default/assets/fonts/icons.woff2", { cdnjs: "themes/default/assets/fonts/icons.woff2" }), f("dist/themes/default/assets/fonts/outline-icons.woff2", { cdnjs: "themes/default/assets/fonts/outline-icons.woff2" }), f("dist/themes/default/assets/fonts/brand-icons.woff2", { cdnjs: "themes/default/assets/fonts/brand-icons.woff2" }), ...img("dist/themes/default/assets/images/flags.png")] },
 ];

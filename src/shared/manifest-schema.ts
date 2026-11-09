@@ -6,7 +6,8 @@ export const AssetTypeSchema = v.picklist(["script", "stylesheet", "font"]);
 
 export const LibraryFileSchema = v.object({
   path: safePath,
-  type: AssetTypeSchema,
+  /** "image": only ever loaded by a bundled stylesheet; web-accessible, never the target of a rule. */
+  type: v.picklist([...AssetTypeSchema.options, "image"]),
   sha256: Sha256Schema,
 });
 

@@ -92,31 +92,47 @@ describe("buildLibs", () => {
     );
   });
 
-  // A bundled stylesheet is served from chrome-extension://, so its relative font URLs resolve inside the extension.
-  // An @font-face none of whose sources is bundled loads nothing: the icons on the page break.
-  describe("stylesheet fonts", () => {
+  // A bundled stylesheet is served from chrome-extension://, so its relative URLs resolve inside the extension.
+  describe("files a stylesheet uses", () => {
     const FACE = (srcs: string) => `@font-face{font-family:"X";src:${srcs}}.i{font-family:"X"}`;
-    const css = (body: string, extra: Record<string, string> = {}) => {
-      const files = [{ path: "css/all.min.css", type: "stylesheet" as const, sha256: sha(body) }, ...Object.keys(extra).map((path) => ({ path, type: "font" as const, sha256: sha(extra[path]) }))];
+    /** `bundled` are listed and in the package; `unlisted` are only in the package. */
+    const css = (body: string, bundled: Record<string, string> = {}, unlisted: Record<string, string> = {}) => {
+      const type = (p: string) => (/\.(png|gif)$/.test(p) ? ("image" as const) : ("font" as const));
+      const files = [{ path: "css/all.min.css", type: "stylesheet" as const, sha256: sha(body) }, ...Object.keys(bundled).map((path) => ({ path, type: type(path), sha256: sha(bundled[path]) }))];
       const entry = entryFor({ name: "fa", npm: "fa", versions: [{ version: "6.0.0", files }] });
-      const t = () => makeTarball({ "css/all.min.css": body, LICENSE: "x", ...extra });
+      const t = () => makeTarball({ "css/all.min.css": body, LICENSE: "x", ...bundled, ...unlisted });
       return buildLibs([entry], { outDir: tmp(), fetchTarball: t });
     };
 
-    it("throws when no source of an @font-face is bundled", async () => {
-      await expect(css(FACE(`url(../webfonts/v4.woff2) format("woff2"),url(../webfonts/v4.ttf) format("truetype")`))).rejects.toThrow(
-        "font missing: fa@6.0.0 css/all.min.css needs one of webfonts/v4.woff2, webfonts/v4.ttf",
+    it("throws when the package has a source of an @font-face but none is bundled", async () => {
+      await expect(css(FACE(`url(../webfonts/v4.woff2) format("woff2"),url(../webfonts/v4.ttf) format("truetype")`), {}, { "webfonts/v4.woff2": "w2" })).rejects.toThrow(
+        "font missing: fa@6.0.0 css/all.min.css needs one of webfonts/v4.woff2",
       );
     });
 
     it("accepts an @font-face when one of its sources is bundled", async () => {
-      await expect(css(FACE(`url(../webfonts/s.woff2) format("woff2"),url(../webfonts/s.ttf)`), { "webfonts/s.woff2": "w2" })).resolves.toBeUndefined();
+      await expect(css(FACE(`url(../webfonts/s.woff2) format("woff2"),url(../webfonts/s.ttf)`), { "webfonts/s.woff2": "w2" }, { "webfonts/s.ttf": "t" })).resolves.toBeUndefined();
+    });
+
+    it("treats every src of one @font-face as one choice (Bootstrap 3: an eot-only src, then the full list)", async () => {
+      const face = `@font-face{font-family:"G";src:url(../fonts/g.eot);src:url(../fonts/g.eot?#iefix) format("embedded-opentype"),url(../fonts/g.woff) format("woff")}`;
+      await expect(css(face, { "fonts/g.woff": "w" }, { "fonts/g.eot": "e" })).resolves.toBeUndefined();
+    });
+
+    it("throws when an image the stylesheet uses is in the package but not bundled", async () => {
+      const body = `.x{background:url(../images/sort_asc.png) no-repeat}`;
+      await expect(css(body, {}, { "images/sort_asc.png": "png" })).rejects.toThrow("file missing: fa@6.0.0 css/all.min.css needs images/sort_asc.png");
+      await expect(css(body, { "images/sort_asc.png": "png" })).resolves.toBeUndefined();
+    });
+
+    it("ignores what the package itself lacks (the CDN copy cannot load it either)", async () => {
+      await expect(css(FACE(`url(../webfonts/gone.woff2)`) + `.x{background:url({$img-path}play.png)}`)).resolves.toBeUndefined();
     });
 
     it("ignores absolute, protocol-relative and data: sources, query strings and fragments", async () => {
       const body =
         FACE(`url("https://fonts.example/a.woff2")`) + FACE(`url(//cdn.example/b.woff2)`) + FACE(`url(data:font/woff2;base64,AAAA)`) + FACE(`url('../webfonts/q.woff2?v=4.7.0#iefix')`);
-      await expect(css(body, { "webfonts/q.woff2": "q" })).resolves.toBeUndefined();
+      await expect(css(body, { "webfonts/q.woff2": "q" }, { "webfonts/a.woff2": "a" })).resolves.toBeUndefined();
     });
   });
 });

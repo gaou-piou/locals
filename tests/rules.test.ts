@@ -174,6 +174,17 @@ describe("generateRules substitute", () => {
     expect(generateRules([e], "substitute").rules).toEqual([]);
   });
 
+  it("gives images no rule of any kind, only web access", () => {
+    const e: LibraryEntry = {
+      ...jq(),
+      name: "leaflet",
+      versions: [{ version: "1.9.4", files: [{ path: "dist/images/marker-icon.png", type: "image", sha256: H2 }] }],
+      patterns: [{ url: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/{version}/images/marker-icon.png", file: "dist/images/marker-icon.png", cdnSha256: { "1.9.4": H2 } }],
+    };
+    for (const mode of ["exact", "substitute", "byname"] as const) expect(generateRules([e], mode).rules, mode).toEqual([]);
+    expect(generateWar([e])[0].resources).toEqual(["libs/leaflet/1.9.4/dist/images/marker-icon.png"]);
+  });
+
   it("skips patterns whose CDN bytes never match the bundled file", () => {
     const e = jq();
     e.patterns[0].cdnSha256 = { "3.6.4": H3, "3.7.1": H3 };

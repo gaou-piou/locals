@@ -57,6 +57,7 @@ export function buildIndex(libs: LibraryEntry[]): HashIndex {
     if (name.length >= 3) tokens.add(name);
     for (const ver of lib.versions)
       for (const f of ver.files) {
+        if (f.type === "image") continue;
         if (!bySha.has(f.sha256)) bySha.set(f.sha256, { library: lib.name, version: ver.version, path: `libs/${lib.name}/${ver.version}/${f.path}`, type: f.type });
         const stem = squash((f.path.split("/").pop() ?? "").replace(/\.(?:min\.)?(?:js|css|woff2?)$/i, ""));
         if (stem.length >= 4) tokens.add(stem);
