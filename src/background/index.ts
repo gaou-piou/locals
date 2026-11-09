@@ -83,9 +83,15 @@ chrome.webRequest.onCompleted.addListener(
     types: ["script", "stylesheet", "font"],
   },
 );
-chrome.tabs.onUpdated.addListener((tabId, change) => {
-  if (change.status === "loading") stats.resetTab(tabId);
-});
+// A new page in the tab starts its count at zero. The page's own request is the signal: it reaches the worker before
+// any request of that page, while tabs.onUpdated("loading") can arrive after the first redirects and wipe them.
+// frameId 0 is the tab's visible page (not a prerender); same-document navigations make no request and keep the count.
+chrome.webRequest.onBeforeRequest.addListener(
+  (d) => {
+    if (d.frameId === 0 && d.tabId >= 0) stats.resetTab(d.tabId);
+  },
+  { urls: ["<all_urls>"], types: ["main_frame"] },
+);
 chrome.tabs.onRemoved.addListener((tabId) => stats.resetTab(tabId));
 
 chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) => {
