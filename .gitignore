@@ -6,3 +6,4 @@ spike/libs/
 test-results/
 spike/_metadata/
 docs/superpowers/plans/
+bench/out/

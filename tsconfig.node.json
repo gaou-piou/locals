@@ -11,5 +11,5 @@
     "verbatimModuleSyntax": true,
     "paths": { "$lib": ["./src/lib"], "$lib/*": ["./src/lib/*"] }
   },
-  "include": ["vite.config.ts", "scripts/**/*.ts", "e2e/**/*.ts", "playwright.config.ts", "tests/**/*.ts", "src/manifest.ts", "src/shared/**/*.ts"]
+  "include": ["vite.config.ts", "scripts/**/*.ts", "e2e/**/*.ts", "playwright.config.ts", "tests/**/*.ts", "src/manifest.ts", "src/shared/**/*.ts", "bench/**/*.ts"]
 }
