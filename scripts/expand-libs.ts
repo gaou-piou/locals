@@ -80,6 +80,15 @@ export function urlsFor(spec: LibSpec, file: FileSpec): string[] {
   return [...urls, ...(file.hosts ?? [])];
 }
 
+/** Files a CDN serves byte-identically, plus companions once anything is served. A `.woff` companion is a fallback for
+ *  packages without the `.woff2` of the same font (old Bootstrap 3, slick), so it is dropped when that `.woff2` is present. */
+export function keptFiles<F extends Pick<FileSpec, "path" | "companion">>(present: F[], hitFiles: Set<string>): F[] {
+  const paths = new Set(present.map((f) => f.path));
+  return present.filter(
+    (f) => hitFiles.has(f.path) || (f.companion && hitFiles.size > 0 && !(f.path.endsWith(".woff") && paths.has(`${f.path}2`))),
+  );
+}
+
 type Probe = { version: string; license: string; files: Version["files"]; hits: Map<string, string> }; // hits: `${url}|${file}` → sha
 
 async function probe(spec: LibSpec, version: string): Promise<Probe | null> {
@@ -106,9 +115,7 @@ async function probe(spec: LibSpec, version: string): Promise<Probe | null> {
     }),
   );
   const hitFiles = new Set([...hits.keys()].map((k) => k.split("|")[1]));
-  const files = present
-    .filter((f) => hitFiles.has(f.path) || (f.companion && hitFiles.size > 0))
-    .map((f) => ({ path: f.path, type: f.type, sha256: sha256(got.get(f.path)!) }));
+  const files = keptFiles(present, hitFiles).map((f) => ({ path: f.path, type: f.type, sha256: sha256(got.get(f.path)!) }));
   return hitFiles.size && license ? { version, license, files, hits } : null;
 }
 

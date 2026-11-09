@@ -91,6 +91,34 @@ describe("buildLibs", () => {
       "file missing: jquery@3.7.1 dist/jquery.min.js",
     );
   });
+
+  // A bundled stylesheet is served from chrome-extension://, so its relative font URLs resolve inside the extension.
+  // An @font-face none of whose sources is bundled loads nothing: the icons on the page break.
+  describe("stylesheet fonts", () => {
+    const FACE = (srcs: string) => `@font-face{font-family:"X";src:${srcs}}.i{font-family:"X"}`;
+    const css = (body: string, extra: Record<string, string> = {}) => {
+      const files = [{ path: "css/all.min.css", type: "stylesheet" as const, sha256: sha(body) }, ...Object.keys(extra).map((path) => ({ path, type: "font" as const, sha256: sha(extra[path]) }))];
+      const entry = entryFor({ name: "fa", npm: "fa", versions: [{ version: "6.0.0", files }] });
+      const t = () => makeTarball({ "css/all.min.css": body, LICENSE: "x", ...extra });
+      return buildLibs([entry], { outDir: tmp(), fetchTarball: t });
+    };
+
+    it("throws when no source of an @font-face is bundled", async () => {
+      await expect(css(FACE(`url(../webfonts/v4.woff2) format("woff2"),url(../webfonts/v4.ttf) format("truetype")`))).rejects.toThrow(
+        "font missing: fa@6.0.0 css/all.min.css needs one of webfonts/v4.woff2, webfonts/v4.ttf",
+      );
+    });
+
+    it("accepts an @font-face when one of its sources is bundled", async () => {
+      await expect(css(FACE(`url(../webfonts/s.woff2) format("woff2"),url(../webfonts/s.ttf)`), { "webfonts/s.woff2": "w2" })).resolves.toBeUndefined();
+    });
+
+    it("ignores absolute, protocol-relative and data: sources, query strings and fragments", async () => {
+      const body =
+        FACE(`url("https://fonts.example/a.woff2")`) + FACE(`url(//cdn.example/b.woff2)`) + FACE(`url(data:font/woff2;base64,AAAA)`) + FACE(`url('../webfonts/q.woff2?v=4.7.0#iefix')`);
+      await expect(css(body, { "webfonts/q.woff2": "q" })).resolves.toBeUndefined();
+    });
+  });
 });
 
 describe("hashLibs", () => {

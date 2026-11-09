@@ -1,8 +1,9 @@
 import { createHash } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, posix } from "node:path";
 import { Readable } from "node:stream";
-import { chain, map } from "ramda";
+import { chain, map, uniq } from "ramda";
+import postcss from "postcss";
 import { Parser } from "tar";
 import type { LibraryEntry } from "../src/shared/manifest-schema.ts";
 
@@ -59,6 +60,26 @@ type Tuple = { entry: LibraryEntry; version: string; files: LibraryEntry["versio
 const tuples = (entries: LibraryEntry[]): Tuple[] =>
   chain((entry) => map((v) => ({ entry, version: v.version, files: v.files }), entry.versions), entries);
 
+const FONT_URL_RE = /url\(\s*(["']?)([^"')]+)\1\s*\)/g;
+
+/** The package-relative sources of every @font-face in `css` (at `cssPath`) of which none is in `bundled`.
+ *  Served from chrome-extension://, such a face loads nothing and its icons break. Absolute and data: URLs are ignored. */
+export function unservedFontFaces(css: string, cssPath: string, bundled: Set<string>): string[][] {
+  const out: string[][] = [];
+  postcss.parse(css).walkAtRules(/^font-face$/i, (face) => {
+    const srcs: string[] = [];
+    face.walkDecls(/^src$/i, (d) => {
+      for (const [, , url] of d.value.matchAll(FONT_URL_RE)) {
+        if (/^(?:[a-z][\w+.-]*:|\/)/i.test(url)) continue;
+        srcs.push(posix.join(posix.dirname(cssPath), url.replace(/[?#].*$/, "")));
+      }
+    });
+    const local = uniq(srcs);
+    if (local.length && !local.some((p) => bundled.has(p))) out.push(local);
+  });
+  return out;
+}
+
 export async function buildLibs(
   entries: LibraryEntry[],
   opts: { outDir: string; fetchTarball: FetchTarball },
@@ -76,6 +97,9 @@ export async function buildLibs(
       if (sha256(data) !== f.sha256) throw new Error(`sha256 mismatch: ${id}`);
       writes.push({ path: join(base, f.path), data });
     }
+    for (const f of files.filter((f) => f.type === "stylesheet"))
+      for (const srcs of unservedFontFaces(got.get(f.path)!.toString(), f.path, wanted))
+        throw new Error(`font missing: ${id} ${f.path} needs one of ${srcs.join(", ")}`);
     const licenseName = [...got.keys()].find((k) => LICENSE_RE.test(k));
     if (!licenseName) throw new Error(`license missing: ${id}`);
     writes.push({ path: join(base, "LICENSE"), data: got.get(licenseName)! });

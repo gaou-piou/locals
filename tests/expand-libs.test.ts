@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { mergeProbe, pickVersions, urlsFor } from "../scripts/expand-libs.ts";
+import { keptFiles, mergeProbe, pickVersions, urlsFor } from "../scripts/expand-libs.ts";
 import type { LibSpec } from "../scripts/libs-spec.ts";
 import type { LibraryEntry } from "../src/shared/manifest-schema.ts";
 
@@ -55,5 +55,21 @@ describe("mergeProbe", () => {
   it("never replaces a pinned hash", () => {
     const out = mergeProbe(base, { version: "1.0.0", license: "MIT", files: [{ path: "a.js", type: "script", sha256: sha("z") }], hits: new Map() });
     expect(out.versions[0].files[0].sha256).toBe(sha("a"));
+  });
+});
+
+describe("keptFiles", () => {
+  const css = { path: "css/x.css", type: "stylesheet" as const };
+  const font = (path: string) => ({ path, type: "font" as const, companion: true });
+
+  it("keeps files a CDN serves, plus companions only when something was served", () => {
+    const present = [css, font("fonts/a.woff2")];
+    expect(keptFiles(present, new Set(["css/x.css"])).map((f) => f.path)).toEqual(["css/x.css", "fonts/a.woff2"]);
+    expect(keptFiles(present, new Set())).toEqual([]);
+  });
+
+  it("keeps a .woff companion only when the package has no .woff2 of the same font", () => {
+    const present = [css, font("fonts/a.woff2"), font("fonts/a.woff"), font("fonts/b.woff")];
+    expect(keptFiles(present, new Set(["css/x.css"])).map((f) => f.path)).toEqual(["css/x.css", "fonts/a.woff2", "fonts/b.woff"]);
   });
 });

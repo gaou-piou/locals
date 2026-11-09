@@ -684,6 +684,11 @@
             "path": "dist/js/bootstrap.min.js",
             "type": "script",
             "sha256": "898d05a17f2cfc5120ddcdba47a885c378c0b466f30f0700e502757e24b403a1"
+          },
+          {
+            "path": "dist/fonts/glyphicons-halflings-regular.woff",
+            "type": "font",
+            "sha256": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e"
           }
         ]
       },
@@ -699,6 +704,11 @@
             "path": "dist/js/bootstrap.min.js",
             "type": "script",
             "sha256": "24cc29533598f962823c4229bc280487646a27a42a95257c31de1b9b18f3710f"
+          },
+          {
+            "path": "dist/fonts/glyphicons-halflings-regular.woff",
+            "type": "font",
+            "sha256": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e"
           }
         ]
       },
@@ -719,6 +729,11 @@
             "path": "dist/fonts/glyphicons-halflings-regular.woff2",
             "type": "font",
             "sha256": "fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c"
+          },
+          {
+            "path": "dist/fonts/glyphicons-halflings-regular.woff",
+            "type": "font",
+            "sha256": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
           }
         ]
       },
@@ -739,6 +754,11 @@
             "path": "dist/fonts/glyphicons-halflings-regular.woff2",
             "type": "font",
             "sha256": "fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c"
+          },
+          {
+            "path": "dist/fonts/glyphicons-halflings-regular.woff",
+            "type": "font",
+            "sha256": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
           }
         ]
       },
@@ -1822,6 +1842,96 @@
           "5.3.3": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c",
           "5.3.6": "cb789b7cec81aa580177e1b3c0561011539974d243d3a1de0d78a1a278015cab",
           "5.3.7": "35f4547d9364111aca4850347356bc5660a994f0d8b694d88f995098a7b547fa"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/bootstrap@{version}/dist/fonts/glyphicons-halflings-regular.woff",
+        "file": "dist/fonts/glyphicons-halflings-regular.woff",
+        "cdnSha256": {
+          "3.1.1": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.2.0": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.3.7": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742",
+          "3.4.1": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{version}/fonts/glyphicons-halflings-regular.woff",
+        "file": "dist/fonts/glyphicons-halflings-regular.woff",
+        "cdnSha256": {
+          "3.1.1": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.2.0": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.3.7": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742",
+          "3.4.1": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
+        }
+      },
+      {
+        "url": "https://stackpath.bootstrapcdn.com/bootstrap/{version}/fonts/glyphicons-halflings-regular.woff",
+        "file": "dist/fonts/glyphicons-halflings-regular.woff",
+        "cdnSha256": {
+          "3.1.1": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.2.0": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.3.7": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742",
+          "3.4.1": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
+        }
+      },
+      {
+        "url": "https://maxcdn.bootstrapcdn.com/bootstrap/{version}/fonts/glyphicons-halflings-regular.woff",
+        "file": "dist/fonts/glyphicons-halflings-regular.woff",
+        "cdnSha256": {
+          "3.1.1": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.2.0": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.3.7": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742",
+          "3.4.1": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
+        }
+      },
+      {
+        "url": "https://netdna.bootstrapcdn.com/bootstrap/{version}/fonts/glyphicons-halflings-regular.woff",
+        "file": "dist/fonts/glyphicons-halflings-regular.woff",
+        "cdnSha256": {
+          "3.1.1": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.2.0": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.3.7": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742",
+          "3.4.1": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
+        }
+      },
+      {
+        "url": "https://unpkg.com/bootstrap@{version}/dist/fonts/glyphicons-halflings-regular.woff",
+        "file": "dist/fonts/glyphicons-halflings-regular.woff",
+        "cdnSha256": {
+          "3.1.1": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.2.0": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.3.7": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742",
+          "3.4.1": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/twitter-bootstrap/{version}/fonts/glyphicons-halflings-regular.woff",
+        "file": "dist/fonts/glyphicons-halflings-regular.woff",
+        "cdnSha256": {
+          "3.1.1": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.2.0": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.3.7": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742",
+          "3.4.1": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/{version}/fonts/glyphicons-halflings-regular.woff",
+        "file": "dist/fonts/glyphicons-halflings-regular.woff",
+        "cdnSha256": {
+          "3.1.1": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.2.0": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.3.7": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742",
+          "3.4.1": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/twitter-bootstrap/{version}/fonts/glyphicons-halflings-regular.woff",
+        "file": "dist/fonts/glyphicons-halflings-regular.woff",
+        "cdnSha256": {
+          "3.1.1": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.2.0": "fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e",
+          "3.3.7": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742",
+          "3.4.1": "a26394f7ede100ca118eff2eda08596275a9839b959c226e15439557a5a80742"
         }
       }
     ]
@@ -3241,6 +3351,11 @@
             "path": "webfonts/fa-brands-400.woff2",
             "type": "font",
             "sha256": "29bc44694c394921d1f00271128a2e4cd8293516216e24eac07a73fa821fc1f5"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "b3abfccce275536beaaeba990e900a0c08ed2fefbabf4a8bcbb2e2ffe3f2431f"
           }
         ]
       },
@@ -3271,6 +3386,11 @@
             "path": "webfonts/fa-brands-400.woff2",
             "type": "font",
             "sha256": "967394d1fd10b388d99bec9df2a3cab546a40f695f5c70641daf0b51af5604c6"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "b8f0081f0736c6860cad4e81ce7fa4c610e99af52e09affb9dbd281a81022da0"
           }
         ]
       },
@@ -3301,6 +3421,11 @@
             "path": "webfonts/fa-brands-400.woff2",
             "type": "font",
             "sha256": "c61287c2fa9863b5fb5844c683a168ac6520c94d822bb43d5eae35c3a2a82166"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "f46715c9d30047f8dea4eb25ed869f791eb069c6b0f6102382c32a56aeeadfbb"
           }
         ]
       },
@@ -3331,6 +3456,11 @@
             "path": "webfonts/fa-brands-400.woff2",
             "type": "font",
             "sha256": "f461742308b7791fee6e9698e1212aa6e8fd1d5e5b41795bfd68e93aa011073d"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "7c377405b7e79354546bdddb7dcd73bd38760c95c2be44ea1e3097582dac642c"
           }
         ]
       },
@@ -3361,6 +3491,11 @@
             "path": "css/all.css",
             "type": "stylesheet",
             "sha256": "91752443751aedc9683727a5dccfb20edf4b9b33a836495eeb5d7562a96df570"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "335fd7d9af58c44df12132fc9fd760b04af779b6d8580beb74ab5672f4526e77"
           }
         ]
       },
@@ -3391,6 +3526,11 @@
             "path": "css/all.css",
             "type": "stylesheet",
             "sha256": "b11c01424cba6c9b882cb71f7e8b9598fc6bbd03519f53f717e70b53f67af723"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "4d4a2d7fd1c6684845cb174fdd7fc073bd64cb741286fb247f8b76c2b7b852c4"
           }
         ]
       },
@@ -3421,6 +3561,11 @@
             "path": "css/all.css",
             "type": "stylesheet",
             "sha256": "2d0ea9247b2dfce75fe145875aa489e7121a60ea0691e60b02b6a45b46a90382"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "c7a869faca299d15be10a01f19d0765a7c4d46d8922d9b9317235c1e4a6f0982"
           }
         ]
       },
@@ -3451,6 +3596,11 @@
             "path": "css/all.css",
             "type": "stylesheet",
             "sha256": "92597940bbf017fa3805f3761ad9e8faee5f537d48fb50d97ff96bef70586f64"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "2aca24b35bd41474dcc5e7fb5f11ec43fa06e3ac1d0035ad41108fa6b30b0871"
           }
         ]
       },
@@ -3481,6 +3631,11 @@
             "path": "css/all.css",
             "type": "stylesheet",
             "sha256": "05e004a9125ff6d5d4882a2936de99e7817002714322c7359641c00b66f781c8"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "0ce9033c69dc714f5f45ef9bf17d55e4c46bcdfad6799a4e92b38e7781bf86bd"
           }
         ]
       },
@@ -3511,6 +3666,11 @@
             "path": "webfonts/fa-brands-400.woff2",
             "type": "font",
             "sha256": "34ce05b1507e4f0f9d3108eb397855d72fbc8cfad6fb93ae8af1716fb312f59e"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "bf8814728ae830c49c1a424519737912526396d5b6ece2aecf2cbb919f10be10"
           }
         ]
       },
@@ -3541,6 +3701,11 @@
             "path": "webfonts/fa-brands-400.woff2",
             "type": "font",
             "sha256": "061dd5c333459ea42dba764617793fd6ea2d316b7ab644f157e4d2354dac02af"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "c18e29ec6e1d46025f8fb1cf2e636c38078598ffa9399ccc52c7df07bb4ab1d0"
           }
         ]
       },
@@ -3571,6 +3736,11 @@
             "path": "webfonts/fa-brands-400.woff2",
             "type": "font",
             "sha256": "70c632ba73c7ad942141bb2f56994b8eddf0a284c01aab9f21e0cd10021530c4"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "4bad0278281153ad5354855ccfbc0674279ec47eff29b3d262c213478311cc52"
           }
         ]
       },
@@ -3601,6 +3771,11 @@
             "path": "css/all.css",
             "type": "stylesheet",
             "sha256": "5abdb8615ede42769101febbd322bd8640c7cbfe9ab28650f7a8246930b08083"
+          },
+          {
+            "path": "webfonts/fa-v4compatibility.woff2",
+            "type": "font",
+            "sha256": "c776ee1f1fe21cd72195e91de7afd5c9dbd007e9d06016254d65fbcc091398ca"
           }
         ]
       }
@@ -4506,6 +4681,136 @@
           "7.2.0": "70c632ba73c7ad942141bb2f56994b8eddf0a284c01aab9f21e0cd10021530c4",
           "7.3.1": "ff66d1cfb67dbe3da432bbe36572cabfa4eef0e591303c2cba111474ba1d15bc",
           "6.5.1": "3a8924cd5203a28628716aedb5cef0943da4c3b44e3ffcee90ab06387b41c490"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/webfonts/fa-v4compatibility.woff2",
+        "file": "webfonts/fa-v4compatibility.woff2",
+        "cdnSha256": {
+          "6.0.0": "b3abfccce275536beaaeba990e900a0c08ed2fefbabf4a8bcbb2e2ffe3f2431f",
+          "6.1.2": "b8f0081f0736c6860cad4e81ce7fa4c610e99af52e09affb9dbd281a81022da0",
+          "6.2.1": "f46715c9d30047f8dea4eb25ed869f791eb069c6b0f6102382c32a56aeeadfbb",
+          "6.3.0": "7c377405b7e79354546bdddb7dcd73bd38760c95c2be44ea1e3097582dac642c",
+          "6.4.2": "335fd7d9af58c44df12132fc9fd760b04af779b6d8580beb74ab5672f4526e77",
+          "6.5.2": "c7a869faca299d15be10a01f19d0765a7c4d46d8922d9b9317235c1e4a6f0982",
+          "6.6.0": "2aca24b35bd41474dcc5e7fb5f11ec43fa06e3ac1d0035ad41108fa6b30b0871",
+          "6.7.2": "0ce9033c69dc714f5f45ef9bf17d55e4c46bcdfad6799a4e92b38e7781bf86bd",
+          "7.0.1": "bf8814728ae830c49c1a424519737912526396d5b6ece2aecf2cbb919f10be10",
+          "7.1.0": "c18e29ec6e1d46025f8fb1cf2e636c38078598ffa9399ccc52c7df07bb4ab1d0",
+          "7.2.0": "4bad0278281153ad5354855ccfbc0674279ec47eff29b3d262c213478311cc52",
+          "7.3.1": "c776ee1f1fe21cd72195e91de7afd5c9dbd007e9d06016254d65fbcc091398ca",
+          "6.5.1": "4d4a2d7fd1c6684845cb174fdd7fc073bd64cb741286fb247f8b76c2b7b852c4"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{version}/webfonts/fa-v4compatibility.woff2",
+        "file": "webfonts/fa-v4compatibility.woff2",
+        "cdnSha256": {
+          "6.0.0": "b3abfccce275536beaaeba990e900a0c08ed2fefbabf4a8bcbb2e2ffe3f2431f",
+          "6.1.2": "b8f0081f0736c6860cad4e81ce7fa4c610e99af52e09affb9dbd281a81022da0",
+          "6.2.1": "f46715c9d30047f8dea4eb25ed869f791eb069c6b0f6102382c32a56aeeadfbb",
+          "6.3.0": "7c377405b7e79354546bdddb7dcd73bd38760c95c2be44ea1e3097582dac642c",
+          "6.4.2": "335fd7d9af58c44df12132fc9fd760b04af779b6d8580beb74ab5672f4526e77",
+          "6.5.2": "c7a869faca299d15be10a01f19d0765a7c4d46d8922d9b9317235c1e4a6f0982",
+          "6.6.0": "2aca24b35bd41474dcc5e7fb5f11ec43fa06e3ac1d0035ad41108fa6b30b0871",
+          "6.7.2": "0ce9033c69dc714f5f45ef9bf17d55e4c46bcdfad6799a4e92b38e7781bf86bd",
+          "7.0.1": "bf8814728ae830c49c1a424519737912526396d5b6ece2aecf2cbb919f10be10",
+          "7.1.0": "c18e29ec6e1d46025f8fb1cf2e636c38078598ffa9399ccc52c7df07bb4ab1d0",
+          "7.2.0": "4bad0278281153ad5354855ccfbc0674279ec47eff29b3d262c213478311cc52",
+          "7.3.1": "c776ee1f1fe21cd72195e91de7afd5c9dbd007e9d06016254d65fbcc091398ca",
+          "6.5.1": "4d4a2d7fd1c6684845cb174fdd7fc073bd64cb741286fb247f8b76c2b7b852c4"
+        }
+      },
+      {
+        "url": "https://use.fontawesome.com/releases/v{version}/webfonts/fa-v4compatibility.woff2",
+        "file": "webfonts/fa-v4compatibility.woff2",
+        "cdnSha256": {
+          "6.0.0": "b3abfccce275536beaaeba990e900a0c08ed2fefbabf4a8bcbb2e2ffe3f2431f",
+          "6.1.2": "b8f0081f0736c6860cad4e81ce7fa4c610e99af52e09affb9dbd281a81022da0",
+          "6.2.1": "f46715c9d30047f8dea4eb25ed869f791eb069c6b0f6102382c32a56aeeadfbb",
+          "6.3.0": "7c377405b7e79354546bdddb7dcd73bd38760c95c2be44ea1e3097582dac642c",
+          "6.4.2": "335fd7d9af58c44df12132fc9fd760b04af779b6d8580beb74ab5672f4526e77",
+          "6.5.2": "c7a869faca299d15be10a01f19d0765a7c4d46d8922d9b9317235c1e4a6f0982",
+          "6.6.0": "2aca24b35bd41474dcc5e7fb5f11ec43fa06e3ac1d0035ad41108fa6b30b0871",
+          "6.7.2": "0ce9033c69dc714f5f45ef9bf17d55e4c46bcdfad6799a4e92b38e7781bf86bd",
+          "7.0.1": "bf8814728ae830c49c1a424519737912526396d5b6ece2aecf2cbb919f10be10",
+          "7.1.0": "c18e29ec6e1d46025f8fb1cf2e636c38078598ffa9399ccc52c7df07bb4ab1d0",
+          "7.2.0": "4bad0278281153ad5354855ccfbc0674279ec47eff29b3d262c213478311cc52",
+          "7.3.1": "c776ee1f1fe21cd72195e91de7afd5c9dbd007e9d06016254d65fbcc091398ca",
+          "6.5.1": "4d4a2d7fd1c6684845cb174fdd7fc073bd64cb741286fb247f8b76c2b7b852c4"
+        }
+      },
+      {
+        "url": "https://unpkg.com/@fortawesome/fontawesome-free@{version}/webfonts/fa-v4compatibility.woff2",
+        "file": "webfonts/fa-v4compatibility.woff2",
+        "cdnSha256": {
+          "6.0.0": "b3abfccce275536beaaeba990e900a0c08ed2fefbabf4a8bcbb2e2ffe3f2431f",
+          "6.1.2": "b8f0081f0736c6860cad4e81ce7fa4c610e99af52e09affb9dbd281a81022da0",
+          "6.2.1": "f46715c9d30047f8dea4eb25ed869f791eb069c6b0f6102382c32a56aeeadfbb",
+          "6.3.0": "7c377405b7e79354546bdddb7dcd73bd38760c95c2be44ea1e3097582dac642c",
+          "6.4.2": "335fd7d9af58c44df12132fc9fd760b04af779b6d8580beb74ab5672f4526e77",
+          "6.5.2": "c7a869faca299d15be10a01f19d0765a7c4d46d8922d9b9317235c1e4a6f0982",
+          "6.6.0": "2aca24b35bd41474dcc5e7fb5f11ec43fa06e3ac1d0035ad41108fa6b30b0871",
+          "6.7.2": "0ce9033c69dc714f5f45ef9bf17d55e4c46bcdfad6799a4e92b38e7781bf86bd",
+          "7.0.1": "bf8814728ae830c49c1a424519737912526396d5b6ece2aecf2cbb919f10be10",
+          "7.1.0": "c18e29ec6e1d46025f8fb1cf2e636c38078598ffa9399ccc52c7df07bb4ab1d0",
+          "7.2.0": "4bad0278281153ad5354855ccfbc0674279ec47eff29b3d262c213478311cc52",
+          "7.3.1": "c776ee1f1fe21cd72195e91de7afd5c9dbd007e9d06016254d65fbcc091398ca",
+          "6.5.1": "4d4a2d7fd1c6684845cb174fdd7fc073bd64cb741286fb247f8b76c2b7b852c4"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/font-awesome/{version}/webfonts/fa-v4compatibility.woff2",
+        "file": "webfonts/fa-v4compatibility.woff2",
+        "cdnSha256": {
+          "6.0.0": "b3abfccce275536beaaeba990e900a0c08ed2fefbabf4a8bcbb2e2ffe3f2431f",
+          "6.1.2": "b8f0081f0736c6860cad4e81ce7fa4c610e99af52e09affb9dbd281a81022da0",
+          "6.2.1": "f46715c9d30047f8dea4eb25ed869f791eb069c6b0f6102382c32a56aeeadfbb",
+          "6.3.0": "7c377405b7e79354546bdddb7dcd73bd38760c95c2be44ea1e3097582dac642c",
+          "6.4.2": "335fd7d9af58c44df12132fc9fd760b04af779b6d8580beb74ab5672f4526e77",
+          "6.5.2": "c7a869faca299d15be10a01f19d0765a7c4d46d8922d9b9317235c1e4a6f0982",
+          "6.6.0": "2aca24b35bd41474dcc5e7fb5f11ec43fa06e3ac1d0035ad41108fa6b30b0871",
+          "6.7.2": "0ce9033c69dc714f5f45ef9bf17d55e4c46bcdfad6799a4e92b38e7781bf86bd",
+          "7.0.1": "bf8814728ae830c49c1a424519737912526396d5b6ece2aecf2cbb919f10be10",
+          "7.1.0": "c18e29ec6e1d46025f8fb1cf2e636c38078598ffa9399ccc52c7df07bb4ab1d0",
+          "7.2.0": "4bad0278281153ad5354855ccfbc0674279ec47eff29b3d262c213478311cc52",
+          "7.3.1": "c776ee1f1fe21cd72195e91de7afd5c9dbd007e9d06016254d65fbcc091398ca",
+          "6.5.1": "4d4a2d7fd1c6684845cb174fdd7fc073bd64cb741286fb247f8b76c2b7b852c4"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/font-awesome/{version}/webfonts/fa-v4compatibility.woff2",
+        "file": "webfonts/fa-v4compatibility.woff2",
+        "cdnSha256": {
+          "6.0.0": "b3abfccce275536beaaeba990e900a0c08ed2fefbabf4a8bcbb2e2ffe3f2431f",
+          "6.1.2": "b8f0081f0736c6860cad4e81ce7fa4c610e99af52e09affb9dbd281a81022da0",
+          "6.2.1": "f46715c9d30047f8dea4eb25ed869f791eb069c6b0f6102382c32a56aeeadfbb",
+          "6.3.0": "7c377405b7e79354546bdddb7dcd73bd38760c95c2be44ea1e3097582dac642c",
+          "6.4.2": "335fd7d9af58c44df12132fc9fd760b04af779b6d8580beb74ab5672f4526e77",
+          "6.5.2": "c7a869faca299d15be10a01f19d0765a7c4d46d8922d9b9317235c1e4a6f0982",
+          "6.6.0": "2aca24b35bd41474dcc5e7fb5f11ec43fa06e3ac1d0035ad41108fa6b30b0871",
+          "6.7.2": "0ce9033c69dc714f5f45ef9bf17d55e4c46bcdfad6799a4e92b38e7781bf86bd",
+          "7.0.1": "bf8814728ae830c49c1a424519737912526396d5b6ece2aecf2cbb919f10be10",
+          "7.1.0": "c18e29ec6e1d46025f8fb1cf2e636c38078598ffa9399ccc52c7df07bb4ab1d0",
+          "7.2.0": "4bad0278281153ad5354855ccfbc0674279ec47eff29b3d262c213478311cc52",
+          "7.3.1": "c776ee1f1fe21cd72195e91de7afd5c9dbd007e9d06016254d65fbcc091398ca",
+          "6.5.1": "4d4a2d7fd1c6684845cb174fdd7fc073bd64cb741286fb247f8b76c2b7b852c4"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/font-awesome/{version}/webfonts/fa-v4compatibility.woff2",
+        "file": "webfonts/fa-v4compatibility.woff2",
+        "cdnSha256": {
+          "6.0.0": "b3abfccce275536beaaeba990e900a0c08ed2fefbabf4a8bcbb2e2ffe3f2431f",
+          "6.1.2": "b8f0081f0736c6860cad4e81ce7fa4c610e99af52e09affb9dbd281a81022da0",
+          "6.2.1": "f46715c9d30047f8dea4eb25ed869f791eb069c6b0f6102382c32a56aeeadfbb",
+          "6.3.0": "7c377405b7e79354546bdddb7dcd73bd38760c95c2be44ea1e3097582dac642c",
+          "6.4.2": "335fd7d9af58c44df12132fc9fd760b04af779b6d8580beb74ab5672f4526e77",
+          "6.5.2": "c7a869faca299d15be10a01f19d0765a7c4d46d8922d9b9317235c1e4a6f0982",
+          "6.6.0": "2aca24b35bd41474dcc5e7fb5f11ec43fa06e3ac1d0035ad41108fa6b30b0871",
+          "6.7.2": "0ce9033c69dc714f5f45ef9bf17d55e4c46bcdfad6799a4e92b38e7781bf86bd",
+          "7.0.1": "bf8814728ae830c49c1a424519737912526396d5b6ece2aecf2cbb919f10be10",
+          "6.5.1": "4d4a2d7fd1c6684845cb174fdd7fc073bd64cb741286fb247f8b76c2b7b852c4"
         }
       }
     ]
@@ -13397,6 +13702,31 @@
             "path": "dist/css/materialize.min.css",
             "type": "stylesheet",
             "sha256": "7c624e0da19848835e32c71749bcaede4fac0adf4e37d5cea6c54e72f728dd08"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Thin.woff2",
+            "type": "font",
+            "sha256": "fbcf22e622baa9226f9f2dcd2ce4975c9babc01a52eaf9397557a97cdebd7e40"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Light.woff2",
+            "type": "font",
+            "sha256": "94a0ac8d73bb60a9cbe27a4fa36669104f6ffa37c8ff2df29313a6c0d3b64a75"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Regular.woff2",
+            "type": "font",
+            "sha256": "b5c9c23bd12593523a46d79dd0aee80e3226bbde4c9ac05fc30a95e2c1510de0"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Medium.woff2",
+            "type": "font",
+            "sha256": "1cd5c4b37938d932110ec043ce1cc766d18cacf7a4e7cffa6a539855d5bdc08d"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Bold.woff2",
+            "type": "font",
+            "sha256": "8b84b2abc336ee61f48a28a697b6ace2333ea5f1868aa15d5aeb2c7beac6d716"
           }
         ]
       },
@@ -13412,6 +13742,31 @@
             "path": "dist/css/materialize.min.css",
             "type": "stylesheet",
             "sha256": "c5b40826485f3b0d03af2d47f656b0bd7462f5772a744f230c1671d4ea7f9b3f"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Thin.woff2",
+            "type": "font",
+            "sha256": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Light.woff2",
+            "type": "font",
+            "sha256": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Regular.woff2",
+            "type": "font",
+            "sha256": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Medium.woff2",
+            "type": "font",
+            "sha256": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Bold.woff2",
+            "type": "font",
+            "sha256": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870"
           }
         ]
       },
@@ -13427,6 +13782,31 @@
             "path": "dist/css/materialize.min.css",
             "type": "stylesheet",
             "sha256": "a225638dde45ba8b7d7ff7e0c07e480418ec380ed30dd71f48ae48d84674cccc"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Thin.woff2",
+            "type": "font",
+            "sha256": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Light.woff2",
+            "type": "font",
+            "sha256": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Regular.woff2",
+            "type": "font",
+            "sha256": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Medium.woff2",
+            "type": "font",
+            "sha256": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Bold.woff2",
+            "type": "font",
+            "sha256": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870"
           }
         ]
       },
@@ -13442,6 +13822,31 @@
             "path": "dist/css/materialize.min.css",
             "type": "stylesheet",
             "sha256": "7b6d8140a085edb6ff87fe0c149d5ae254d14763ae01ef07c5aff7b605394dac"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Thin.woff2",
+            "type": "font",
+            "sha256": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Light.woff2",
+            "type": "font",
+            "sha256": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Regular.woff2",
+            "type": "font",
+            "sha256": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Medium.woff2",
+            "type": "font",
+            "sha256": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850"
+          },
+          {
+            "path": "dist/fonts/roboto/Roboto-Bold.woff2",
+            "type": "font",
+            "sha256": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870"
           }
         ]
       },
@@ -13588,6 +13993,306 @@
           "0.99.0": "a225638dde45ba8b7d7ff7e0c07e480418ec380ed30dd71f48ae48d84674cccc",
           "0.100.2": "7b6d8140a085edb6ff87fe0c149d5ae254d14763ae01ef07c5aff7b605394dac",
           "1.0.0": "3b079a3ff21ceabb15fa5cac7f24b887e2cceac470b8eddeb9361fafa335db88"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/materialize/{version}/fonts/roboto/Roboto-Thin.woff2",
+        "file": "dist/fonts/roboto/Roboto-Thin.woff2",
+        "cdnSha256": {
+          "0.97.8": "fbcf22e622baa9226f9f2dcd2ce4975c9babc01a52eaf9397557a97cdebd7e40",
+          "0.98.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.99.0": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.100.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76"
+        }
+      },
+      {
+        "url": "https://unpkg.com/materialize-css@{version}/dist/fonts/roboto/Roboto-Thin.woff2",
+        "file": "dist/fonts/roboto/Roboto-Thin.woff2",
+        "cdnSha256": {
+          "0.97.8": "fbcf22e622baa9226f9f2dcd2ce4975c9babc01a52eaf9397557a97cdebd7e40",
+          "0.98.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.99.0": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.100.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/materialize-css@{version}/dist/fonts/roboto/Roboto-Thin.woff2",
+        "file": "dist/fonts/roboto/Roboto-Thin.woff2",
+        "cdnSha256": {
+          "0.97.8": "fbcf22e622baa9226f9f2dcd2ce4975c9babc01a52eaf9397557a97cdebd7e40",
+          "0.98.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.99.0": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.100.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/materialize-css@{version}/dist/fonts/roboto/Roboto-Light.woff2",
+        "file": "dist/fonts/roboto/Roboto-Light.woff2",
+        "cdnSha256": {
+          "0.97.8": "94a0ac8d73bb60a9cbe27a4fa36669104f6ffa37c8ff2df29313a6c0d3b64a75",
+          "0.98.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.99.0": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.100.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/materialize/{version}/fonts/roboto/Roboto-Light.woff2",
+        "file": "dist/fonts/roboto/Roboto-Light.woff2",
+        "cdnSha256": {
+          "0.97.8": "94a0ac8d73bb60a9cbe27a4fa36669104f6ffa37c8ff2df29313a6c0d3b64a75",
+          "0.98.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.99.0": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.100.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/materialize/{version}/fonts/roboto/Roboto-Thin.woff2",
+        "file": "dist/fonts/roboto/Roboto-Thin.woff2",
+        "cdnSha256": {
+          "0.97.8": "fbcf22e622baa9226f9f2dcd2ce4975c9babc01a52eaf9397557a97cdebd7e40",
+          "0.98.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.99.0": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.100.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/materialize-css@{version}/dist/fonts/roboto/Roboto-Regular.woff2",
+        "file": "dist/fonts/roboto/Roboto-Regular.woff2",
+        "cdnSha256": {
+          "0.97.8": "b5c9c23bd12593523a46d79dd0aee80e3226bbde4c9ac05fc30a95e2c1510de0",
+          "0.98.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.99.0": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.100.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/materialize/{version}/fonts/roboto/Roboto-Light.woff2",
+        "file": "dist/fonts/roboto/Roboto-Light.woff2",
+        "cdnSha256": {
+          "0.97.8": "94a0ac8d73bb60a9cbe27a4fa36669104f6ffa37c8ff2df29313a6c0d3b64a75",
+          "0.98.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.99.0": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.100.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/materialize/{version}/fonts/roboto/Roboto-Regular.woff2",
+        "file": "dist/fonts/roboto/Roboto-Regular.woff2",
+        "cdnSha256": {
+          "0.97.8": "b5c9c23bd12593523a46d79dd0aee80e3226bbde4c9ac05fc30a95e2c1510de0",
+          "0.98.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.99.0": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.100.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365"
+        }
+      },
+      {
+        "url": "https://unpkg.com/materialize-css@{version}/dist/fonts/roboto/Roboto-Regular.woff2",
+        "file": "dist/fonts/roboto/Roboto-Regular.woff2",
+        "cdnSha256": {
+          "0.97.8": "b5c9c23bd12593523a46d79dd0aee80e3226bbde4c9ac05fc30a95e2c1510de0",
+          "0.98.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.99.0": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.100.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365"
+        }
+      },
+      {
+        "url": "https://unpkg.com/materialize-css@{version}/dist/fonts/roboto/Roboto-Light.woff2",
+        "file": "dist/fonts/roboto/Roboto-Light.woff2",
+        "cdnSha256": {
+          "0.97.8": "94a0ac8d73bb60a9cbe27a4fa36669104f6ffa37c8ff2df29313a6c0d3b64a75",
+          "0.98.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.99.0": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.100.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/materialize/{version}/fonts/roboto/Roboto-Regular.woff2",
+        "file": "dist/fonts/roboto/Roboto-Regular.woff2",
+        "cdnSha256": {
+          "0.97.8": "b5c9c23bd12593523a46d79dd0aee80e3226bbde4c9ac05fc30a95e2c1510de0",
+          "0.98.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.99.0": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.100.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/materialize/{version}/fonts/roboto/Roboto-Medium.woff2",
+        "file": "dist/fonts/roboto/Roboto-Medium.woff2",
+        "cdnSha256": {
+          "0.97.8": "1cd5c4b37938d932110ec043ce1cc766d18cacf7a4e7cffa6a539855d5bdc08d",
+          "0.98.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.99.0": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.100.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/materialize/{version}/fonts/roboto/Roboto-Regular.woff2",
+        "file": "dist/fonts/roboto/Roboto-Regular.woff2",
+        "cdnSha256": {
+          "0.97.8": "b5c9c23bd12593523a46d79dd0aee80e3226bbde4c9ac05fc30a95e2c1510de0",
+          "0.98.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.99.0": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.100.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/materialize/{version}/fonts/roboto/Roboto-Thin.woff2",
+        "file": "dist/fonts/roboto/Roboto-Thin.woff2",
+        "cdnSha256": {
+          "0.97.8": "fbcf22e622baa9226f9f2dcd2ce4975c9babc01a52eaf9397557a97cdebd7e40",
+          "0.98.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.99.0": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.100.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/materialize/{version}/fonts/roboto/Roboto-Bold.woff2",
+        "file": "dist/fonts/roboto/Roboto-Bold.woff2",
+        "cdnSha256": {
+          "0.97.8": "8b84b2abc336ee61f48a28a697b6ace2333ea5f1868aa15d5aeb2c7beac6d716",
+          "0.98.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.99.0": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.100.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870"
+        }
+      },
+      {
+        "url": "https://unpkg.com/materialize-css@{version}/dist/fonts/roboto/Roboto-Medium.woff2",
+        "file": "dist/fonts/roboto/Roboto-Medium.woff2",
+        "cdnSha256": {
+          "0.97.8": "1cd5c4b37938d932110ec043ce1cc766d18cacf7a4e7cffa6a539855d5bdc08d",
+          "0.98.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.99.0": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.100.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/materialize-css@{version}/dist/fonts/roboto/Roboto-Medium.woff2",
+        "file": "dist/fonts/roboto/Roboto-Medium.woff2",
+        "cdnSha256": {
+          "0.97.8": "1cd5c4b37938d932110ec043ce1cc766d18cacf7a4e7cffa6a539855d5bdc08d",
+          "0.98.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.99.0": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.100.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/materialize/{version}/fonts/roboto/Roboto-Medium.woff2",
+        "file": "dist/fonts/roboto/Roboto-Medium.woff2",
+        "cdnSha256": {
+          "0.97.8": "1cd5c4b37938d932110ec043ce1cc766d18cacf7a4e7cffa6a539855d5bdc08d",
+          "0.98.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.99.0": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.100.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/materialize/{version}/fonts/roboto/Roboto-Light.woff2",
+        "file": "dist/fonts/roboto/Roboto-Light.woff2",
+        "cdnSha256": {
+          "0.97.8": "94a0ac8d73bb60a9cbe27a4fa36669104f6ffa37c8ff2df29313a6c0d3b64a75",
+          "0.98.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.99.0": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.100.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f"
+        }
+      },
+      {
+        "url": "https://unpkg.com/materialize-css@{version}/dist/fonts/roboto/Roboto-Bold.woff2",
+        "file": "dist/fonts/roboto/Roboto-Bold.woff2",
+        "cdnSha256": {
+          "0.97.8": "8b84b2abc336ee61f48a28a697b6ace2333ea5f1868aa15d5aeb2c7beac6d716",
+          "0.98.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.99.0": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.100.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/materialize-css@{version}/dist/fonts/roboto/Roboto-Bold.woff2",
+        "file": "dist/fonts/roboto/Roboto-Bold.woff2",
+        "cdnSha256": {
+          "0.97.8": "8b84b2abc336ee61f48a28a697b6ace2333ea5f1868aa15d5aeb2c7beac6d716",
+          "0.98.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.99.0": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.100.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/materialize/{version}/fonts/roboto/Roboto-Bold.woff2",
+        "file": "dist/fonts/roboto/Roboto-Bold.woff2",
+        "cdnSha256": {
+          "0.97.8": "8b84b2abc336ee61f48a28a697b6ace2333ea5f1868aa15d5aeb2c7beac6d716",
+          "0.98.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.99.0": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.100.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/materialize/{version}/fonts/roboto/Roboto-Light.woff2",
+        "file": "dist/fonts/roboto/Roboto-Light.woff2",
+        "cdnSha256": {
+          "0.97.8": "94a0ac8d73bb60a9cbe27a4fa36669104f6ffa37c8ff2df29313a6c0d3b64a75",
+          "0.98.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.99.0": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f",
+          "0.100.2": "acec38d50a6f94a303ccecab62bd2814b6aa7753b15f55b053fd54a7d2fa1a4f"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/materialize/{version}/fonts/roboto/Roboto-Thin.woff2",
+        "file": "dist/fonts/roboto/Roboto-Thin.woff2",
+        "cdnSha256": {
+          "0.97.8": "fbcf22e622baa9226f9f2dcd2ce4975c9babc01a52eaf9397557a97cdebd7e40",
+          "0.98.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.99.0": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76",
+          "0.100.2": "f72697a71fca2e477282ced1ccf5a95803aabde0ab649a00bd1bf6efb516da76"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/materialize/{version}/fonts/roboto/Roboto-Bold.woff2",
+        "file": "dist/fonts/roboto/Roboto-Bold.woff2",
+        "cdnSha256": {
+          "0.97.8": "8b84b2abc336ee61f48a28a697b6ace2333ea5f1868aa15d5aeb2c7beac6d716",
+          "0.98.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.99.0": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.100.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/materialize/{version}/fonts/roboto/Roboto-Medium.woff2",
+        "file": "dist/fonts/roboto/Roboto-Medium.woff2",
+        "cdnSha256": {
+          "0.97.8": "1cd5c4b37938d932110ec043ce1cc766d18cacf7a4e7cffa6a539855d5bdc08d",
+          "0.98.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.99.0": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.100.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/materialize/{version}/fonts/roboto/Roboto-Regular.woff2",
+        "file": "dist/fonts/roboto/Roboto-Regular.woff2",
+        "cdnSha256": {
+          "0.97.8": "b5c9c23bd12593523a46d79dd0aee80e3226bbde4c9ac05fc30a95e2c1510de0",
+          "0.98.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.99.0": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365",
+          "0.100.2": "02a7cd67c545041654af047f04ce327f2df086386eab421adc16269010c50365"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/materialize/{version}/fonts/roboto/Roboto-Bold.woff2",
+        "file": "dist/fonts/roboto/Roboto-Bold.woff2",
+        "cdnSha256": {
+          "0.97.8": "8b84b2abc336ee61f48a28a697b6ace2333ea5f1868aa15d5aeb2c7beac6d716",
+          "0.98.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.99.0": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870",
+          "0.100.2": "03b4584f80ee94497a7fc4157d534818ccad1a554536cf49167442f711bd3870"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/materialize/{version}/fonts/roboto/Roboto-Medium.woff2",
+        "file": "dist/fonts/roboto/Roboto-Medium.woff2",
+        "cdnSha256": {
+          "0.97.8": "1cd5c4b37938d932110ec043ce1cc766d18cacf7a4e7cffa6a539855d5bdc08d",
+          "0.98.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.99.0": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850",
+          "0.100.2": "c013c361fcb111a48c09d8b748a866e5871e992754fa4e927f2c92f4e5d2a850"
         }
       }
     ]
@@ -14632,6 +15337,11 @@
             "path": "slick/slick.css",
             "type": "stylesheet",
             "sha256": "fd89504555386dbe7e057f3d3af60247531673ec8a533d31069a49f3143e48a1"
+          },
+          {
+            "path": "slick/fonts/slick.woff",
+            "type": "font",
+            "sha256": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
           }
         ]
       },
@@ -14652,6 +15362,11 @@
             "path": "slick/slick-theme.css",
             "type": "stylesheet",
             "sha256": "6f37789f511d3d6abf8ad9b5de3a0ee9cd1ed468b61d1beac7a1765a0279c70b"
+          },
+          {
+            "path": "slick/fonts/slick.woff",
+            "type": "font",
+            "sha256": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
           }
         ]
       },
@@ -14672,6 +15387,11 @@
             "path": "slick/slick-theme.css",
             "type": "stylesheet",
             "sha256": "822f53109d9d750a8c0c8c189ddb0175b5e0226b66cbaa6a699e78e0f512e2dd"
+          },
+          {
+            "path": "slick/fonts/slick.woff",
+            "type": "font",
+            "sha256": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
           }
         ]
       },
@@ -14692,6 +15412,11 @@
             "path": "slick/slick-theme.css",
             "type": "stylesheet",
             "sha256": "7adaf08052c6a6a0f8a0d0055b4f191fd07389fe41c972b69573472b2ecb406a"
+          },
+          {
+            "path": "slick/fonts/slick.woff",
+            "type": "font",
+            "sha256": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
           }
         ]
       },
@@ -14712,6 +15437,11 @@
             "path": "slick/slick-theme.css",
             "type": "stylesheet",
             "sha256": "7adaf08052c6a6a0f8a0d0055b4f191fd07389fe41c972b69573472b2ecb406a"
+          },
+          {
+            "path": "slick/fonts/slick.woff",
+            "type": "font",
+            "sha256": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
           }
         ]
       },
@@ -14732,6 +15462,11 @@
             "path": "slick/slick-theme.css",
             "type": "stylesheet",
             "sha256": "7adaf08052c6a6a0f8a0d0055b4f191fd07389fe41c972b69573472b2ecb406a"
+          },
+          {
+            "path": "slick/fonts/slick.woff",
+            "type": "font",
+            "sha256": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
           }
         ]
       },
@@ -14752,6 +15487,16 @@
             "path": "slick/slick-theme.css",
             "type": "stylesheet",
             "sha256": "f0e8629a17717e2fd45988ed508c4387a2848c3f0d173aebe86936f0994a6141"
+          },
+          {
+            "path": "slick/fonts/slick.woff2",
+            "type": "font",
+            "sha256": "0af25e4193a0c3240553ca2abc85cea9167c0601bc5e3c0a417bca5f7a6e3870"
+          },
+          {
+            "path": "slick/fonts/slick.woff",
+            "type": "font",
+            "sha256": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
           }
         ]
       }
@@ -14882,6 +15627,118 @@
           "1.7.1": "7adaf08052c6a6a0f8a0d0055b4f191fd07389fe41c972b69573472b2ecb406a",
           "1.8.1": "7adaf08052c6a6a0f8a0d0055b4f191fd07389fe41c972b69573472b2ecb406a",
           "2.0.0": "f0e8629a17717e2fd45988ed508c4387a2848c3f0d173aebe86936f0994a6141"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/slick-carousel@{version}/slick/fonts/slick.woff",
+        "file": "slick/fonts/slick.woff",
+        "cdnSha256": {
+          "1.3.15": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.4.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.5.9": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.6.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.7.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.8.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "2.0.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/{version}/fonts/slick.woff",
+        "file": "slick/fonts/slick.woff",
+        "cdnSha256": {
+          "1.3.15": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.4.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.5.9": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.6.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.7.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.8.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "2.0.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
+        }
+      },
+      {
+        "url": "https://unpkg.com/slick-carousel@{version}/slick/fonts/slick.woff",
+        "file": "slick/fonts/slick.woff",
+        "cdnSha256": {
+          "1.3.15": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.4.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.5.9": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.6.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.7.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.8.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "2.0.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/slick-carousel/{version}/fonts/slick.woff",
+        "file": "slick/fonts/slick.woff",
+        "cdnSha256": {
+          "1.3.15": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.4.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.5.9": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.6.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.7.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.8.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "2.0.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/slick-carousel/{version}/fonts/slick.woff",
+        "file": "slick/fonts/slick.woff",
+        "cdnSha256": {
+          "1.3.15": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.4.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.5.9": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.6.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.7.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.8.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "2.0.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/slick-carousel/{version}/fonts/slick.woff",
+        "file": "slick/fonts/slick.woff",
+        "cdnSha256": {
+          "1.3.15": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.4.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.5.9": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.6.0": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.7.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc",
+          "1.8.1": "26726bac4060abb1226e6ceebc1336e84930fe7a7af1b3895a109d067f5b5dcc"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/{version}/fonts/slick.woff2",
+        "file": "slick/fonts/slick.woff2",
+        "cdnSha256": {
+          "2.0.0": "0af25e4193a0c3240553ca2abc85cea9167c0601bc5e3c0a417bca5f7a6e3870"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/slick-carousel@{version}/slick/fonts/slick.woff2",
+        "file": "slick/fonts/slick.woff2",
+        "cdnSha256": {
+          "2.0.0": "0af25e4193a0c3240553ca2abc85cea9167c0601bc5e3c0a417bca5f7a6e3870"
+        }
+      },
+      {
+        "url": "https://unpkg.com/slick-carousel@{version}/slick/fonts/slick.woff2",
+        "file": "slick/fonts/slick.woff2",
+        "cdnSha256": {
+          "2.0.0": "0af25e4193a0c3240553ca2abc85cea9167c0601bc5e3c0a417bca5f7a6e3870"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/slick-carousel/{version}/fonts/slick.woff2",
+        "file": "slick/fonts/slick.woff2",
+        "cdnSha256": {
+          "2.0.0": "0af25e4193a0c3240553ca2abc85cea9167c0601bc5e3c0a417bca5f7a6e3870"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/slick-carousel/{version}/fonts/slick.woff2",
+        "file": "slick/fonts/slick.woff2",
+        "cdnSha256": {
+          "2.0.0": "0af25e4193a0c3240553ca2abc85cea9167c0601bc5e3c0a417bca5f7a6e3870"
         }
       }
     ]
@@ -17727,6 +18584,11 @@
             "path": "dist/semantic.min.css",
             "type": "stylesheet",
             "sha256": "1698cfe393f3d35f75e7d0850917810ac66d55e0af19ac0dd8e9b5c3e4888b40"
+          },
+          {
+            "path": "dist/themes/default/assets/fonts/icons.woff2",
+            "type": "font",
+            "sha256": "2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe"
           }
         ]
       },
@@ -17742,6 +18604,21 @@
             "path": "dist/semantic.min.css",
             "type": "stylesheet",
             "sha256": "9dc8c301ddbfae6fef68d4eaa7b2a4f7a31f49e1c00ad6e20d4f4d58aa8db822"
+          },
+          {
+            "path": "dist/themes/default/assets/fonts/icons.woff2",
+            "type": "font",
+            "sha256": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3"
+          },
+          {
+            "path": "dist/themes/default/assets/fonts/outline-icons.woff2",
+            "type": "font",
+            "sha256": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801"
+          },
+          {
+            "path": "dist/themes/default/assets/fonts/brand-icons.woff2",
+            "type": "font",
+            "sha256": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69"
           }
         ]
       },
@@ -17757,6 +18634,21 @@
             "path": "dist/semantic.min.css",
             "type": "stylesheet",
             "sha256": "5177ac8b16de2e407f518c554f3ba3fe0837f8b333830026837cc3f82e190124"
+          },
+          {
+            "path": "dist/themes/default/assets/fonts/icons.woff2",
+            "type": "font",
+            "sha256": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3"
+          },
+          {
+            "path": "dist/themes/default/assets/fonts/outline-icons.woff2",
+            "type": "font",
+            "sha256": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801"
+          },
+          {
+            "path": "dist/themes/default/assets/fonts/brand-icons.woff2",
+            "type": "font",
+            "sha256": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69"
           }
         ]
       },
@@ -17772,6 +18664,21 @@
             "path": "dist/semantic.min.css",
             "type": "stylesheet",
             "sha256": "703190dfdc82861a4de6fce01db8c874612d43991713db6db42b08ed547d4ee6"
+          },
+          {
+            "path": "dist/themes/default/assets/fonts/icons.woff2",
+            "type": "font",
+            "sha256": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3"
+          },
+          {
+            "path": "dist/themes/default/assets/fonts/outline-icons.woff2",
+            "type": "font",
+            "sha256": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801"
+          },
+          {
+            "path": "dist/themes/default/assets/fonts/brand-icons.woff2",
+            "type": "font",
+            "sha256": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69"
           }
         ]
       }
@@ -17887,6 +18794,162 @@
           "2.2.14": "33d8e3373fa3aff95323ec55c769699f783af35d1810fa5293c9517aa1fea961",
           "2.3.3": "d2022f4e476ca7438e795f2dc77513762dde869a46c196f340cbd925885bcec1",
           "2.5.0": "7cdf2f717d942f24c3b295531c4b5e2bc85ddeb4006f9b61362c1a923016ef94"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/semantic-ui@{version}/dist/themes/default/assets/fonts/icons.woff2",
+        "file": "dist/themes/default/assets/fonts/icons.woff2",
+        "cdnSha256": {
+          "2.2.14": "2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe",
+          "2.3.3": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3",
+          "2.4.2": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3",
+          "2.5.0": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/{version}/themes/default/assets/fonts/icons.woff2",
+        "file": "dist/themes/default/assets/fonts/icons.woff2",
+        "cdnSha256": {
+          "2.2.14": "2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe",
+          "2.3.3": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3",
+          "2.5.0": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/semantic-ui/{version}/themes/default/assets/fonts/icons.woff2",
+        "file": "dist/themes/default/assets/fonts/icons.woff2",
+        "cdnSha256": {
+          "2.2.14": "2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe",
+          "2.3.3": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3",
+          "2.5.0": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3"
+        }
+      },
+      {
+        "url": "https://unpkg.com/semantic-ui@{version}/dist/themes/default/assets/fonts/icons.woff2",
+        "file": "dist/themes/default/assets/fonts/icons.woff2",
+        "cdnSha256": {
+          "2.2.14": "2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe",
+          "2.3.3": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3",
+          "2.4.2": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3",
+          "2.5.0": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/semantic-ui/{version}/themes/default/assets/fonts/icons.woff2",
+        "file": "dist/themes/default/assets/fonts/icons.woff2",
+        "cdnSha256": {
+          "2.2.14": "2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe",
+          "2.3.3": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3",
+          "2.5.0": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/semantic-ui/{version}/themes/default/assets/fonts/icons.woff2",
+        "file": "dist/themes/default/assets/fonts/icons.woff2",
+        "cdnSha256": {
+          "2.2.14": "2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe",
+          "2.3.3": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3",
+          "2.5.0": "434466b59545a8a1cac6ddb38197cdc6b35995a98c3f3812fb88d61b1c300dd3"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/semantic-ui@{version}/dist/themes/default/assets/fonts/outline-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/outline-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801",
+          "2.4.2": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801",
+          "2.5.0": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/{version}/themes/default/assets/fonts/outline-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/outline-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801",
+          "2.5.0": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801"
+        }
+      },
+      {
+        "url": "https://unpkg.com/semantic-ui@{version}/dist/themes/default/assets/fonts/outline-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/outline-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801",
+          "2.4.2": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801",
+          "2.5.0": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801"
+        }
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/semantic-ui@{version}/dist/themes/default/assets/fonts/brand-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/brand-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69",
+          "2.4.2": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69",
+          "2.5.0": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/semantic-ui/{version}/themes/default/assets/fonts/outline-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/outline-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801",
+          "2.5.0": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801"
+        }
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/{version}/themes/default/assets/fonts/brand-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/brand-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69",
+          "2.5.0": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69"
+        }
+      },
+      {
+        "url": "https://unpkg.com/semantic-ui@{version}/dist/themes/default/assets/fonts/brand-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/brand-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69",
+          "2.4.2": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69",
+          "2.5.0": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69"
+        }
+      },
+      {
+        "url": "https://cdn.staticfile.org/semantic-ui/{version}/themes/default/assets/fonts/brand-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/brand-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69",
+          "2.5.0": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/semantic-ui/{version}/themes/default/assets/fonts/outline-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/outline-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801",
+          "2.5.0": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/semantic-ui/{version}/themes/default/assets/fonts/outline-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/outline-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801",
+          "2.5.0": "4d2883443b24e424527f6a0a7aa2897b3df71f239db40373c4ff760e48147801"
+        }
+      },
+      {
+        "url": "https://lib.baomitu.com/semantic-ui/{version}/themes/default/assets/fonts/brand-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/brand-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69",
+          "2.5.0": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69"
+        }
+      },
+      {
+        "url": "https://cdn.bootcdn.net/ajax/libs/semantic-ui/{version}/themes/default/assets/fonts/brand-icons.woff2",
+        "file": "dist/themes/default/assets/fonts/brand-icons.woff2",
+        "cdnSha256": {
+          "2.3.3": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69",
+          "2.5.0": "e7d4d5340bbe57a01d8f7992142e2763d438d5783890c76748306eebfa056a69"
         }
       }
     ]
