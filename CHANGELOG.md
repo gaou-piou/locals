@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-09
+
 ### Added
 
 - Serving by name (`byname` ruleset, on by default): a site's own copy named after a bundled library and version is served from the bundled copy at once, then verified by sha256 in the background and kept, corrected to the right version or handed back to the site.
