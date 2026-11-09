@@ -6,7 +6,7 @@ const ICONS = { 16: "icons/icon-16.png", 32: "icons/icon-32.png", 48: "icons/ico
 export function createManifest(version: string): chrome.runtime.ManifestV3 {
   return {
     manifest_version: 3,
-    name: "Locals",
+    name: "λocals",
     description: "Serves popular JavaScript libraries, stylesheets and fonts from a local copy instead of a CDN.",
     version,
     key: EXTENSION_KEY,
@@ -15,7 +15,7 @@ export function createManifest(version: string): chrome.runtime.ManifestV3 {
     host_permissions: ["<all_urls>"],
     background: { service_worker: "background.js", type: "module" },
     icons: ICONS,
-    action: { default_title: "Locals", default_popup: "popup/index.html", default_icon: ICONS },
+    action: { default_title: "λocals", default_popup: "popup/index.html", default_icon: ICONS },
     options_ui: { page: "options/index.html", open_in_tab: true },
   };
 }

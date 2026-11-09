@@ -11,6 +11,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Changed
 
+- The extension is called λocals (Greek lambda) and its icon is a λ. Paths, commands (`locals-install`, `locals-learn`) and the repository name stay `locals`.
 - Detected copies keep being served while they are re-checked (stale-while-revalidate) instead of expiring and loading from the network once a week.
 - The worker's own downloads bypass every redirect, so re-checks see the real file.
 

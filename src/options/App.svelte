@@ -14,7 +14,7 @@
 </script>
 
 <main class="mx-auto flex max-w-3xl flex-col gap-6 p-4 sm:p-6">
-  <h1 class="text-xl font-semibold">Locals</h1>
+  <h1 class="text-xl font-semibold">λocals</h1>
   <Tabs.Root value={tab.current} onValueChange={(v) => (tab.current = v)}>
     <Tabs.List class="max-w-full justify-start overflow-x-auto [scrollbar-width:none]">
       <Tabs.Trigger value="general">General</Tabs.Trigger>

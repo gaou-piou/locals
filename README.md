@@ -1,4 +1,4 @@
-# Locals
+# λocals
 
 > A Chromium browser extension (Manifest V3). Load it from `dist/` after `pnpm build`, or from a release zip; see [Install](#install).
 
@@ -6,7 +6,7 @@ A Manifest V3 Chromium extension that serves popular JavaScript libraries, style
 
 ## Why
 
-[Decentraleyes](https://github.com/Synzvato/decentraleyes) is archived and its Chromium code lived on an MV2 branch. [LocalCDN](https://codeberg.org/nobody/LocalCDN) is maintained but Firefox-only: its author states that MV3 removed APIs it needs. Locals fills the gap for Chromium MV3 with `declarativeNetRequest` redirects to `web_accessible_resources`, a full UI, and a pipeline that keeps the bundled libraries current. See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md).
+[Decentraleyes](https://github.com/Synzvato/decentraleyes) is archived and its Chromium code lived on an MV2 branch. [LocalCDN](https://codeberg.org/nobody/LocalCDN) is maintained but Firefox-only: its author states that MV3 removed APIs it needs. λocals fills the gap for Chromium MV3 with `declarativeNetRequest` redirects to `web_accessible_resources`, a full UI, and a pipeline that keeps the bundled libraries current. See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md).
 
 What it does:
 

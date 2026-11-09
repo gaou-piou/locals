@@ -23,7 +23,7 @@
 
 <main class="flex flex-col gap-3 p-4">
   <header class="flex items-center justify-between">
-    <h1 class="text-sm font-semibold">Locals</h1>
+    <h1 class="text-sm font-semibold">λocals</h1>
     {#if view.current && !view.current.settings.enabled}
       <Badge variant="secondary">Paused</Badge>
     {/if}
