@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-09
+
 ### Fixed
 
 - Substitute close versions no longer serves an older release than the page asked for (jQuery 3.7.2 got 3.7.1, Font Awesome 6.99 got 6.7.2); it only steps up within the same major.
