@@ -4,6 +4,18 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-09
+
+### Added
+
+- Learn from browsing (auto-cache, on by default): a third-party script, stylesheet or font with a versioned or content-hashed URL, once loaded by three different sites, is downloaded once and served afterwards as a `data:` copy (a dynamic redirect rule), so pages load more from the extension the longer it is used. Only on sites whose Content-Security-Policy allows `data:` for that type; a copy blocked by a `<meta>` policy marks the site and reloads the tab once. Limits: 1 MB per file, 24 MB and 500 files in total, least recently used first, unused files expire after 60 days. Options → General shows the count and can forget them.
+- Benchmark: a "trained" condition (`bench/train.ts`) measures page loads after browsing the corpus once.
+
+### Fixed
+
+- Bundled stylesheets now come with every font and image they reference (Font Awesome 6 v4-compat, Semantic UI, Materialize, slick, Bootstrap 3.1/3.2 glyphicons, Chosen, DataTables, Leaflet, Lightbox2, Owl Carousel); their icons and sprites broke before. The build fails when a bundled stylesheet needs a file the package has but the bundle lacks.
+- Fonts are never substituted with another version: a font must match the stylesheet that names it.
+
 ## [0.2.1] - 2026-11-09
 
 ### Fixed
