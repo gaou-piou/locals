@@ -17,6 +17,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - The extension is called λocals (Greek lambda) and its icon is a λ. Paths, commands (`locals-install`, `locals-learn`) and the repository name stay `locals`.
 - Detected copies keep being served while they are re-checked (stale-while-revalidate) instead of expiring and loading from the network once a week.
 - The worker's own downloads bypass every redirect, so re-checks see the real file.
+- Validation uses valibot instead of zod, and every state read back from storage (settings, observed and matched files, per-tab counts, the learned index) is checked by a schema: a damaged part falls back to its default instead of breaking the worker.
 
 ## [0.1.0] - 2026-11-08
 

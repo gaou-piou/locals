@@ -1,16 +1,41 @@
+import { descend, fromPairs, prop, sort, sortBy, take, toPairs } from "ramda";
+import * as v from "valibot";
+import { AssetTypeSchema, Sha256Schema, type LibraryEntry } from "../shared/manifest-schema.ts";
 import { PRIORITY } from "../shared/priorities.ts";
-import type { LibraryEntry } from "../shared/manifest-schema.ts";
 import { normalizeUrl } from "./observe.ts";
 
 type Rule = chrome.declarativeNetRequest.Rule;
-type FileType = "script" | "stylesheet" | "font";
+type FileType = v.InferOutput<typeof AssetTypeSchema>;
 
 /** Dynamic rule ids at or above this belong to matched (hash-verified) files; learned ones sit below. */
 export const MATCH_ID_BASE = 300_000;
 /** Allow rules that undo a byname redirect whose bytes turned out not to be a bundled file. */
 export const REJECT_ID_BASE = 400_000;
 
-export type MatchedEntry = { url: string; library: string; version: string; path: string; sha256: string; type: FileType; at: number };
+const MatchedEntrySchema = v.object({
+  url: v.string(),
+  library: v.string(),
+  version: v.string(),
+  path: v.string(),
+  sha256: Sha256Schema,
+  type: AssetTypeSchema,
+  at: v.number(),
+});
+const RejectedEntrySchema = v.object({ url: v.string(), type: AssetTypeSchema, at: v.number() });
+/** What `chrome.storage.local` holds; a missing or malformed part starts empty (fresh objects: the state is mutated). */
+const record = <T extends v.GenericSchema>(item: T) => {
+  const schema = v.record(v.string(), item);
+  const empty = () => ({}) as v.InferOutput<typeof schema>;
+  return v.optional(v.fallback(schema, empty), empty);
+};
+const StateSchema = v.fallback(
+  v.object({ entries: record(MatchedEntrySchema), tried: record(v.number()), rejected: record(RejectedEntrySchema) }),
+  () => ({ entries: {}, tried: {}, rejected: {} }),
+);
+
+export type MatchedEntry = v.InferOutput<typeof MatchedEntrySchema>;
+export type RejectedEntry = v.InferOutput<typeof RejectedEntrySchema>;
+type State = v.InferOutput<typeof StateSchema>;
 export type HashIndex = { bySha: Map<string, { library: string; version: string; path: string; type: FileType }>; tokens: string[] };
 
 const KEY = "matched";
@@ -30,9 +55,9 @@ export function buildIndex(libs: LibraryEntry[]): HashIndex {
   for (const lib of libs) {
     const name = squash(lib.name);
     if (name.length >= 3) tokens.add(name);
-    for (const v of lib.versions)
-      for (const f of v.files) {
-        if (!bySha.has(f.sha256)) bySha.set(f.sha256, { library: lib.name, version: v.version, path: `libs/${lib.name}/${v.version}/${f.path}`, type: f.type });
+    for (const ver of lib.versions)
+      for (const f of ver.files) {
+        if (!bySha.has(f.sha256)) bySha.set(f.sha256, { library: lib.name, version: ver.version, path: `libs/${lib.name}/${ver.version}/${f.path}`, type: f.type });
         const stem = squash((f.path.split("/").pop() ?? "").replace(/\.(?:min\.)?(?:js|css|woff2?)$/i, ""));
         if (stem.length >= 4) tokens.add(stem);
       }
@@ -79,8 +104,6 @@ export function rejectRules(rejected: RejectedEntry[]): Rule[] {
 
 const hex = (buf: ArrayBuffer) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
 
-export type RejectedEntry = { url: string; type: FileType; at: number };
-type State = { entries: Record<string, MatchedEntry>; tried: Record<string, number>; rejected: Record<string, RejectedEntry> };
 type Mode = "observed" | "verify" | "revalidate";
 
 /**
@@ -116,18 +139,15 @@ export function createMatcher(deps: {
 
   const load = async (): Promise<State> => {
     if (state) return state;
-    const stored = (await chrome.storage.local.get(KEY))[KEY] as Partial<State> | undefined;
-    return (state = { entries: stored?.entries ?? {}, tried: stored?.tried ?? {}, rejected: stored?.rejected ?? {} });
+    return (state = v.parse(StateSchema, (await chrome.storage.local.get(KEY))[KEY]));
   };
 
-  const newest = <T>(rec: Record<string, T>, max: number, at: (v: T) => number): Record<string, T> => {
-    const all = Object.entries(rec);
-    return all.length > max ? Object.fromEntries(all.sort((a, b) => at(b[1]) - at(a[1])).slice(0, max)) : rec;
-  };
+  const newest = <T>(rec: Record<string, T>, max: number, at: (x: T) => number): Record<string, T> =>
+    fromPairs(take(max, sort(descend(([, x]: [string, T]) => at(x)), toPairs(rec))));
 
   async function commit(s: State): Promise<void> {
-    s.tried = newest(s.tried, MAX_TRIED, (v) => v);
-    s.rejected = newest(s.rejected, MAX_REJECTED, (v) => v.at);
+    s.tried = newest(s.tried, MAX_TRIED, (at) => at);
+    s.rejected = newest(s.rejected, MAX_REJECTED, prop("at"));
     await chrome.storage.local.set({ [KEY]: s });
     const existing = await chrome.declarativeNetRequest.getDynamicRules();
     await chrome.declarativeNetRequest.updateDynamicRules({
@@ -145,8 +165,8 @@ export function createMatcher(deps: {
 
   async function check(obs: { url: string; type: string }, mode: Mode): Promise<void> {
     const url = normalizeUrl(obs.url);
-    if (!url || /[*|^\s]/.test(url) || (obs.type !== "script" && obs.type !== "stylesheet" && obs.type !== "font")) return;
     const type = obs.type;
+    if (!url || /[*|^\s]/.test(url) || !v.is(AssetTypeSchema, type)) return;
     const s = await load();
     const t = now();
     if (mode !== "revalidate") {
@@ -215,12 +235,12 @@ export function createMatcher(deps: {
 
     async getMatched(): Promise<MatchedEntry[]> {
       await chain;
-      return Object.values((await load()).entries).sort((a, b) => a.url.localeCompare(b.url));
+      return sortBy(prop("url"), Object.values((await load()).entries));
     },
 
     async getRejected(): Promise<RejectedEntry[]> {
       await chain;
-      return Object.values((await load()).rejected).sort((a, b) => a.url.localeCompare(b.url));
+      return sortBy(prop("url"), Object.values((await load()).rejected));
     },
   };
 }

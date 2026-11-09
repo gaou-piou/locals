@@ -1,3 +1,4 @@
+import * as v from "valibot";
 import { LEARNED_ID_BASE } from "./learned.ts";
 import { MATCH_ID_BASE, REJECT_ID_BASE } from "./match.ts";
 
@@ -11,6 +12,22 @@ const STATS_KEY = "stats";
 const TAB_KEY = "tabCounts";
 const RANGE_DAYS: Record<StatsRange, number> = { day: 1, week: 7, month: 30, year: 365 };
 const KEEP_DAYS = 366;
+
+const count = v.fallback(v.number(), 0);
+/** Stored per-tab counts; a bare number predates the split, when every served request came from a saved copy. */
+const StoredTabCountsSchema = v.fallback(
+  v.record(
+    v.string(),
+    v.fallback(
+      v.union([
+        v.pipe(v.number(), v.transform((saved): TabCount => ({ saved, detected: 0 }))),
+        v.object({ saved: v.optional(count, 0), detected: v.optional(count, 0) }),
+      ]),
+      () => ({ saved: 0, detected: 0 }),
+    ),
+  ),
+  () => ({}),
+);
 
 type Buckets = Record<string, Record<string, number>>; // day → ruleId → count
 
@@ -35,10 +52,9 @@ export function createStats(deps: {
   const tabs = new Map<number, TabCount>();
   const zero = (): TabCount => ({ saved: 0, detected: 0 });
   const hydrated = chrome.storage.session.get(TAB_KEY).then((s) => {
-    for (const [k, v] of Object.entries((s[TAB_KEY] ?? {}) as Record<string, TabCount | number>)) {
-      const stored = typeof v === "number" ? { saved: v, detected: 0 } : v; // before the split: all were saved copies
+    for (const [k, stored] of Object.entries(v.parse(StoredTabCountsSchema, s[TAB_KEY]))) {
       const t = tabs.get(Number(k)) ?? zero();
-      tabs.set(Number(k), { saved: t.saved + (stored.saved ?? 0), detected: t.detected + (stored.detected ?? 0) });
+      tabs.set(Number(k), { saved: t.saved + stored.saved, detected: t.detected + stored.detected });
     }
   });
   let index: Promise<Record<number, string>> | undefined;

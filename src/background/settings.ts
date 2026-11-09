@@ -1,4 +1,5 @@
-import { uniq } from "ramda";
+import { isNotNil, uniq } from "ramda";
+import * as v from "valibot";
 import { applyExceptions } from "./exceptions.ts";
 
 export type Settings = {
@@ -18,27 +19,38 @@ const HOST_RE = /^(?=.{1,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)*[a-z0-9]([
 
 /** "https://Foo.org:8080/x?y" → "foo.org"; undefined when it is not a hostname. */
 export function normalizeHost(input: unknown): string | undefined {
-  if (typeof input !== "string") return undefined;
+  if (!v.is(v.string(), input)) return undefined;
   let s = input.trim().toLowerCase();
   s = s.replace(/^[a-z][a-z0-9+.-]*:\/\//, "").replace(/[/?#].*$/, "").replace(/:\d+$/, "").replace(/\.$/, "");
   return HOST_RE.test(s) ? s : undefined;
 }
 
-export const normalizeSites = (input: unknown): string[] =>
-  Array.isArray(input) ? uniq(input.map(normalizeHost).filter((h): h is string => !!h)) : [];
+/** Any list → its valid hostnames, normalized and deduplicated; anything else → []. */
+const SitesSchema = v.optional(
+  v.pipe(
+    v.fallback(v.array(v.unknown()), () => []),
+    v.transform((list: unknown[]) => uniq(list.map(normalizeHost).filter(isNotNil))),
+  ),
+  () => [],
+);
+
+export const normalizeSites = (input: unknown): string[] => v.parse(SitesSchema, input);
+
+const flag = (fallback: boolean) => v.optional(v.fallback(v.boolean(), fallback), fallback);
+
+/** Stored or imported settings of any age; a field of the wrong type falls back to its default. */
+const StoredSettingsSchema = v.object({
+  enabled: flag(DEFAULT_SETTINGS.enabled),
+  substitute: flag(DEFAULT_SETTINGS.substitute),
+  byname: flag(DEFAULT_SETTINGS.byname),
+  disabledSites: SitesSchema,
+  allowedSites: SitesSchema,
+});
 
 /** Turns whatever is stored (or imported) into current-schema Settings; never throws. */
 export function migrate(raw: unknown): Settings {
-  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) return { ...DEFAULT_SETTINGS };
-  const r = raw as Record<string, unknown>;
-  return {
-    schema: 1,
-    enabled: typeof r.enabled === "boolean" ? r.enabled : DEFAULT_SETTINGS.enabled,
-    substitute: typeof r.substitute === "boolean" ? r.substitute : DEFAULT_SETTINGS.substitute,
-    byname: typeof r.byname === "boolean" ? r.byname : DEFAULT_SETTINGS.byname,
-    disabledSites: normalizeSites(r.disabledSites),
-    allowedSites: normalizeSites(r.allowedSites),
-  };
+  const parsed = v.safeParse(StoredSettingsSchema, raw);
+  return parsed.success ? { schema: 1, ...parsed.output } : { ...DEFAULT_SETTINGS };
 }
 
 export async function getSettings(): Promise<Settings> {

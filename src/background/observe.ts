@@ -1,12 +1,16 @@
-export type ObservedType = "script" | "stylesheet" | "font";
+import { ascend, descend, dropLast, prop, sortBy, sortWith } from "ramda";
+import * as v from "valibot";
+import { AssetTypeSchema } from "../shared/manifest-schema.ts";
+
+export type ObservedType = v.InferOutput<typeof AssetTypeSchema>;
 export type Candidate = { url: string; type: ObservedType; sites: number; hits: number; lastSeen: number };
 export type Observation = { url: string; initiator?: string; type: string };
 
-type Entry = { type: ObservedType; hits: number; last: number; sites: string[] };
-type State = { salt: string; entries: Record<string, Entry> };
+const EntrySchema = v.object({ type: AssetTypeSchema, hits: v.number(), last: v.number(), sites: v.array(v.string()) });
+const StateSchema = v.object({ salt: v.string(), entries: v.record(v.string(), EntrySchema) });
+type State = v.InferOutput<typeof StateSchema>;
 
 const KEY = "observed";
-const TYPES = new Set<string>(["script", "stylesheet", "font"]);
 const MAX_SITES = 8;
 const SECOND_LEVEL = new Set(["co", "com", "org", "net", "ac", "gov", "edu"]);
 
@@ -64,8 +68,8 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
 
   const load = async (): Promise<State> => {
     if (state) return state;
-    const stored = (await chrome.storage.local.get(KEY))[KEY] as State | undefined;
-    state = stored ?? { salt: crypto.randomUUID(), entries: {} };
+    const stored = (await chrome.storage.local.get(KEY))[KEY];
+    state = v.is(StateSchema, stored) ? stored : { salt: crypto.randomUUID(), entries: {} };
     return state;
   };
 
@@ -84,7 +88,8 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
   };
 
   const apply = async (o: Observation, at: number): Promise<void> => {
-    if (!TYPES.has(o.type) || !o.initiator) return;
+    const type = o.type;
+    if (!v.is(AssetTypeSchema, type) || !o.initiator) return;
     const url = normalizeUrl(o.url);
     if (!url) return;
     let initiatorHost: string;
@@ -95,15 +100,15 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
     }
     if (!initiatorHost || sameSite(initiatorHost, new URL(url).hostname)) return;
     const s = await load();
-    const e = (s.entries[url] ??= { type: o.type as ObservedType, hits: 0, last: 0, sites: [] });
+    const e = (s.entries[url] ??= { type, hits: 0, last: 0, sites: [] });
     const frag = fnv1a(s.salt + registrable(initiatorHost));
     e.hits++;
     e.last = at;
     if (!e.sites.includes(frag) && e.sites.length < MAX_SITES) e.sites.push(frag);
     const urls = Object.keys(s.entries);
     if (urls.length > maxEntries) {
-      urls.sort((a, b) => s.entries[a].last - s.entries[b].last);
-      for (const u of urls.slice(0, urls.length - maxEntries)) delete s.entries[u];
+      const oldestFirst = sortBy((u: string) => s.entries[u].last, urls);
+      for (const u of dropLast(maxEntries, oldestFirst)) delete s.entries[u];
     }
     dirty = true;
     schedule();
@@ -121,25 +126,23 @@ export function createObserver(deps: { now?: () => Date; flushDelayMs?: number; 
     await save();
   }
 
-  async function getCandidates(opts: { minSites?: number } = {}): Promise<Candidate[]> {
+  const candidates = async (keep: (sites: number) => boolean): Promise<Candidate[]> => {
     await chain;
-    const min = opts.minSites ?? 2;
     const s = await load();
     return Object.entries(s.entries)
-      .filter(([url, e]) => e.sites.length >= min && isImmutableUrl(url))
-      .map(([url, e]) => ({ url, type: e.type, sites: e.sites.length, hits: e.hits, lastSeen: e.last }))
-      .sort((a, b) => b.sites - a.sites || b.hits - a.hits || a.url.localeCompare(b.url));
+      .filter(([url, e]) => keep(e.sites.length) && isImmutableUrl(url))
+      .map(([url, e]) => ({ url, type: e.type, sites: e.sites.length, hits: e.hits, lastSeen: e.last }));
+  };
+
+  async function getCandidates(opts: { minSites?: number } = {}): Promise<Candidate[]> {
+    const min = opts.minSites ?? 2;
+    return sortWith([descend(prop("sites")), descend(prop("hits")), ascend(prop("url"))], await candidates((n) => n >= min));
   }
 
   /** Versioned URLs seen on fewer sites than needed: they are saved as soon as another site loads them. */
   async function getPending(opts: { minSites?: number } = {}): Promise<Candidate[]> {
-    await chain;
     const min = opts.minSites ?? 2;
-    const s = await load();
-    return Object.entries(s.entries)
-      .filter(([url, e]) => e.sites.length < min && isImmutableUrl(url))
-      .map(([url, e]) => ({ url, type: e.type, sites: e.sites.length, hits: e.hits, lastSeen: e.last }))
-      .sort((a, b) => b.lastSeen - a.lastSeen || a.url.localeCompare(b.url));
+    return sortWith([descend(prop("lastSeen")), ascend(prop("url"))], await candidates((n) => n < min));
   }
 
   async function clear(): Promise<void> {

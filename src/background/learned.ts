@@ -1,36 +1,27 @@
+import * as v from "valibot";
+import { AssetTypeSchema, Sha256Schema } from "../shared/manifest-schema.ts";
 import { PRIORITY } from "../shared/priorities.ts";
 import { MATCH_ID_BASE } from "./match.ts";
 
 type Rule = chrome.declarativeNetRequest.Rule;
 
-export type LearnedEntry = { url: string; file: string; sha256: string; type: "script" | "stylesheet" | "font" };
+const LearnedEntrySchema = v.object({
+  url: v.pipe(v.string(), v.regex(/^https?:\/\/[^/?#]+\/[^?#]*$/)),
+  file: v.pipe(v.string(), v.regex(/^[0-9a-f]{64}\.(?:js|css|woff2?)$/)),
+  sha256: Sha256Schema,
+  type: AssetTypeSchema,
+});
+const LearnedIndexSchema = v.object({ schema: v.literal(1), entries: v.array(v.unknown()) });
+
+export type LearnedEntry = v.InferOutput<typeof LearnedEntrySchema>;
 
 /** Dynamic rule ids at or above this belong to learned libraries; site exceptions use lower ids. */
 export const LEARNED_ID_BASE = 200_000;
 
-const FILE_RE = /^[0-9a-f]{64}\.(?:js|css|woff2?)$/;
-const TYPES = new Set(["script", "stylesheet", "font"]);
-
-const isEntry = (e: unknown): e is LearnedEntry => {
-  if (typeof e !== "object" || e === null) return false;
-  const r = e as Record<string, unknown>;
-  return (
-    typeof r.url === "string" &&
-    /^https?:\/\/[^/?#]+\/[^?#]*$/.test(r.url) &&
-    typeof r.file === "string" &&
-    FILE_RE.test(r.file) &&
-    typeof r.sha256 === "string" &&
-    /^[0-9a-f]{64}$/.test(r.sha256) &&
-    typeof r.type === "string" &&
-    TYPES.has(r.type)
-  );
-};
-
 /** Reads `libs/learned/index.json`, written by `locals-learn`; anything malformed is ignored. */
 export function parseLearnedIndex(raw: unknown): LearnedEntry[] {
-  if (typeof raw !== "object" || raw === null) return [];
-  const r = raw as { schema?: unknown; entries?: unknown };
-  return r.schema === 1 && Array.isArray(r.entries) ? r.entries.filter(isEntry) : [];
+  const index = v.safeParse(LearnedIndexSchema, raw);
+  return index.success ? index.output.entries.filter((e) => v.is(LearnedEntrySchema, e)) : [];
 }
 
 export function learnedRules(entries: LearnedEntry[]): Rule[] {

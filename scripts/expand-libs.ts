@@ -1,4 +1,6 @@
 import { fileURLToPath } from "node:url";
+import { groupBy, last, map, sort, sum, uniq, values } from "ramda";
+import * as v from "valibot";
 import { LICENSE_RE, extract, fetchBuffer, fetchTarballFromNpm, HttpError, sha256 } from "./lib-pipeline.ts";
 import { readLibraries, writeLibraries } from "./manifest-io.ts";
 import { CDNJS_MIRRORS, SPEC, type FileSpec, type LibSpec } from "./libs-spec.ts";
@@ -8,7 +10,7 @@ type Version = LibraryEntry["versions"][number];
 type Pattern = LibraryEntry["patterns"][number];
 
 const STABLE = /^\d+\.\d+\.\d+$/;
-const triple = (v: string) => v.split(".").map(Number);
+const triple = (ver: string) => ver.split(".").map(Number);
 const compare = (a: string, b: string) => {
   const [x, y] = [triple(a), triple(b)];
   return x[0] - y[0] || x[1] - y[1] || x[2] - y[2];
@@ -44,20 +46,30 @@ async function tryFetch(url: string): Promise<Buffer | null> {
   return null;
 }
 
+const NpmPackumentSchema = v.object({ versions: v.record(v.string(), v.unknown()) });
+/** The licence fields of a package.json: `license` (SPDX string or legacy object) or legacy `licenses`. */
+const PackageLicenseSchema = v.fallback(
+  v.object({
+    license: v.optional(v.union([v.string(), v.pipe(v.object({ type: v.string() }), v.transform((l) => l.type))])),
+    licenses: v.optional(v.array(v.object({ type: v.string() }))),
+  }),
+  {},
+);
+
 async function npmVersions(npm: string): Promise<string[]> {
   const res = await http(() => fetch(`https://registry.npmjs.org/${npm.replace("/", "%2F")}`, { headers: { accept: "application/vnd.npm.install-v1+json" } }));
   if (!res.ok) throw new Error(`registry ${npm} → ${res.status}`);
-  return Object.keys(((await res.json()) as { versions: object }).versions).filter((v) => STABLE.test(v));
+  const { versions } = v.parse(NpmPackumentSchema, await res.json());
+  return Object.keys(versions).filter((ver) => STABLE.test(ver));
 }
 
 /** Newest `max` versions; when there are more, only the last patch of every minor competes. */
 export function pickVersions(all: string[], spec: Pick<LibSpec, "max" | "since" | "only">): string[] {
-  let vs = all.filter((v) => (!spec.since || compare(v, spec.since) >= 0) && (!spec.only || spec.only.test(v))).sort(compare);
+  let vs = sort(compare, all.filter((ver) => (!spec.since || compare(ver, spec.since) >= 0) && (!spec.only || spec.only.test(ver))));
   const max = spec.max ?? 12;
   if (vs.length > max) {
-    const lastOfMinor = new Map<string, string>();
-    for (const v of vs) lastOfMinor.set(triple(v).slice(0, 2).join("."), v);
-    vs = [...lastOfMinor.values()].sort(compare);
+    const byMinor = groupBy((ver: string) => triple(ver).slice(0, 2).join("."), vs);
+    vs = sort(compare, values(map((group) => last(group!)!, byMinor)));
   }
   return vs.slice(-max);
 }
@@ -80,8 +92,8 @@ async function probe(spec: LibSpec, version: string): Promise<Probe | null> {
   const wanted = new Set(spec.files.map((f) => f.path));
   const got = await extract(tgz, (p) => wanted.has(p) || LICENSE_RE.test(p) || p === "package.json");
   if (![...got.keys()].some((k) => LICENSE_RE.test(k))) return null; // buildLibs insists on a licence file
-  const pkg = JSON.parse(got.get("package.json")?.toString() ?? "{}");
-  const license: string = typeof pkg.license === "string" ? pkg.license : (pkg.license?.type ?? pkg.licenses?.[0]?.type ?? "");
+  const pkg = v.parse(PackageLicenseSchema, JSON.parse(got.get("package.json")?.toString() ?? "{}"));
+  const license = pkg.license ?? pkg.licenses?.[0]?.type ?? "";
   const present = spec.files.filter((f) => got.has(f.path));
   const hits = new Map<string, string>();
   await Promise.all(
@@ -101,8 +113,8 @@ async function probe(spec: LibSpec, version: string): Promise<Probe | null> {
 }
 
 export function mergeProbe(entry: LibraryEntry, p: Probe): LibraryEntry {
-  const versions = entry.versions.filter((v) => v.version !== p.version);
-  const old = entry.versions.find((v) => v.version === p.version);
+  const versions = entry.versions.filter((ver) => ver.version !== p.version);
+  const old = entry.versions.find((ver) => ver.version === p.version);
   const files = [...(old?.files ?? [])];
   for (const f of p.files) {
     const have = files.find((o) => o.path === f.path);
@@ -128,8 +140,8 @@ export async function expand(entries: LibraryEntry[], spec: LibSpec[], log = con
     const idx = out.findIndex((e) => e.name === s.name);
     const existing = idx >= 0 ? out[idx] : { name: s.name, npm: s.npm, license: "", versions: [], patterns: [] as Pattern[] };
     // Already pinned versions are re-probed too: new hosts may now serve them.
-    const wanted = [...new Set([...pickVersions(await npmVersions(s.npm), s), ...existing.versions.map((v) => v.version)])];
-    const probes = (await Promise.all(wanted.map((v) => probe(s, v)))).filter((p): p is Probe => p !== null);
+    const wanted = uniq([...pickVersions(await npmVersions(s.npm), s), ...existing.versions.map((ver) => ver.version)]);
+    const probes = (await Promise.all(wanted.map((ver) => probe(s, ver)))).filter((p): p is Probe => p !== null);
     let entry: LibraryEntry = existing;
     for (const p of probes) entry = mergeProbe({ ...entry, license: entry.license || p.license }, p);
     if (!entry.versions.length) {
@@ -148,5 +160,5 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const spec = only.length ? SPEC.filter((s) => only.includes(s.name)) : SPEC;
   const result = await expand(readLibraries(), spec);
   writeLibraries(result);
-  console.log(`libraries.json: ${result.length} libraries, ${result.reduce((n, e) => n + e.versions.length, 0)} versions`);
+  console.log(`libraries.json: ${result.length} libraries, ${sum(map((e) => e.versions.length, result))} versions`);
 }

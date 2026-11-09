@@ -1,4 +1,5 @@
 import { fileURLToPath } from "node:url";
+import { pickBy } from "ramda";
 import { fetchBuffer, fetchTarballFromNpm, hashLibs } from "./lib-pipeline.ts";
 import { readLibraries, writeLibraries } from "./manifest-io.ts";
 import { parseManifest, type LibraryEntry } from "../src/shared/manifest-schema.ts";
@@ -55,7 +56,7 @@ export async function bumpLibs(
         ...entry,
         versions,
         patterns: entry.patterns.map((p, i) => {
-          const cdn = Object.fromEntries(Object.entries({ ...p.cdnSha256, ...hashedNew.patterns[i]?.cdnSha256 }).filter(([v]) => kept.has(v)));
+          const cdn: Record<string, string> = pickBy((_hash: string, version: string | number) => kept.has(String(version)), { ...p.cdnSha256, ...hashedNew.patterns[i]?.cdnSha256 });
           const { cdnSha256: _drop, ...rest } = p;
           return Object.keys(cdn).length ? { ...rest, cdnSha256: cdn } : rest;
         }),

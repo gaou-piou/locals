@@ -1,17 +1,21 @@
-import { uniq, without } from "ramda";
-import { z } from "zod";
+import { uniq } from "ramda";
+import * as v from "valibot";
 import { migrate, normalizeHost, type Settings } from "../background/settings.ts";
-import type { LibraryEntry } from "../shared/manifest-schema.ts";
+import { describeIssues, type LibraryEntry } from "../shared/manifest-schema.ts";
 
 /** Accepts the current export and the unversioned (schema 0) one; unknown keys are an error. */
-const ConfigSchema = z.strictObject({
-  schema: z.union([z.literal(0), z.literal(1)]).optional(),
-  enabled: z.boolean().optional(),
-  substitute: z.boolean().optional(),
-  byname: z.boolean().optional(),
-  disabledSites: z.array(z.string()).optional(),
-  allowedSites: z.array(z.string()).optional(),
-});
+const ConfigSchema = v.pipe(
+  v.unknown(),
+  v.check((raw) => !Array.isArray(raw), "Invalid type: Expected Object but received Array"),
+  v.strictObject({
+    schema: v.optional(v.picklist([0, 1])),
+    enabled: v.optional(v.boolean()),
+    substitute: v.optional(v.boolean()),
+    byname: v.optional(v.boolean()),
+    disabledSites: v.optional(v.array(v.string())),
+    allowedSites: v.optional(v.array(v.string())),
+  }),
+);
 
 export class ConfigError extends Error {
   constructor(detail: string) {
@@ -28,12 +32,11 @@ export function parseConfig(json: string): Settings {
   } catch {
     throw new ConfigError("not valid JSON");
   }
-  const parsed = ConfigSchema.safeParse(raw);
-  if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`).join("; "));
-  for (const host of [...(parsed.data.disabledSites ?? []), ...(parsed.data.allowedSites ?? [])]) {
-    if (!normalizeHost(host)) throw new ConfigError(`"${host}" is not a hostname`);
-  }
-  return migrate(parsed.data);
+  const parsed = v.safeParse(ConfigSchema, raw);
+  if (!parsed.success) throw new ConfigError(describeIssues(parsed.issues));
+  const bad = [...(parsed.output.disabledSites ?? []), ...(parsed.output.allowedSites ?? [])].find((host) => !normalizeHost(host));
+  if (bad !== undefined) throw new ConfigError(`"${bad}" is not a hostname`);
+  return migrate(parsed.output);
 }
 
 /** Chrome's `requestDomains` semantics: the entry itself or any subdomain of it. */

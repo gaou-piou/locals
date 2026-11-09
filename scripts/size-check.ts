@@ -1,15 +1,13 @@
 import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { sum } from "ramda";
 
 /** Extension size budget, recorded in docs/spike-results.md. */
 export const BUDGET_BYTES = 128 * 1024 * 1024;
 
 export function dirSize(dir: string): number {
-  return readdirSync(dir, { withFileTypes: true }).reduce(
-    (sum, e) => sum + (e.isDirectory() ? dirSize(join(dir, e.name)) : statSync(join(dir, e.name)).size),
-    0,
-  );
+  return sum(readdirSync(dir, { withFileTypes: true }).map((e) => (e.isDirectory() ? dirSize(join(dir, e.name)) : statSync(join(dir, e.name)).size)));
 }
 
 export function checkSize(bytes: number): { ok: boolean; message: string } {

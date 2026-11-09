@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { chain, groupBy, map, values } from "ramda";
+import { chain, groupBy, identity, map, sortBy, uniq, values } from "ramda";
 import { EXTENSION_KEY } from "../src/manifest.ts";
 import { PRIORITY } from "../src/shared/priorities.ts";
 import type { LibraryEntry, LibraryFile } from "../src/shared/manifest-schema.ts";
@@ -151,7 +151,7 @@ const hostOf = (url: string) => url.replace(/^https?:\/\//, "").split("/")[0].to
  * afterwards and corrects or rolls it back for the next load. CDN hosts stay with the exact ruleset.
  */
 function bynameDrafts(entries: LibraryEntry[]) {
-  const cdnHosts = [...new Set(chain((e) => e.patterns.map((p) => hostOf(p.url)), entries))].sort();
+  const cdnHosts = sortBy(identity, uniq(chain((e) => e.patterns.map((p) => hostOf(p.url)), entries)));
   const extensionId = extensionIdFromKey(EXTENSION_KEY);
   const seen = new Set<string>();
   const drafts: { key: string; rule: Omit<Rule, "id">; library: string }[] = [];
