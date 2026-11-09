@@ -7,22 +7,24 @@
  * network, console errors (SRI among them) and page errors, and the page's own timings (FCP, LCP, DOMContentLoaded,
  * load) from the Performance API.
  *
- *   pnpm tsx bench/live.ts [--runs 3] [--sites 40] [--throttle none|4g|3g]
+ * "λocals trained" starts every load from a copy of the profile train.ts made (extension state kept, HTTP cache dropped).
+ *
+ *   pnpm tsx bench/live.ts [--runs 3] [--sites 40] [--throttle none|4g|3g] [--conditions none,λocals,Decentraleyes]
  *
  * Sites: those whose captured CDN requests at least one extension can serve (coverage.json), most CDN requests first.
  */
 import { chromium, type BrowserContext } from "@playwright/test";
-import { appendFile, mkdtemp, readFile, rm } from "node:fs/promises";
+import { appendFile, cp, mkdtemp, readFile, rm } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { countBy, descend, prop, sortWith, take, toPairs, uniq } from "ramda";
-import { DECENTRALEYES, LOCALS_DIR, OUT } from "./config.ts";
+import { DECENTRALEYES, LOCALS_DIR, OUT, TRAINED_PROFILE } from "./config.ts";
 import { readJsonl } from "./data.ts";
 
 const { values } = parseArgs({
-  options: { runs: { type: "string", default: "3" }, sites: { type: "string", default: "40" }, throttle: { type: "string", default: "none" }, out: { type: "string" } },
+  options: { runs: { type: "string", default: "3" }, sites: { type: "string", default: "40" }, throttle: { type: "string", default: "none" }, out: { type: "string" }, conditions: { type: "string", default: "none,λocals,Decentraleyes" } },
 });
 const RUNS = Number(values.runs);
 const FILE = values.out ?? `${OUT}/live-${values.throttle}.jsonl`;
@@ -34,8 +36,12 @@ const THROTTLE = {
   "3g": { latency: 400, downloadThroughput: (1.6 * 1024 * 1024) / 8, uploadThroughput: (750 * 1024) / 8 },
 }[values.throttle as "none" | "4g" | "3g"];
 
-export const CONDITIONS = { none: null, "λocals": LOCALS_DIR, Decentraleyes: DECENTRALEYES.dir } as const;
+export const CONDITIONS = { none: null, "λocals": LOCALS_DIR, "λocals trained": LOCALS_DIR, Decentraleyes: DECENTRALEYES.dir } as const;
 type Condition = keyof typeof CONDITIONS;
+const RUN_CONDITIONS = values.conditions!.split(",") as Condition[];
+for (const c of RUN_CONDITIONS) if (!(c in CONDITIONS)) throw new Error(`unknown condition ${c}`);
+/** Profile parts that are the browser's own caches (or locks): a trained copy starts without them. */
+const NOT_STATE = /(^|[/\\])(Cache|Code Cache|GPUCache|DawnGraphiteCache|DawnWebGPUCache|CacheStorage|Singleton\w*)$/;
 
 type Coverage = { cdnHosts: string[]; rows: { site: string; initiator: string; cdn: boolean; hits: Record<string, unknown> }[] };
 const coverage: Coverage = JSON.parse(await readFile(`${OUT}/coverage.json`, "utf8"));
@@ -85,6 +91,7 @@ async function launch(condition: Condition, tries = 3): Promise<{ ctx: BrowserCo
 
 async function launchOnce(condition: Condition): Promise<{ ctx: BrowserContext; dir: string }> {
   const dir = await mkdtemp(path.join(os.tmpdir(), "bench-live-"));
+  if (condition === "λocals trained") await cp(TRAINED_PROFILE, dir, { recursive: true, filter: (src) => !NOT_STATE.test(src) });
   const ext = CONDITIONS[condition];
   const ctx = await chromium.launchPersistentContext(dir, {
     channel: "chromium",
@@ -119,7 +126,7 @@ async function load(ctx: BrowserContext, url: string): Promise<Omit<Load, "site"
     else http.delete(e.requestId);
     if (e.redirectResponse && CDN.has(URL.parse(e.redirectResponse.url)?.host ?? "")) {
       cdnNet.delete(e.requestId);
-      if (u.protocol === "chrome-extension:") cdnLocal++;
+      if (u.protocol === "chrome-extension:" || u.protocol === "data:") cdnLocal++;
     }
     if (u.protocol.startsWith("http")) {
       requests++;
@@ -180,11 +187,11 @@ async function load(ctx: BrowserContext, url: string): Promise<Omit<Load, "site"
 }
 
 const done = new Set(existsSync(FILE) ? (await readJsonl<Load>(FILE)).map((l) => `${l.site} ${l.condition} ${l.run}`) : []);
-console.log(`${sites.length} sites × ${Object.keys(CONDITIONS).length} conditions × ${RUNS} runs, throttle ${values.throttle} → ${FILE}`);
+console.log(`${sites.length} sites × ${RUN_CONDITIONS.length} conditions × ${RUNS} runs, throttle ${values.throttle} → ${FILE}`);
 for (const [i, site] of sites.entries()) {
   for (let run = 0; run < RUNS; run++) {
     // rotate the order, so no condition is always first after a site was just warmed up by another
-    const order = Object.keys(CONDITIONS) as Condition[];
+    const order = RUN_CONDITIONS;
     const rotated = [...order.slice(run % order.length), ...order.slice(0, run % order.length)];
     for (const condition of rotated) {
       if (done.has(`${site} ${condition} ${run}`)) continue;

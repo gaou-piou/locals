@@ -15,6 +15,8 @@ export const LIST_ID = "8P8NV";
 export const DECENTRALEYES = { id: "ldpochfccmkkmhdbclfhpagapcfdljkj", version: "3.0.2", dir: path.join(CACHE, "decentraleyes") };
 export const LOCALCDN = { repo: "https://codeberg.org/nobody/LocalCDN.git", ref: "main", dir: path.join(CACHE, "localcdn") };
 export const LOCALS_DIR = path.join(ROOT, "dist");
+/** A profile that browsed the corpus once with λocals (train.ts): what auto-cache has learned by then. */
+export const TRAINED_PROFILE = path.join(CACHE, "trained-profile");
 
 /** Resource types that the extensions can serve locally. */
 export const TYPES = ["script", "stylesheet", "font"] as const;

@@ -69,6 +69,6 @@ lines.push(
   "¹ `Denying load of chrome-extension://….ttf/.woff`: Chromium checks every format in an @font-face `src` list against",
   "web_accessible_resources and logs the ones the extension does not bundle; the bundled woff2 is used. Not counted as errors.",
 );
-const out = `${OUT}/live-${values.throttle}.md`;
+const out = values.in ? values.in.replace(/\.jsonl$/, ".md") : `${OUT}/live-${values.throttle}.md`;
 await writeFile(out, lines.join("\n") + "\n");
 console.log(lines.join("\n"));

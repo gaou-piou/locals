@@ -16,6 +16,9 @@ pnpm build:libs && pnpm build        # λocals from dist/
 pnpm tsx bench/capture.ts            # load every site in plain Chromium, record CDN-able requests → out/capture.jsonl (~1.5 h)
 pnpm tsx bench/coverage.ts           # → out/coverage.md
 pnpm tsx bench/live.ts --throttle 4g # paired page loads → out/live-4g.jsonl (resumable)
+pnpm tsx bench/train.ts              # browse the corpus once with λocals → .cache/trained-profile (auto-cache state)
+pnpm tsx bench/live.ts --throttle 4g --conditions 'none,λocals,λocals trained' --out out/live-4g-trained.jsonl
+pnpm tsx bench/report.ts --in out/live-4g-trained.jsonl  # → out/live-4g-trained.md
 pnpm tsx bench/report.ts --throttle 4g  # → out/live-4g.md
 ```
 
@@ -41,6 +44,11 @@ Throttling uses Chrome's DevTools presets (`4g`: 150 ms RTT, 9 Mbps; `3g`: 400 m
 
 Live sites change between loads (ads, A/B tests, CDN edges), so the report pairs each extension with the no-extension
 load of the same site and takes medians over runs and then over sites. A difference of a few tens of ms is noise.
+
+**λocals trained** measures auto-cache: `train.ts` visits every captured site that requests a CDN file once, in one
+profile, and every "trained" load starts from a copy of that profile without the browser's caches (HTTP, code, GPU).
+What the extension learned (its `data:` copies and per-site CSP verdicts) is kept, so the difference to "λocals" is
+the extension's own. A `data:` redirect counts as served locally.
 
 Errors: console errors and page errors are counted per load. Chromium logs `Denying load of chrome-extension://….ttf`
 for every format of an `@font-face` src list that the extension does not bundle, even though it uses the bundled
