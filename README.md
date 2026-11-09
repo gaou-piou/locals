@@ -6,11 +6,11 @@ A Manifest V3 Chromium extension that serves popular JavaScript libraries, style
 
 ## Why
 
-[Decentraleyes](https://github.com/Synzvato/decentraleyes) is archived and its Chromium code lived on an MV2 branch. [LocalCDN](https://codeberg.org/nobody/LocalCDN) is maintained but Firefox-only: its author states that MV3 removed APIs it needs. λocals fills the gap for Chromium MV3 with `declarativeNetRequest` redirects to `web_accessible_resources`, a full UI, and a pipeline that keeps the bundled libraries current. See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md).
+[Decentraleyes](https://github.com/Synzvato/decentraleyes) 3.x is an MV3 extension in the Chrome Web Store, but its default ruleset has no jQuery 3 and newer releases sit behind an opt-in "staging" set. [LocalCDN](https://codeberg.org/nobody/LocalCDN) is maintained but Firefox-only: its author states that MV3 removed APIs it needs. λocals fills the gap for Chromium MV3 with `declarativeNetRequest` redirects to `web_accessible_resources`, a full UI, and a pipeline that keeps the bundled libraries current. See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md).
 
 What it does:
 
-- redirects requests to the supported CDNs to bundled files (exact version matches, and an opt-in version substitution (off by default) that maps older requests of a major to the newest pinned release of that major);
+- redirects requests to the supported CDNs to bundled files (exact version matches, and an opt-in version substitution (off by default) that maps older requests of a major to the newest pinned release of that major; scripts and stylesheets only, since a font has to match the stylesheet that names it);
 - serves a site's own copy of a bundled library by its name: a file named after a library and version (`/js/jquery-3.7.1.min.js`, `/npm/jquery@3.7.1/dist/jquery.min.js`, `jquery.min.js?ver=3.7.1`) is served from the bundled copy immediately; the extension then downloads the original in the background and compares its sha256. Identical bytes keep the redirect, another bundled version corrects it, anything else hands the file back to the site from the next load on (on by default, can be switched off);
 - detects a site's own copy of a bundled library whatever its name: when a script, style or font whose URL mentions a known library is byte-identical (sha256) to a bundled file, that exact URL is redirected to the bundled copy. Matches keep being served while they are re-checked weekly; see the Detected list in the options;
 - a badge and a popup with two counts for the current page: requests served from saved copies (bundled and learned) and from detected self-hosted copies (the badge shows `saved·detected`, e.g. `5·2`); the popup also has a one-click per-site toggle. On Android (Lemur, Kiwi-style browsers) pin λocals in the extensions menu to see the badge next to the address bar;
@@ -67,7 +67,7 @@ Load `dist/` unpacked to try a build. Releases are cut by pushing a `v<version>`
 
 ### Stack
 
-Svelte 5 (no SvelteKit), Tailwind v4, [shadcn-svelte](https://shadcn-svelte.com) components, [runed](https://runed.dev), ramda, zod. Plain Vite with three entry points (popup, options, service worker): a build plugin such as CRXJS or WXT would add a moving part without removing work for a hand-written manifest.
+Svelte 5 (no SvelteKit), Tailwind v4, [shadcn-svelte](https://shadcn-svelte.com) components, [runed](https://runed.dev), ramda, valibot. Plain Vite with three entry points (popup, options, service worker): a build plugin such as CRXJS or WXT would add a moving part without removing work for a hand-written manifest.
 
 > **shadcn caveat.** `src/lib/components/ui/tabs/*` and `ui/switch/switch.svelte` are patched: the registry classes target `data-active` / `data-horizontal` style attributes, while the installed bits-ui emits `data-state` and `data-orientation`. The switch also uses a fixed emerald "on" colour and a white thumb, because mobile browsers that force-darken extension pages (Lemur) turned the themed colours into an invisible switch. Re-adding these components with the shadcn CLI would bring the invisible/mis-laid-out tabs and switch back. Re-apply the patch if you do.
 
