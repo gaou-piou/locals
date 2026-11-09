@@ -1,4 +1,5 @@
 import * as v from "valibot";
+import { ENTRY_ID_BASE } from "./cache.ts";
 import { LEARNED_ID_BASE } from "./learned.ts";
 import { MATCH_ID_BASE, REJECT_ID_BASE } from "./match.ts";
 
@@ -119,7 +120,8 @@ export function createStats(deps: {
         if (day < from || day > to) continue;
         for (const [id, n] of Object.entries(rules)) {
           out.total += n;
-          const lib = idx[Number(id)] ?? (Number(id) >= MATCH_ID_BASE ? "detected" : Number(id) >= LEARNED_ID_BASE ? "learned" : "unknown");
+          const rule = Number(id);
+          const lib = idx[rule] ?? (rule >= ENTRY_ID_BASE ? "cached" : rule >= MATCH_ID_BASE ? "detected" : rule >= LEARNED_ID_BASE ? "learned" : "unknown");
           out.byLibrary[lib] = (out.byLibrary[lib] ?? 0) + n;
         }
       }
@@ -142,14 +144,15 @@ export function createStats(deps: {
 export type Stats = ReturnType<typeof createStats>;
 
 /**
- * Static redirect rulesets and learned/matched redirects (dynamic, ids from LEARNED_ID_BASE) serve a library;
- * site-exception rules and rejected byname guesses (allow rules from REJECT_ID_BASE) do not.
+ * Static redirect rulesets, learned/matched redirects (dynamic, ids from LEARNED_ID_BASE) and auto-cache copies (from
+ * ENTRY_ID_BASE) serve a library; site-exception rules, rejected byname guesses (allow rules from REJECT_ID_BASE) and
+ * the auto-cache gate do not.
  */
-export const isLibraryMatch = (rule: { rulesetId: string; ruleId?: number }): boolean =>
-  rule.rulesetId === "exact" ||
-  rule.rulesetId === "substitute" ||
-  rule.rulesetId === "byname" ||
-  (rule.rulesetId === "_dynamic" && (rule.ruleId ?? 0) >= LEARNED_ID_BASE && (rule.ruleId ?? 0) < REJECT_ID_BASE);
+export const isLibraryMatch = (rule: { rulesetId: string; ruleId?: number }): boolean => {
+  if (rule.rulesetId !== "_dynamic") return rule.rulesetId === "exact" || rule.rulesetId === "substitute" || rule.rulesetId === "byname";
+  const id = rule.ruleId ?? 0;
+  return (id >= LEARNED_ID_BASE && id < REJECT_ID_BASE) || id >= ENTRY_ID_BASE;
+};
 
 /** Static rulesets and learned redirects serve saved copies; matched redirects serve hash-detected self-hosted copies. */
 export const matchSource = (rule: { rulesetId: string; ruleId?: number }): MatchSource =>

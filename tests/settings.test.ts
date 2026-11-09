@@ -14,6 +14,7 @@ describe("migrate", () => {
       enabled: false,
       substitute: false,
       byname: true,
+      autoCache: true,
       disabledSites: ["example.com", "foo.org"],
       allowedSites: [],
     });
@@ -29,13 +30,14 @@ describe("migrate", () => {
       enabled: true,
       substitute: true,
       byname: true,
+      autoCache: true,
       disabledSites: [],
       allowedSites: ["b.com"],
     });
   });
 
   it("is idempotent on current-schema data", () => {
-    const s = { schema: 1 as const, enabled: true, substitute: true, byname: false, disabledSites: ["a.com"], allowedSites: ["b.com"] };
+    const s = { schema: 1 as const, enabled: true, substitute: true, byname: false, autoCache: false, disabledSites: ["a.com"], allowedSites: ["b.com"] };
     expect(migrate(s)).toEqual(s);
   });
 
@@ -76,6 +78,14 @@ describe("byname", () => {
   });
 });
 
+describe("autoCache", () => {
+  it("is on by default and survives migration", () => {
+    expect(DEFAULT_SETTINGS.autoCache).toBe(true);
+    expect(migrate({ autoCache: false }).autoCache).toBe(false);
+    expect(migrate({ autoCache: 0 }).autoCache).toBe(true);
+  });
+});
+
 describe("getSettings / setSettings", () => {
   it("returns defaults when storage is empty", async () => {
     expect(await getSettings()).toEqual(DEFAULT_SETTINGS);
@@ -93,6 +103,7 @@ describe("getSettings / setSettings", () => {
       enabled: true,
       substitute: true,
       byname: true,
+      autoCache: true,
       disabledSites: ["example.com"],
       allowedSites: ["ok.org"],
     });

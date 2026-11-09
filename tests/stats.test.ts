@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { createStats, dayKey, isLibraryMatch, matchSource } from "../src/background/stats.ts";
 import { installFakeChrome } from "./fake-chrome.ts";
+import { ENTRY_ID_BASE, GATE_ID_BASE } from "../src/background/cache.ts";
 
 const index = { 1: "jquery", 2: "jquery", 3: "react" };
 const NOW = new Date(2026, 10, 2, 12); // 2026-11-02 local
@@ -150,6 +151,15 @@ describe("stats", () => {
     s.recordMatch(200_003, dayKey(new Date()), 4);
     expect((await s.getStats("day")).byLibrary).toEqual({ learned: 1 });
     expect(await s.getTabCount(4)).toEqual({ saved: 1, detected: 0 });
+  });
+
+  it("auto-cache data: copies count as saved and are listed as \"cached\"; their gate rules do not count", async () => {
+    expect(isLibraryMatch({ rulesetId: "_dynamic", ruleId: ENTRY_ID_BASE + 4 })).toBe(true);
+    expect(isLibraryMatch({ rulesetId: "_dynamic", ruleId: GATE_ID_BASE + 1 })).toBe(false);
+    expect(matchSource({ rulesetId: "_dynamic", ruleId: ENTRY_ID_BASE + 4 })).toBe("saved");
+    const s = createStats({ loadIndex: async () => ({}), flushDelayMs: 1 });
+    s.recordMatch(ENTRY_ID_BASE + 4, dayKey(new Date()), 4);
+    expect((await s.getStats("day")).byLibrary).toEqual({ cached: 1 });
   });
 
   it("matches of hash-detected self-hosted copies are listed as \"detected\"", async () => {

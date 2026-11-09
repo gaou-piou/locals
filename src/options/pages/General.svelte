@@ -42,6 +42,25 @@
 
     <Card.Root>
       <Card.Header>
+        <Card.Title>Learn from browsing</Card.Title>
+        <Card.Description>
+          A versioned file from another site's CDN that you have met on three different sites is downloaded once and kept in the extension;
+          from then on every site gets it locally. The more you browse, the more loads locally and the faster pages open. Only files whose
+          address pins their content are kept, only on sites whose security policy allows it, and the least used ones make room for new ones.
+        </Card.Description>
+        <Card.Action>
+          <Switch
+            checked={s.autoCache}
+            disabled={!s.enabled}
+            aria-label="Learn from browsing"
+            onCheckedChange={(v) => setGlobal({ autoCache: v })}
+          />
+        </Card.Action>
+      </Card.Header>
+    </Card.Root>
+
+    <Card.Root>
+      <Card.Header>
         <Card.Title>Substitute close versions</Card.Title>
         <Card.Description>
           When a page asks for an older version that is not bundled, serve the newest bundled release of the same major version (never an older one than requested). The extension

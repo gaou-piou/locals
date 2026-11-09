@@ -8,12 +8,14 @@ export type Settings = {
   substitute: boolean;
   /** Serve self-hosted copies by name and version before their bytes are verified (see match.ts). */
   byname: boolean;
+  /** Learn `data:` copies of immutable third-party files seen on several sites (see cache.ts). */
+  autoCache: boolean;
   disabledSites: string[];
   allowedSites: string[];
 };
 
 export const SETTINGS_KEY = "settings";
-export const DEFAULT_SETTINGS: Settings = { schema: 1, enabled: true, substitute: false, byname: true, disabledSites: [], allowedSites: [] };
+export const DEFAULT_SETTINGS: Settings = { schema: 1, enabled: true, substitute: false, byname: true, autoCache: true, disabledSites: [], allowedSites: [] };
 
 const HOST_RE = /^(?=.{1,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)*[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
 
@@ -43,6 +45,7 @@ const StoredSettingsSchema = v.object({
   enabled: flag(DEFAULT_SETTINGS.enabled),
   substitute: flag(DEFAULT_SETTINGS.substitute),
   byname: flag(DEFAULT_SETTINGS.byname),
+  autoCache: flag(DEFAULT_SETTINGS.autoCache),
   disabledSites: SitesSchema,
   allowedSites: SitesSchema,
 });

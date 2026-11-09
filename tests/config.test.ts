@@ -6,7 +6,7 @@ const S = (over: Partial<Settings> = {}): Settings => ({ ...DEFAULT_SETTINGS, ..
 
 describe("parseConfig", () => {
   it("round-trips an export", () => {
-    const s = S({ enabled: false, substitute: true, disabledSites: ["a.com"], allowedSites: ["b.org"] });
+    const s = S({ enabled: false, substitute: true, autoCache: false, disabledSites: ["a.com"], allowedSites: ["b.org"] });
     expect(parseConfig(serializeConfig(s))).toEqual(s);
   });
 

@@ -12,6 +12,7 @@ const ConfigSchema = v.pipe(
     enabled: v.optional(v.boolean()),
     substitute: v.optional(v.boolean()),
     byname: v.optional(v.boolean()),
+    autoCache: v.optional(v.boolean()),
     disabledSites: v.optional(v.array(v.string())),
     allowedSites: v.optional(v.array(v.string())),
   }),
