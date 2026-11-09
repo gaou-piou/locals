@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { createHash } from "node:crypto";
 import { applyLearned } from "../src/background/learned.ts";
-import { buildIndex, createMatcher, looksLikeLibrary, MATCH_ID_BASE, matchRules, REJECT_ID_BASE } from "../src/background/match.ts";
+import { buildIndex, CACHE_ID_BASE, createMatcher, looksLikeLibrary, MATCH_ID_BASE, matchRules, REJECT_ID_BASE } from "../src/background/match.ts";
 import { PRIORITY } from "../src/shared/priorities.ts";
 import type { LibraryEntry } from "../src/shared/manifest-schema.ts";
 import { installFakeChrome } from "./fake-chrome.ts";
@@ -160,6 +160,16 @@ describe("matcher", () => {
     const e = { library: "jquery", version: "3.7.1", path: "libs/jquery/3.7.1/dist/jquery.min.js", sha256: "", type: "script" as const, at: 0 };
     const rules = matchRules([{ ...e, url: "https://a.example/jquery.js" }, { ...e, url: "https://b.example/jquery.js" }]);
     expect(new Set(rules.map((r) => r.id)).size).toBe(2);
+  });
+
+  it("leaves the auto-cache rules (from CACHE_ID_BASE up) alone", async () => {
+    expect(CACHE_ID_BASE).toBeGreaterThan(REJECT_ID_BASE);
+    const cached = { id: CACHE_ID_BASE + 7, priority: 1, action: { type: "allow" as chrome.declarativeNetRequest.RuleActionType }, condition: {} };
+    env.state.dynamic.push(cached);
+    const url = "https://shop.example/wp-content/js/jquery.min.js";
+    bodies[url] = JQ;
+    await make().consider({ url, type: "script" });
+    expect(env.state.dynamic.map((r) => r.id)).toEqual([CACHE_ID_BASE + 7, MATCH_ID_BASE]);
   });
 
   it("learned rules and matched rules do not remove each other", async () => {

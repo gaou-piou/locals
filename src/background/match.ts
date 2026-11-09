@@ -11,6 +11,8 @@ type FileType = v.InferOutput<typeof AssetTypeSchema>;
 export const MATCH_ID_BASE = 300_000;
 /** Allow rules that undo a byname redirect whose bytes turned out not to be a bundled file. */
 export const REJECT_ID_BASE = 400_000;
+/** Dynamic rule ids from here up belong to auto-cache (cache.ts); the matcher owns the range below. */
+export const CACHE_ID_BASE = 500_000;
 
 const MatchedEntrySchema = v.object({
   url: v.string(),
@@ -152,7 +154,7 @@ export function createMatcher(deps: {
     await chrome.storage.local.set({ [KEY]: s });
     const existing = await chrome.declarativeNetRequest.getDynamicRules();
     await chrome.declarativeNetRequest.updateDynamicRules({
-      removeRuleIds: existing.filter((r) => r.id >= MATCH_ID_BASE).map((r) => r.id),
+      removeRuleIds: existing.filter((r) => r.id >= MATCH_ID_BASE && r.id < CACHE_ID_BASE).map((r) => r.id),
       addRules: [...matchRules(Object.values(s.entries), chrome.runtime.id), ...rejectRules(Object.values(s.rejected))],
     });
   }

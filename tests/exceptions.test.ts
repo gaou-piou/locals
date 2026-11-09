@@ -37,7 +37,11 @@ describe("applyExceptions", () => {
     expect(r.condition).toEqual({ excludedRequestDomains: ["ok.org", "fine.net"], resourceTypes: FRAMES });
   });
 
-  it("orders priorities: redirects < catch-all < deny", () => {
+  it("orders priorities: data: copies < their gate < extension redirects < catch-all < deny", () => {
+    expect(PRIORITY.cached).toBeLessThan(PRIORITY.gate);
+    expect(PRIORITY.gate).toBeLessThan(PRIORITY.byname);
+    expect(PRIORITY.gate).toBeLessThan(PRIORITY.substitute);
+    expect(PRIORITY.byname).toBeLessThan(PRIORITY.exact);
     expect(PRIORITY.exact).toBeLessThan(PRIORITY.catchAll);
     expect(PRIORITY.catchAll).toBeLessThan(PRIORITY.deny);
   });
