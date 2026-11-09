@@ -161,6 +161,19 @@ describe("generateRules substitute", () => {
     ]);
   });
 
+  // A font belongs to the stylesheet that names it. That stylesheet came from the CDN at the version the page asked
+  // for, and another version's font may put other glyphs at its codepoints.
+  it("never substitutes fonts", () => {
+    const e: LibraryEntry = {
+      ...jq(),
+      name: "fa",
+      versions: [{ version: "6.5.1", files: [{ path: "webfonts/fa-solid-900.woff2", type: "font", sha256: H2 }] }],
+      patterns: [{ url: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/webfonts/fa-solid-900.woff2", file: "webfonts/fa-solid-900.woff2", cdnSha256: { "6.5.1": H2 } }],
+    };
+    expect(generateRules([e], "exact").rules).toHaveLength(1);
+    expect(generateRules([e], "substitute").rules).toEqual([]);
+  });
+
   it("skips patterns whose CDN bytes never match the bundled file", () => {
     const e = jq();
     e.patterns[0].cdnSha256 = { "3.6.4": H3, "3.7.1": H3 };

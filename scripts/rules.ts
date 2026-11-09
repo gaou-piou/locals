@@ -113,9 +113,11 @@ export function generateRules(
   // substitute: one regex per (library, CDN pattern, major), aimed at the highest stable pinned
   // version of that major that has the pattern's file and whose CDN bytes match ours. It only
   // covers versions up to that one: a page asking for a newer release may use what ours lacks.
+  // Fonts are left out: a font belongs to the stylesheet that names it, which came from the CDN at the requested
+  // version, and another version's font may put other glyphs at its codepoints.
   const id = extensionIdFromKey(EXTENSION_KEY);
   const groups = values(
-    groupBy((c) => `${c.entry.name}|${c.url}|${major(c.version)}`, exactCandidates(entries).filter((c) => isStable(c.version))),
+    groupBy((c) => `${c.entry.name}|${c.url}|${major(c.version)}`, exactCandidates(entries).filter((c) => isStable(c.version) && c.file.type !== "font")),
   ) as Candidate[][];
   const drafts = groups.map((group) => {
     const best = group.reduce((a, b) => (compareVersions(a.version, b.version) >= 0 ? a : b));
