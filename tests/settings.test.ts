@@ -13,6 +13,7 @@ describe("migrate", () => {
       schema: 1,
       enabled: false,
       substitute: false,
+      byname: true,
       disabledSites: ["example.com", "foo.org"],
       allowedSites: [],
     });
@@ -27,13 +28,14 @@ describe("migrate", () => {
       schema: 1,
       enabled: true,
       substitute: true,
+      byname: true,
       disabledSites: [],
       allowedSites: ["b.com"],
     });
   });
 
   it("is idempotent on current-schema data", () => {
-    const s = { schema: 1 as const, enabled: true, substitute: true, disabledSites: ["a.com"], allowedSites: ["b.com"] };
+    const s = { schema: 1 as const, enabled: true, substitute: true, byname: false, disabledSites: ["a.com"], allowedSites: ["b.com"] };
     expect(migrate(s)).toEqual(s);
   });
 
@@ -43,7 +45,7 @@ describe("migrate", () => {
 });
 
 describe("applyRulesets", () => {
-  const s = (enabled: boolean, substitute: boolean) => ({ ...DEFAULT_SETTINGS, enabled, substitute });
+  const s = (enabled: boolean, substitute: boolean) => ({ ...DEFAULT_SETTINGS, enabled, substitute, byname: false });
   it.each([
     [true, false, ["exact"]],
     [true, true, ["exact", "substitute"]],
@@ -52,6 +54,24 @@ describe("applyRulesets", () => {
   ])("enabled=%s substitute=%s → %j", async (enabled, substitute, expected) => {
     env.state.enabled = new Set(["exact", "substitute"]);
     await applyRulesets(s(enabled, substitute));
+    expect([...env.state.enabled].sort()).toEqual([...expected].sort());
+  });
+});
+
+describe("byname", () => {
+  it("is on by default and survives migration", () => {
+    expect(DEFAULT_SETTINGS.byname).toBe(true);
+    expect(migrate({ byname: false }).byname).toBe(false);
+    expect(migrate({ byname: "no" }).byname).toBe(true);
+  });
+
+  it.each([
+    [true, true, ["exact", "byname"]],
+    [true, false, ["exact"]],
+    [false, true, []],
+  ])("enabled=%s byname=%s → %j", async (enabled, byname, expected) => {
+    env.state.enabled = new Set(["exact", "byname"]);
+    await applyRulesets({ ...DEFAULT_SETTINGS, enabled, byname });
     expect([...env.state.enabled].sort()).toEqual([...expected].sort());
   });
 });
@@ -72,10 +92,11 @@ describe("getSettings / setSettings", () => {
       schema: 1,
       enabled: true,
       substitute: true,
+      byname: true,
       disabledSites: ["example.com"],
       allowedSites: ["ok.org"],
     });
-    expect([...env.state.enabled].sort()).toEqual(["exact", "substitute"]);
+    expect([...env.state.enabled].sort()).toEqual(["byname", "exact", "substitute"]);
     expect(env.state.dynamic.length).toBeGreaterThan(0);
   });
 

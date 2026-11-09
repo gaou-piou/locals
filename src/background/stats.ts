@@ -1,5 +1,5 @@
 import { LEARNED_ID_BASE } from "./learned.ts";
-import { MATCH_ID_BASE } from "./match.ts";
+import { MATCH_ID_BASE, REJECT_ID_BASE } from "./match.ts";
 
 export type StatsRange = "day" | "week" | "month" | "year";
 export type StatsResult = { total: number; byLibrary: Record<string, number> };
@@ -109,6 +109,12 @@ export function createStats(deps: {
 
 export type Stats = ReturnType<typeof createStats>;
 
-/** Static redirect rulesets and learned redirects (dynamic, ids from LEARNED_ID_BASE) serve a library; site-exception rules do not. */
+/**
+ * Static redirect rulesets and learned/matched redirects (dynamic, ids from LEARNED_ID_BASE) serve a library;
+ * site-exception rules and rejected byname guesses (allow rules from REJECT_ID_BASE) do not.
+ */
 export const isLibraryMatch = (rule: { rulesetId: string; ruleId?: number }): boolean =>
-  rule.rulesetId === "exact" || rule.rulesetId === "substitute" || (rule.rulesetId === "_dynamic" && (rule.ruleId ?? 0) >= LEARNED_ID_BASE);
+  rule.rulesetId === "exact" ||
+  rule.rulesetId === "substitute" ||
+  rule.rulesetId === "byname" ||
+  (rule.rulesetId === "_dynamic" && (rule.ruleId ?? 0) >= LEARNED_ID_BASE && (rule.ruleId ?? 0) < REJECT_ID_BASE);

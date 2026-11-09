@@ -12,6 +12,10 @@ A page with `integrity="sha…"` accepts the redirected file only if the bundled
 
 Substitution is off by default. When enabled, requests for other versions of a library are served by the newest pinned release of the same major only (one regex rule per library, CDN and major); it can be disabled per site. **Substitution breaks pages that pin the script with an SRI hash**: the extension cannot see `integrity` attributes, so the browser blocks the different version. That is the reason it is opt-in.
 
+## Serving by name trusts the name first
+
+The `byname` ruleset (on by default) redirects files hosted outside the known CDNs when their path names a bundled library and version, before their bytes are known: MV3 has no blocking hook in which the extension could download and compare the file first. The real file is downloaded afterwards (the worker's own request bypasses the redirect via `excludedInitiatorDomains`) and its sha256 decides: identical → kept, another bundled version → corrected, anything else → an allow rule hands the file back to the site from the next load on, and the file is checked again after 30 days. **The first load of a patched or rebuilt copy (WordPress ships jQuery with additions, for example) gets the stock library**, and a page that pins that file with an SRI hash blocks it once. The trigger is `onRuleMatchedDebug`, so the correction only happens for unpacked installs (the only supported route). CDN hosts are excluded: they stay with the byte-verified `exact` ruleset.
+
 ## Header stripping (`modifyHeaders`)
 
 The spike showed `declarativeNetRequest` `modifyHeaders` can remove request headers such as `Referer` (observed on a same-origin fetch). It only helps for CDN requests that stay on the network — redirected requests never leave the browser. It is **not implemented in v0.1**; it is an optional follow-up.

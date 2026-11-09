@@ -8,6 +8,7 @@ const ConfigSchema = z.strictObject({
   schema: z.union([z.literal(0), z.literal(1)]).optional(),
   enabled: z.boolean().optional(),
   substitute: z.boolean().optional(),
+  byname: z.boolean().optional(),
   disabledSites: z.array(z.string()).optional(),
   allowedSites: z.array(z.string()).optional(),
 });

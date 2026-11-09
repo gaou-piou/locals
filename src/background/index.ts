@@ -21,11 +21,14 @@ const matcher = createMatcher({
   },
 });
 let lastPrune = 0;
-const considerMatch = (d: { url: string; type: string }) => {
+const maybePrune = () => {
   if (Date.now() - lastPrune > 3_600_000) {
     lastPrune = Date.now();
     void matcher.prune().catch(() => {});
   }
+};
+const considerMatch = (d: { url: string; type: string }) => {
+  maybePrune();
   void matcher.consider(d).catch((err) => console.warn("locals: match check failed", err));
 };
 
@@ -45,9 +48,13 @@ chrome.runtime.onStartup.addListener(() => {
 chrome.runtime.onSuspend.addListener(() => void Promise.all([stats.flush(), observer.flush()]));
 
 // Only fires for unpacked extensions (declarativeNetRequestFeedback); this is the source of the stats.
+// It is also what checks a byname redirect: the file was served by its name, its real bytes decide afterwards.
 chrome.declarativeNetRequest.onRuleMatchedDebug?.addListener((info) => {
   if (!isLibraryMatch(info.rule)) return;
   stats.recordMatch(info.rule.ruleId, dayKey(new Date()), info.request.tabId);
+  maybePrune();
+  if (info.rule.rulesetId === "byname")
+    void matcher.verify({ url: info.request.url, type: info.request.type }).catch((err) => console.warn("locals: verify failed", err));
 });
 // Observation only: nothing is fetched or redirected. Records third-party scripts/styles/fonts to learn from.
 chrome.webRequest.onCompleted.addListener(
@@ -58,7 +65,7 @@ chrome.webRequest.onCompleted.addListener(
     considerMatch(d);
   },
   {
-  urls: ["http://*/*", "https://*/*"],
+    urls: ["http://*/*", "https://*/*"],
     types: ["script", "stylesheet", "font"],
   },
 );
@@ -85,6 +92,8 @@ chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) =
         return excludeLearned(await observer.getPending(), await loadLearned());
       case "get-matched":
         return matcher.getMatched();
+      case "get-rejected":
+        return matcher.getRejected();
       case "get-learned":
         return loadLearned();
       case "refresh-learned":

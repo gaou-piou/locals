@@ -1,18 +1,23 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { createHash } from "node:crypto";
 import { applyLearned } from "../src/background/learned.ts";
-import { buildIndex, createMatcher, looksLikeLibrary, MATCH_ID_BASE, matchRules } from "../src/background/match.ts";
+import { buildIndex, createMatcher, looksLikeLibrary, MATCH_ID_BASE, matchRules, REJECT_ID_BASE } from "../src/background/match.ts";
+import { PRIORITY } from "../src/shared/priorities.ts";
 import type { LibraryEntry } from "../src/shared/manifest-schema.ts";
 import { installFakeChrome } from "./fake-chrome.ts";
 
 const sha = (s: string) => createHash("sha256").update(s).digest("hex");
 const JQ = "/*jquery 3.7.1*/";
+const JQ364 = "/*jquery 3.6.4*/";
 const libs: LibraryEntry[] = [
   {
     name: "jquery",
     npm: "jquery",
     license: "MIT",
-    versions: [{ version: "3.7.1", files: [{ path: "dist/jquery.min.js", type: "script", sha256: sha(JQ) }] }],
+    versions: [
+      { version: "3.6.4", files: [{ path: "dist/jquery.min.js", type: "script", sha256: sha(JQ364) }] },
+      { version: "3.7.1", files: [{ path: "dist/jquery.min.js", type: "script", sha256: sha(JQ) }] },
+    ],
     patterns: [],
   },
   {
@@ -109,17 +114,39 @@ describe("matcher", () => {
     expect(fetched).toEqual([]);
   });
 
-  it("expires a match so a changed file is noticed, then re-verifies it on the next load", async () => {
+  it("keeps serving a stale match while it re-checks the file in the background", async () => {
     const url = "https://shop.example/js/jquery.min.js";
     bodies[url] = JQ;
     const m = make({ ttlMs: 1000 });
     await m.consider({ url, type: "script" });
     now += 2000;
     await m.prune();
-    expect(env.state.dynamic).toEqual([]);
-    bodies[url] = "changed";
+    expect(fetched).toEqual([url, url]);
+    expect(env.state.dynamic).toHaveLength(1);
+    expect((await m.getMatched())[0].at).toBe(now);
+  });
+
+  it("hands a matched file back to the site once its bytes change", async () => {
+    const url = "https://shop.example/js/jquery.min.js";
+    bodies[url] = JQ;
+    const m = make({ ttlMs: 1000 });
     await m.consider({ url, type: "script" });
-    expect(env.state.dynamic).toEqual([]);
+    now += 2000;
+    bodies[url] = "patched";
+    await m.prune();
+    expect(await m.getMatched()).toEqual([]);
+    expect(env.state.dynamic.map((r) => r.action.type)).toEqual(["allow"]);
+  });
+
+  it("keeps a stale match when the re-check cannot download the file", async () => {
+    const url = "https://shop.example/js/jquery.min.js";
+    bodies[url] = JQ;
+    const m = make({ ttlMs: 1000 });
+    await m.consider({ url, type: "script" });
+    now += 2000;
+    bodies[url] = null;
+    await m.prune();
+    expect(await m.getMatched()).toHaveLength(1);
   });
 
   it("keeps matches across worker restarts", async () => {
@@ -141,5 +168,72 @@ describe("matcher", () => {
     await make().consider({ url, type: "script" });
     await applyLearned();
     expect(env.state.dynamic).toHaveLength(1);
+  });
+});
+
+describe("verify (after a byname redirect)", () => {
+  const url = "https://shop.example/js/jquery-3.7.1.min.js";
+
+  it("confirms a copy whose bytes are the bundled file", async () => {
+    bodies[url] = JQ;
+    const m = make();
+    await m.verify({ url: `${url}?x=1`, type: "script" });
+    expect(fetched).toEqual([url]);
+    expect(await m.getMatched()).toMatchObject([{ url, version: "3.7.1" }]);
+  });
+
+  it("corrects a copy that is really another bundled version", async () => {
+    bodies[url] = JQ364;
+    const m = make();
+    await m.verify({ url, type: "script" });
+    const [r] = env.state.dynamic;
+    expect(r.action).toEqual({ type: "redirect", redirect: { extensionPath: "/libs/jquery/3.6.4/dist/jquery.min.js" } });
+    expect(r.priority).toBeGreaterThan(PRIORITY.byname);
+  });
+
+  it("rolls back a guess whose bytes are not a bundled file", async () => {
+    bodies[url] = "jquery 3.7.1 with a site patch";
+    const m = make();
+    await m.verify({ url, type: "script" });
+    const [r] = env.state.dynamic;
+    expect(r.id).toBeGreaterThanOrEqual(REJECT_ID_BASE);
+    expect(r.action).toEqual({ type: "allow" });
+    expect(r.priority).toBeGreaterThan(PRIORITY.byname);
+    expect(r.priority).toBeLessThan(PRIORITY.catchAll);
+    expect(r.condition).toMatchObject({ urlFilter: "||shop.example/js/jquery-3.7.1.min.js^", resourceTypes: ["script"] });
+    expect(await m.getRejected()).toMatchObject([{ url, type: "script" }]);
+  });
+
+  it("does not download a rejected file again, also when the page loads it from the network", async () => {
+    bodies[url] = "patched";
+    const m = make();
+    await m.verify({ url, type: "script" });
+    await m.verify({ url, type: "script" });
+    await m.consider({ url, type: "script" });
+    expect(fetched).toEqual([url]);
+  });
+
+  it("gives a rejected url another chance after a month", async () => {
+    bodies[url] = "patched";
+    const m = make();
+    await m.verify({ url, type: "script" });
+    now += 31 * 24 * 3600 * 1000;
+    await m.prune();
+    expect(env.state.dynamic).toEqual([]);
+    expect(await m.getRejected()).toEqual([]);
+  });
+
+  it("keeps the guess when the file cannot be downloaded, and does not retry at once", async () => {
+    const m = make();
+    await m.verify({ url, type: "script" });
+    await m.verify({ url, type: "script" });
+    expect(fetched).toEqual([url]);
+    expect(env.state.dynamic).toEqual([]);
+  });
+
+  it("lets the worker's own downloads past matched redirects", async () => {
+    bodies[url] = JQ;
+    await make().verify({ url, type: "script" });
+    expect(env.state.dynamic[0].condition.excludedInitiatorDomains).toEqual(["fakeextensionid"]);
   });
 });

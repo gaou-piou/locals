@@ -97,6 +97,9 @@ describe("stats", () => {
   it("only matches of the static redirect rulesets count; site-exception rules do not", () => {
     expect(isLibraryMatch({ rulesetId: "exact" })).toBe(true);
     expect(isLibraryMatch({ rulesetId: "substitute" })).toBe(true);
+    expect(isLibraryMatch({ rulesetId: "byname" })).toBe(true);
+    expect(isLibraryMatch({ rulesetId: "_dynamic", ruleId: 300_001 })).toBe(true); // matched redirect
+    expect(isLibraryMatch({ rulesetId: "_dynamic", ruleId: 400_001 })).toBe(false); // rejected byname guess: an allow rule
     expect(isLibraryMatch({ rulesetId: "_dynamic", ruleId: 5 })).toBe(false);
     expect(isLibraryMatch({ rulesetId: "_session" })).toBe(false);
   });

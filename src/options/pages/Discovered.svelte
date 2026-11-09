@@ -4,7 +4,7 @@
   import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
   import * as Table from "$lib/components/ui/table";
-  import { clearObserved, getLearned, getMatched, getObserved, getPending, refreshLearned } from "$lib/api";
+  import { clearObserved, getLearned, getMatched, getObserved, getPending, getRejected, refreshLearned } from "$lib/api";
 
   let version = $state(0);
   const ready = resource(
@@ -23,7 +23,12 @@
     () => version,
     () => getMatched(),
   );
+  const rejected = resource(
+    () => version,
+    () => getRejected(),
+  );
   const matchedRows = $derived(matched.current ?? []);
+  const rejectedRows = $derived(rejected.current ?? []);
   const learnedRows = $derived(learned.current ?? []);
   const readyRows = $derived(ready.current ?? []);
   const waitingRows = $derived(waiting.current ?? []);
@@ -71,7 +76,10 @@
   {:else}
     <section class="flex flex-col gap-2">
       <h2 class="flex items-center gap-2 text-sm font-medium">Detected <Badge variant="secondary">{matchedRows.length}</Badge></h2>
-      <p class="text-muted-foreground text-sm">Files that other sites host themselves but whose bytes are identical to a bundled library. Re-checked weekly.</p>
+      <p class="text-muted-foreground text-sm">
+        Files that sites host themselves but whose bytes are identical to a bundled library. They keep being served while they are re-checked
+        weekly.
+      </p>
       {#if matchedRows.length}
         <Table.Root>
           <Table.Header>
@@ -93,6 +101,32 @@
         <p class="text-muted-foreground text-sm">Nothing detected yet. Browse; matches appear as sites load their own copies of known libraries.</p>
       {/if}
     </section>
+
+    {#if rejectedRows.length}
+      <section class="flex flex-col gap-2">
+        <h2 class="flex items-center gap-2 text-sm font-medium">Given back <Badge variant="secondary">{rejectedRows.length}</Badge></h2>
+        <p class="text-muted-foreground text-sm">
+          Files named after a bundled library whose bytes turned out to differ (patched or rebuilt copies). The site's own file is loaded again;
+          each one gets another check after a month.
+        </p>
+        <Table.Root>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>URL</Table.Head>
+              <Table.Head>Type</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {#each rejectedRows as r (r.url)}
+              <Table.Row>
+                <Table.Cell class="break-all">{r.url}</Table.Cell>
+                <Table.Cell>{r.type}</Table.Cell>
+              </Table.Row>
+            {/each}
+          </Table.Body>
+        </Table.Root>
+      </section>
+    {/if}
 
     <section class="flex flex-col gap-2">
       <h2 class="flex items-center gap-2 text-sm font-medium">Learned <Badge variant="secondary">{learnedRows.length}</Badge></h2>

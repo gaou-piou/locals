@@ -1,6 +1,6 @@
 import type { Settings } from "../background/settings.ts";
 import type { LearnedEntry } from "../background/learned.ts";
-import type { MatchedEntry } from "../background/match.ts";
+import type { MatchedEntry, RejectedEntry } from "../background/match.ts";
 import type { Candidate } from "../background/observe.ts";
 import type { StatsRange, StatsResult } from "../background/stats.ts";
 
@@ -15,7 +15,8 @@ export type Message =
   | { type: "clear-observed" }
   | { type: "refresh-learned" }
   | { type: "get-learned" }
-  | { type: "get-matched" };
+  | { type: "get-matched" }
+  | { type: "get-rejected" };
 
 export type Response<M extends Message> = M extends { type: "get-settings" }
   ? Settings
@@ -37,9 +38,11 @@ export type Response<M extends Message> = M extends { type: "get-settings" }
                 ? LearnedEntry[]
                 : M extends { type: "get-matched" }
                   ? MatchedEntry[]
-                  : never;
+                  : M extends { type: "get-rejected" }
+                    ? RejectedEntry[]
+                    : never;
 
-export type { Candidate, LearnedEntry, MatchedEntry, Settings, StatsRange, StatsResult };
+export type { Candidate, LearnedEntry, MatchedEntry, RejectedEntry, Settings, StatsRange, StatsResult };
 
 export async function send<M extends Message>(message: M): Promise<Response<M>> {
   return (await chrome.runtime.sendMessage(message)) as Response<M>;

@@ -1,5 +1,5 @@
 import { parseManifest, type LibraryEntry } from "../shared/manifest-schema.ts";
-import { send, type Candidate, type MatchedEntry, type LearnedEntry, type Settings, type StatsRange, type StatsResult } from "../shared/messages.ts";
+import { send, type Candidate, type MatchedEntry, type RejectedEntry, type LearnedEntry, type Settings, type StatsRange, type StatsResult } from "../shared/messages.ts";
 import { parseConfig, serializeConfig, toggleSitePatch } from "./config.ts";
 
 export type PopupState = { settings: Settings; tab: { host: string; count: number } };
@@ -39,6 +39,8 @@ export const getPending = (): Promise<Candidate[]> => send({ type: "get-pending"
 export const getLearned = (): Promise<LearnedEntry[]> => send({ type: "get-learned" });
 
 export const getMatched = (): Promise<MatchedEntry[]> => send({ type: "get-matched" });
+
+export const getRejected = (): Promise<RejectedEntry[]> => send({ type: "get-rejected" });
 
 export const refreshLearned = (): Promise<number> => send({ type: "refresh-learned" });
 

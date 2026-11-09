@@ -4,6 +4,16 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+
+- Serving by name (`byname` ruleset, on by default): a site's own copy named after a bundled library and version is served from the bundled copy at once, then verified by sha256 in the background and kept, corrected to the right version or handed back to the site.
+- Options → Discovered lists the files that were handed back.
+
+### Changed
+
+- Detected copies keep being served while they are re-checked (stale-while-revalidate) instead of expiring and loading from the network once a week.
+- The worker's own downloads bypass every redirect, so re-checks see the real file.
+
 ## [0.1.0] - 2026-11-08
 
 ### Fixed

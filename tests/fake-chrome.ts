@@ -33,7 +33,7 @@ export function installFakeChrome() {
         enableRulesetIds.forEach((i) => state.enabled.add(i));
       },
     },
-    runtime: { getURL: (p: string) => `chrome-extension://fake/${p}` },
+    runtime: { id: "fakeextensionid", getURL: (p: string) => `chrome-extension://fake/${p}` },
   };
   vi.stubGlobal("chrome", fake);
   return { local, state, fake };

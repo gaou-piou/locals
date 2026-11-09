@@ -5,12 +5,14 @@ export type Settings = {
   schema: 1;
   enabled: boolean;
   substitute: boolean;
+  /** Serve self-hosted copies by name and version before their bytes are verified (see match.ts). */
+  byname: boolean;
   disabledSites: string[];
   allowedSites: string[];
 };
 
 export const SETTINGS_KEY = "settings";
-export const DEFAULT_SETTINGS: Settings = { schema: 1, enabled: true, substitute: false, disabledSites: [], allowedSites: [] };
+export const DEFAULT_SETTINGS: Settings = { schema: 1, enabled: true, substitute: false, byname: true, disabledSites: [], allowedSites: [] };
 
 const HOST_RE = /^(?=.{1,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)*[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
 
@@ -33,6 +35,7 @@ export function migrate(raw: unknown): Settings {
     schema: 1,
     enabled: typeof r.enabled === "boolean" ? r.enabled : DEFAULT_SETTINGS.enabled,
     substitute: typeof r.substitute === "boolean" ? r.substitute : DEFAULT_SETTINGS.substitute,
+    byname: typeof r.byname === "boolean" ? r.byname : DEFAULT_SETTINGS.byname,
     disabledSites: normalizeSites(r.disabledSites),
     allowedSites: normalizeSites(r.allowedSites),
   };
@@ -47,7 +50,8 @@ export async function applyRulesets(s: Settings): Promise<void> {
   const on = (cond: boolean, id: string): [string[], string[]] => (cond ? [[id], []] : [[], [id]]);
   const [e1, d1] = on(s.enabled, "exact");
   const [e2, d2] = on(s.enabled && s.substitute, "substitute");
-  await chrome.declarativeNetRequest.updateEnabledRulesets({ enableRulesetIds: [...e1, ...e2], disableRulesetIds: [...d1, ...d2] });
+  const [e3, d3] = on(s.enabled && s.byname, "byname");
+  await chrome.declarativeNetRequest.updateEnabledRulesets({ enableRulesetIds: [...e1, ...e2, ...e3], disableRulesetIds: [...d1, ...d2, ...d3] });
 }
 
 // Settings writes and the install-time restore are serialized: each is read-modify-write plus

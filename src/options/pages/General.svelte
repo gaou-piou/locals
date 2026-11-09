@@ -22,6 +22,26 @@
 
     <Card.Root>
       <Card.Header>
+        <Card.Title>Serve self-hosted copies by name</Card.Title>
+        <Card.Description>
+          Sites often host their own copy of a library, named after it and its version (for example
+          <code>/js/jquery-3.7.1.min.js</code> or <code>jquery.min.js?ver=3.7.1</code>). These are served from the bundled copy right away, and
+          the original is downloaded in the background and compared byte for byte: a different version is corrected and a modified file is
+          handed back to the site from the next load on. The first load of a modified copy can therefore misbehave.
+        </Card.Description>
+        <Card.Action>
+          <Switch
+            checked={s.byname}
+            disabled={!s.enabled}
+            aria-label="Serve self-hosted copies by name"
+            onCheckedChange={(v) => setGlobal({ byname: v })}
+          />
+        </Card.Action>
+      </Card.Header>
+    </Card.Root>
+
+    <Card.Root>
+      <Card.Header>
         <Card.Title>Substitute close versions</Card.Title>
         <Card.Description>
           When a page asks for a version that is not bundled, serve the newest bundled release of the same major version. The extension

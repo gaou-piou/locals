@@ -9,7 +9,7 @@ export const RULE_LIMITS = { staticRules: 30_000, regexRules: 1_000 } as const;
 
 
 type Rule = chrome.declarativeNetRequest.Rule;
-export type RuleMode = "exact" | "substitute";
+export type RuleMode = "exact" | "substitute" | "byname";
 export type GeneratedRules = { rules: Rule[]; index: Record<number, string> };
 
 const RESOURCE_TYPE: Record<LibraryFile["type"], chrome.declarativeNetRequest.ResourceType> = {
@@ -101,6 +101,8 @@ export function generateRules(
     return assignIds(drafts, hash);
   }
 
+  if (mode === "byname") return assignIds(bynameDrafts(entries), hash);
+
   // substitute: one regex per (library, CDN pattern, major), aimed at the highest stable pinned
   // version of that major that has the pattern's file and whose CDN bytes match ours.
   const id = extensionIdFromKey(EXTENSION_KEY);
@@ -126,6 +128,66 @@ export function generateRules(
     };
   });
   return assignIds(drafts, hash);
+}
+
+/** File stems too common to say which library a file is. */
+const GENERIC_STEMS = new Set(["all", "index", "main", "style", "styles", "app", "bundle", "script", "scripts", "vendor", "common", "core", "theme", "default"]);
+const stemOf = (basename: string) => basename.replace(/\.(?:min\.)?(?:js|css|woff2?|ttf|otf|eot)$/i, "").toLowerCase();
+
+/** "https://cdn.x/npm/jquery@{version}/dist/a.js" → "/jquery@3.7.1/dist/a.js^": the part that names the library and version. */
+export function pathShape(url: string, version: string): string | undefined {
+  const segs = url.replace(/^https?:\/\/[^/]+/, "").split("/");
+  const i = segs.findIndex((s) => s.includes("{version}"));
+  const start = segs[i] === "{version}" ? i - 1 : i;
+  if (i < 0 || start < 1) return undefined;
+  return `/${segs.slice(start).join("/").replaceAll("{version}", version)}^`;
+}
+
+const hostOf = (url: string) => url.replace(/^https?:\/\//, "").split("/")[0].toLowerCase();
+
+/**
+ * byname: copies of a library hosted anywhere else, recognised by name and version in the path (the CDN path
+ * shapes, and WordPress-style `?ver=`). Served before the bytes are known; the worker verifies every match
+ * afterwards and corrects or rolls it back for the next load. CDN hosts stay with the exact ruleset.
+ */
+function bynameDrafts(entries: LibraryEntry[]) {
+  const cdnHosts = [...new Set(chain((e) => e.patterns.map((p) => hostOf(p.url)), entries))].sort();
+  const extensionId = extensionIdFromKey(EXTENSION_KEY);
+  const seen = new Set<string>();
+  const drafts: { key: string; rule: Omit<Rule, "id">; library: string }[] = [];
+  const add = (filter: string, entry: LibraryEntry, version: string, file: LibraryFile) => {
+    const key = `byname|${filter}|${file.type}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    drafts.push({
+      key,
+      library: entry.name,
+      rule: {
+        priority: PRIORITY.byname,
+        action: {
+          type: "redirect" as chrome.declarativeNetRequest.RuleActionType,
+          redirect: { extensionPath: `/libs/${entry.name}/${version}/${file.path}` },
+        },
+        condition: {
+          urlFilter: filter,
+          resourceTypes: [RESOURCE_TYPE[file.type]],
+          excludedRequestDomains: cdnHosts,
+          excludedInitiatorDomains: [extensionId],
+        },
+      },
+    });
+  };
+  for (const c of exactCandidates(entries)) {
+    const shape = pathShape(c.url, c.version);
+    if (shape) add(shape, c.entry, c.version, c.file);
+  }
+  for (const entry of entries)
+    for (const v of entry.versions)
+      for (const f of v.files) {
+        const base = f.path.split("/").pop() ?? "";
+        if (!GENERIC_STEMS.has(stemOf(base)) && /^[\w.-]+$/.test(base)) add(`/${base}?ver=${v.version}^`, entry, v.version, f);
+      }
+  return drafts;
 }
 
 export function generateWar(entries: LibraryEntry[]): { resources: string[]; matches: string[] }[] {

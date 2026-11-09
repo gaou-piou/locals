@@ -9,6 +9,7 @@ import {
   urlFilterFor,
 } from "../scripts/rules.ts";
 import { parseManifest, type LibraryEntry } from "../src/shared/manifest-schema.ts";
+import { PRIORITY } from "../src/shared/priorities.ts";
 
 const H1 = "1".repeat(64);
 const H2 = "2".repeat(64);
@@ -198,5 +199,67 @@ describe("seed libraries.json", () => {
     const { rules } = generateRules(entries, "exact");
     expect(rules.some((r) => r.condition.urlFilter?.includes("vue.global.prod.min.js"))).toBe(false);
     expect(rules.some((r) => r.condition.urlFilter?.includes("jsdelivr.net/npm/vue@"))).toBe(true);
+  });
+});
+
+describe("generateRules byname", () => {
+  const withJsdelivr = () =>
+    jq({
+      patterns: [
+        ...jq().patterns,
+        { url: "https://cdn.jsdelivr.net/npm/jquery@{version}/dist/jquery.min.js", file: "dist/jquery.min.js", cdnSha256: { "3.7.1": H2 } },
+        { url: "https://code.jquery.com/jquery-{version}.min.js", file: "dist/jquery.min.js", cdnSha256: { "3.7.1": H2 } },
+      ],
+    });
+  const filters = (rules: chrome.declarativeNetRequest.Rule[]) => rules.map((r) => r.condition.urlFilter).sort();
+
+  it("matches the CDN path shape on any other host, by name and version", () => {
+    const { rules } = generateRules([withJsdelivr()], "byname");
+    expect(filters(rules)).toEqual(
+      expect.arrayContaining(["/jquery/3.7.1/jquery.min.js^", "/jquery@3.7.1/dist/jquery.min.js^", "/jquery-3.7.1.min.js^"]),
+    );
+    const r = rules.find((x) => x.condition.urlFilter === "/jquery@3.7.1/dist/jquery.min.js^")!;
+    expect(r.action).toEqual({ type: "redirect", redirect: { extensionPath: "/libs/jquery/3.7.1/dist/jquery.min.js" } });
+    expect(r.condition.resourceTypes).toEqual(["script"]);
+  });
+
+  it("matches WordPress-style ?ver= copies", () => {
+    expect(filters(generateRules([jq()], "byname").rules)).toEqual(expect.arrayContaining(["/jquery.min.js?ver=3.7.1^"]));
+  });
+
+  it("leaves CDN hosts to the exact ruleset and lets the worker's own verification fetch through", () => {
+    const { rules } = generateRules([withJsdelivr()], "byname");
+    for (const r of rules) {
+      expect(r.condition.excludedRequestDomains).toEqual(
+        expect.arrayContaining(["cdnjs.cloudflare.com", "cdn.jsdelivr.net", "code.jquery.com"]),
+      );
+      expect(r.condition.excludedInitiatorDomains).toEqual([extensionIdFromKey(EXTENSION_KEY)]);
+    }
+  });
+
+  it("emits one rule per distinct url filter", () => {
+    const e = withJsdelivr();
+    e.patterns.push({ url: "https://unpkg.com/jquery@{version}/dist/jquery.min.js", file: "dist/jquery.min.js", cdnSha256: { "3.7.1": H2 } });
+    const { rules } = generateRules([e], "byname");
+    expect(new Set(filters(rules)).size).toBe(rules.length);
+  });
+
+  it("skips path shapes whose CDN bytes differ from ours, and generic file names", () => {
+    const e = jq({
+      name: "font-awesome",
+      versions: [{ version: "6.5.1", files: [{ path: "css/all.min.css", type: "stylesheet", sha256: H3 }] }],
+      patterns: [{ url: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{version}/css/all.min.css", file: "css/all.min.css", cdnSha256: { "6.5.1": H1 } }],
+    });
+    expect(generateRules([e], "byname").rules).toEqual([]);
+  });
+
+  it("ranks below the exact ruleset", () => {
+    for (const r of generateRules([withJsdelivr()], "byname").rules) expect(r.priority).toBeLessThan(PRIORITY.exact);
+  });
+
+  it("fits the static rule limit together with the other rulesets for the seed libraries", () => {
+    const entries = parseManifest(JSON.parse(readFileSync(new URL("../libraries.json", import.meta.url), "utf8")));
+    const total = (["exact", "substitute", "byname"] as const).reduce((n, m) => n + generateRules(entries, m).rules.length, 0);
+    expect(total).toBeLessThan(RULE_LIMITS.staticRules);
   });
 });
