@@ -1900,6 +1900,16 @@
             "sha256": "e0a2a0866a8de8887542e24f3c218aad3d907b88f30966068792ba992296dc9f"
           }
         ]
+      },
+      {
+        "version": "3.5.45",
+        "files": [
+          {
+            "path": "dist/vue.global.prod.js",
+            "type": "script",
+            "sha256": "0287592e25a077b6190b721db9903d253d936778dab50cbde0d6010c1f51d262"
+          }
+        ]
       }
     ],
     "patterns": [
@@ -1924,7 +1934,8 @@
           "3.5.13": "c459ba7cc8db65c982589fa5d64c7ff478877e8e5b0fd75683207cec6a4e89e8",
           "3.5.44": "e0a2a0866a8de8887542e24f3c218aad3d907b88f30966068792ba992296dc9f",
           "3.0.11": "76eca7e763e63cd08974a119382221b01f51bfbab3a1602000372a3406248239",
-          "3.1.5": "bd4cae7f2c0f2d60132fee4d4f2405c00c72349fbba7fc477948b7032aff2665"
+          "3.1.5": "bd4cae7f2c0f2d60132fee4d4f2405c00c72349fbba7fc477948b7032aff2665",
+          "3.5.45": "0287592e25a077b6190b721db9903d253d936778dab50cbde0d6010c1f51d262"
         }
       },
       {
@@ -1937,7 +1948,8 @@
           "3.5.13": "c459ba7cc8db65c982589fa5d64c7ff478877e8e5b0fd75683207cec6a4e89e8",
           "3.5.44": "e0a2a0866a8de8887542e24f3c218aad3d907b88f30966068792ba992296dc9f",
           "3.0.11": "76eca7e763e63cd08974a119382221b01f51bfbab3a1602000372a3406248239",
-          "3.1.5": "bd4cae7f2c0f2d60132fee4d4f2405c00c72349fbba7fc477948b7032aff2665"
+          "3.1.5": "bd4cae7f2c0f2d60132fee4d4f2405c00c72349fbba7fc477948b7032aff2665",
+          "3.5.45": "0287592e25a077b6190b721db9903d253d936778dab50cbde0d6010c1f51d262"
         }
       }
     ]
@@ -5251,7 +5263,8 @@
           "1.20.0": "7c433c881c3b0903317193a0dd5af714ce0f65cf77d5c7f067f18b96f0e8e2c7",
           "1.21.0": "2a9316e1bafbc5f42a01905df13aeb44bf0b90818fde948c13a7938f7f849327",
           "0.27.2": "e373b70a5167485c73a265421bcfcd1fdddbae49c9c51605e6d2918a3de4ae0d",
-          "1.7.7": "f5b2b26071bb59f466683356df11b5392614cf6966586917990c65d48af0dcb9"
+          "1.7.7": "f5b2b26071bb59f466683356df11b5392614cf6966586917990c65d48af0dcb9",
+          "1.15.2": "53db850ee4fb3319947bfa7b70440cae09c348e464023c0bf0d54dda0ce985a4"
         }
       },
       {
@@ -6095,6 +6108,16 @@
             "sha256": "31959f028dde7818dc1418ec3c50dbdb2774cfafadedbc1a2431d235867238f6"
           }
         ]
+      },
+      {
+        "version": "7.9.2",
+        "files": [
+          {
+            "path": "dist/d3.min.js",
+            "type": "script",
+            "sha256": "912111098ea99503a6f4967361d2bbdc9dbf58cf9c678c8e27e5b02d1a07f0c1"
+          }
+        ]
       }
     ],
     "patterns": [
@@ -6114,7 +6137,8 @@
           "7.5.0": "c9726825731f8f44426347f6c1c6dab313f608fe9781110e60ca9cad6ab08b16",
           "7.6.1": "b384cf0baeec03aa9e1443fd670cd41c9ec984def9a7b4dbfd7ad2f197d5b573",
           "7.7.0": "15f66b1d275c74d16c6399bc0be4db2d4a722991100ecdf08f7759d43b62fe30",
-          "7.9.1": "31959f028dde7818dc1418ec3c50dbdb2774cfafadedbc1a2431d235867238f6"
+          "7.9.1": "31959f028dde7818dc1418ec3c50dbdb2774cfafadedbc1a2431d235867238f6",
+          "7.9.2": "912111098ea99503a6f4967361d2bbdc9dbf58cf9c678c8e27e5b02d1a07f0c1"
         }
       },
       {
@@ -6133,7 +6157,8 @@
           "7.5.0": "c9726825731f8f44426347f6c1c6dab313f608fe9781110e60ca9cad6ab08b16",
           "7.6.1": "b384cf0baeec03aa9e1443fd670cd41c9ec984def9a7b4dbfd7ad2f197d5b573",
           "7.7.0": "15f66b1d275c74d16c6399bc0be4db2d4a722991100ecdf08f7759d43b62fe30",
-          "7.9.1": "31959f028dde7818dc1418ec3c50dbdb2774cfafadedbc1a2431d235867238f6"
+          "7.9.1": "31959f028dde7818dc1418ec3c50dbdb2774cfafadedbc1a2431d235867238f6",
+          "7.9.2": "912111098ea99503a6f4967361d2bbdc9dbf58cf9c678c8e27e5b02d1a07f0c1"
         }
       },
       {
@@ -6151,7 +6176,9 @@
           "7.4.5": "a5716978090f1fd85a4b1949db73515928c4e8ee53a6a49eedb4994de52785e9",
           "7.5.0": "c9726825731f8f44426347f6c1c6dab313f608fe9781110e60ca9cad6ab08b16",
           "7.6.1": "b384cf0baeec03aa9e1443fd670cd41c9ec984def9a7b4dbfd7ad2f197d5b573",
-          "7.7.0": "15f66b1d275c74d16c6399bc0be4db2d4a722991100ecdf08f7759d43b62fe30"
+          "7.7.0": "15f66b1d275c74d16c6399bc0be4db2d4a722991100ecdf08f7759d43b62fe30",
+          "7.9.2": "912111098ea99503a6f4967361d2bbdc9dbf58cf9c678c8e27e5b02d1a07f0c1",
+          "7.9.1": "31959f028dde7818dc1418ec3c50dbdb2774cfafadedbc1a2431d235867238f6"
         }
       },
       {
@@ -6186,7 +6213,9 @@
           "7.6.1": "b384cf0baeec03aa9e1443fd670cd41c9ec984def9a7b4dbfd7ad2f197d5b573",
           "7.7.0": "15f66b1d275c74d16c6399bc0be4db2d4a722991100ecdf08f7759d43b62fe30",
           "7.8.5": "d6b03aefc9f6c44c7bc78713679c78c295028fa914319119e5cc4b4954855b1c",
-          "7.9.0": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539"
+          "7.9.0": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539",
+          "7.9.2": "912111098ea99503a6f4967361d2bbdc9dbf58cf9c678c8e27e5b02d1a07f0c1",
+          "7.9.1": "31959f028dde7818dc1418ec3c50dbdb2774cfafadedbc1a2431d235867238f6"
         }
       },
       {
@@ -6204,7 +6233,9 @@
           "7.6.1": "b384cf0baeec03aa9e1443fd670cd41c9ec984def9a7b4dbfd7ad2f197d5b573",
           "7.7.0": "15f66b1d275c74d16c6399bc0be4db2d4a722991100ecdf08f7759d43b62fe30",
           "7.8.5": "d6b03aefc9f6c44c7bc78713679c78c295028fa914319119e5cc4b4954855b1c",
-          "7.9.0": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539"
+          "7.9.0": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539",
+          "7.9.2": "912111098ea99503a6f4967361d2bbdc9dbf58cf9c678c8e27e5b02d1a07f0c1",
+          "7.9.1": "31959f028dde7818dc1418ec3c50dbdb2774cfafadedbc1a2431d235867238f6"
         }
       }
     ]
@@ -11572,7 +11603,9 @@
           "1.2.9": "91c4b7e8e4154506a318efe1c5a4249422e15ad8d744548d1f373875cead926c",
           "1.3.5": "14da65a959333e16d1406d40e6f2ef65f55d23bd9158bd4ec353ba57b16c78f2",
           "1.4.14": "08e59820d85ee71a2baabe8926097f1f23f0adacd94bd88c670b66cdeff7b8ef",
-          "1.5.20": "d016c1230496ee59f3f5b01c16cce4cc01b5a1d3d357adec200c908b131ebe49"
+          "1.5.20": "d016c1230496ee59f3f5b01c16cce4cc01b5a1d3d357adec200c908b131ebe49",
+          "1.6.19": "72b87a6e58db623feca73ab370970c1126ec06eb3dcd0a67fd14b47b6340b820",
+          "1.7.4": "cfc70cc9e9fc63d071919e087670abc760c8fd1bc889b88588026e4d22193bbe"
         }
       },
       {
@@ -11584,7 +11617,9 @@
           "1.2.9": "91c4b7e8e4154506a318efe1c5a4249422e15ad8d744548d1f373875cead926c",
           "1.3.5": "14da65a959333e16d1406d40e6f2ef65f55d23bd9158bd4ec353ba57b16c78f2",
           "1.4.14": "08e59820d85ee71a2baabe8926097f1f23f0adacd94bd88c670b66cdeff7b8ef",
-          "1.5.20": "d016c1230496ee59f3f5b01c16cce4cc01b5a1d3d357adec200c908b131ebe49"
+          "1.5.20": "d016c1230496ee59f3f5b01c16cce4cc01b5a1d3d357adec200c908b131ebe49",
+          "1.6.19": "72b87a6e58db623feca73ab370970c1126ec06eb3dcd0a67fd14b47b6340b820",
+          "1.7.4": "cfc70cc9e9fc63d071919e087670abc760c8fd1bc889b88588026e4d22193bbe"
         }
       },
       {
@@ -11620,7 +11655,9 @@
           "1.2.9": "91c4b7e8e4154506a318efe1c5a4249422e15ad8d744548d1f373875cead926c",
           "1.3.5": "14da65a959333e16d1406d40e6f2ef65f55d23bd9158bd4ec353ba57b16c78f2",
           "1.4.14": "08e59820d85ee71a2baabe8926097f1f23f0adacd94bd88c670b66cdeff7b8ef",
-          "1.5.20": "d016c1230496ee59f3f5b01c16cce4cc01b5a1d3d357adec200c908b131ebe49"
+          "1.5.20": "d016c1230496ee59f3f5b01c16cce4cc01b5a1d3d357adec200c908b131ebe49",
+          "1.6.19": "72b87a6e58db623feca73ab370970c1126ec06eb3dcd0a67fd14b47b6340b820",
+          "1.7.4": "cfc70cc9e9fc63d071919e087670abc760c8fd1bc889b88588026e4d22193bbe"
         }
       }
     ]
@@ -15956,7 +15993,8 @@
           "8.20.0": "deeeb14426efa964ade7e22ed25c97f1a1c204d9a1111a6f8f610b7f98c78a2a",
           "8.21.1": "18f208dab567acc9e1165c30c435ac53d72850fb8219a79d00c33ebc37fff16b",
           "8.22.0": "106175fd89c6b93d948fcccf67f26eea2a1d49b73f27110e84cfdff1c4b4d0ff",
-          "8.24.2": "8723f5804455c25e77097055ecc6bf98933015f072ae0c9f387a86ece1e84088"
+          "8.24.2": "8723f5804455c25e77097055ecc6bf98933015f072ae0c9f387a86ece1e84088",
+          "8.18.1": "ce55b52f32605845002bfabc7257d9f228f2452285dd08dcc01a4b8558c9dcd3"
         }
       },
       {
