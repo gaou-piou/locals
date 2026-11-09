@@ -3,6 +3,9 @@ import { MATCH_ID_BASE, REJECT_ID_BASE } from "./match.ts";
 
 export type StatsRange = "day" | "week" | "month" | "year";
 export type StatsResult = { total: number; byLibrary: Record<string, number> };
+/** Where a served request came from: a copy bundled or learned ahead of time, or a self-hosted copy detected by hash. */
+export type MatchSource = "saved" | "detected";
+export type TabCount = Record<MatchSource, number>;
 
 const STATS_KEY = "stats";
 const TAB_KEY = "tabCounts";
@@ -20,6 +23,8 @@ export function createStats(deps: {
   now?: () => Date;
   loadIndex: () => Promise<Record<number, string>>;
   flushDelayMs?: number;
+  /** Called on every change of a tab's counts (the badge). */
+  onTabCount?: (tabId: number, count: TabCount) => void;
 }) {
   const now = deps.now ?? (() => new Date());
   const delay = deps.flushDelayMs ?? 5_000;
@@ -27,9 +32,14 @@ export function createStats(deps: {
   let pending: Buckets = {};
   let timer: ReturnType<typeof setTimeout> | undefined;
   let queue: Promise<void> = Promise.resolve();
-  const tabs = new Map<number, number>();
+  const tabs = new Map<number, TabCount>();
+  const zero = (): TabCount => ({ saved: 0, detected: 0 });
   const hydrated = chrome.storage.session.get(TAB_KEY).then((s) => {
-    for (const [k, v] of Object.entries((s[TAB_KEY] ?? {}) as Record<string, number>)) tabs.set(Number(k), (tabs.get(Number(k)) ?? 0) + v);
+    for (const [k, v] of Object.entries((s[TAB_KEY] ?? {}) as Record<string, TabCount | number>)) {
+      const stored = typeof v === "number" ? { saved: v, detected: 0 } : v; // before the split: all were saved copies
+      const t = tabs.get(Number(k)) ?? zero();
+      tabs.set(Number(k), { saved: t.saved + (stored.saved ?? 0), detected: t.detected + (stored.detected ?? 0) });
+    }
   });
   let index: Promise<Record<number, string>> | undefined;
 
@@ -65,9 +75,14 @@ export function createStats(deps: {
   };
 
   return {
-    recordMatch(ruleId: number, day: string, tabId?: number): void {
+    recordMatch(ruleId: number, day: string, tabId?: number, source: MatchSource = "saved"): void {
       add(pending, day, ruleId);
-      if (tabId !== undefined && tabId >= 0) tabs.set(tabId, (tabs.get(tabId) ?? 0) + 1);
+      if (tabId !== undefined && tabId >= 0) {
+        const t = { ...(tabs.get(tabId) ?? zero()) };
+        t[source]++;
+        tabs.set(tabId, t);
+        deps.onTabCount?.(tabId, { ...t });
+      }
       timer ??= setTimeout(() => void flush().catch(() => {}), delay);
     },
 
@@ -95,13 +110,14 @@ export function createStats(deps: {
       return out;
     },
 
-    async getTabCount(tabId: number): Promise<number> {
+    async getTabCount(tabId: number): Promise<TabCount> {
       await hydrated;
-      return tabs.get(tabId) ?? 0;
+      return { ...(tabs.get(tabId) ?? zero()) };
     },
 
     resetTab(tabId: number): void {
       tabs.delete(tabId);
+      deps.onTabCount?.(tabId, zero());
       void hydrated.then(() => tabs.delete(tabId)); // a late hydration must not resurrect the old count
     },
   };
@@ -118,3 +134,7 @@ export const isLibraryMatch = (rule: { rulesetId: string; ruleId?: number }): bo
   rule.rulesetId === "substitute" ||
   rule.rulesetId === "byname" ||
   (rule.rulesetId === "_dynamic" && (rule.ruleId ?? 0) >= LEARNED_ID_BASE && (rule.ruleId ?? 0) < REJECT_ID_BASE);
+
+/** Static rulesets and learned redirects serve saved copies; matched redirects serve hash-detected self-hosted copies. */
+export const matchSource = (rule: { rulesetId: string; ruleId?: number }): MatchSource =>
+  rule.rulesetId === "_dynamic" && (rule.ruleId ?? 0) >= MATCH_ID_BASE && (rule.ruleId ?? 0) < REJECT_ID_BASE ? "detected" : "saved";

@@ -3,10 +3,24 @@ import { applyLearned, excludeLearned, loadLearned } from "./learned.ts";
 import { createMatcher, MAX_BODY_BYTES } from "./match.ts";
 import { createObserver } from "./observe.ts";
 import { getSettings, restoreSettings, setSettings } from "./settings.ts";
-import { createStats, dayKey, isLibraryMatch } from "./stats.ts";
+import { badgeText, badgeTitle } from "./badge.ts";
+import { createStats, dayKey, isLibraryMatch, matchSource, type TabCount } from "./stats.ts";
+
+/** Per-tab badge: requests served from saved copies, and from detected self-hosted copies. A closed tab just rejects. */
+const showTabCount = (tabId: number, count: TabCount) => {
+  void chrome.action.setBadgeText({ tabId, text: badgeText(count) }).catch(() => {});
+  void chrome.action.setTitle({ tabId, title: count.saved + count.detected ? badgeTitle(count) : "λocals" }).catch(() => {});
+};
+/** The badge is ours: the built-in action count cannot tell saved from detected copies. */
+const setupBadge = async () => {
+  await chrome.declarativeNetRequest.setExtensionActionOptions({ displayActionCountAsBadgeText: false });
+  await chrome.action.setBadgeBackgroundColor({ color: "#059669" });
+  await chrome.action.setBadgeTextColor?.({ color: "#ffffff" });
+};
 
 const stats = createStats({
   loadIndex: async () => (await fetch(chrome.runtime.getURL("rules/index.json"))).json(),
+  onTabCount: showTabCount,
 });
 
 const observer = createObserver();
@@ -36,13 +50,13 @@ const considerMatch = (d: { url: string; type: string }) => {
 async function init(): Promise<void> {
   await restoreSettings();
   await applyLearned();
-  await chrome.declarativeNetRequest.setExtensionActionOptions({ displayActionCountAsBadgeText: true });
+  await setupBadge();
 }
 
 // Listeners are registered synchronously at top level: MV3 wakes the worker for them.
 chrome.runtime.onInstalled.addListener(() => void init());
 chrome.runtime.onStartup.addListener(() => {
-  void chrome.declarativeNetRequest.setExtensionActionOptions({ displayActionCountAsBadgeText: true });
+  void setupBadge();
   void applyLearned();
 });
 chrome.runtime.onSuspend.addListener(() => void Promise.all([stats.flush(), observer.flush()]));
@@ -51,7 +65,7 @@ chrome.runtime.onSuspend.addListener(() => void Promise.all([stats.flush(), obse
 // It is also what checks a byname redirect: the file was served by its name, its real bytes decide afterwards.
 chrome.declarativeNetRequest.onRuleMatchedDebug?.addListener((info) => {
   if (!isLibraryMatch(info.rule)) return;
-  stats.recordMatch(info.rule.ruleId, dayKey(new Date()), info.request.tabId);
+  stats.recordMatch(info.rule.ruleId, dayKey(new Date()), info.request.tabId, matchSource(info.rule));
   maybePrune();
   if (info.rule.rulesetId === "byname")
     void matcher.verify({ url: info.request.url, type: info.request.type }).catch((err) => console.warn("locals: verify failed", err));

@@ -35,12 +35,24 @@
     <section class="flex items-center justify-between gap-3">
       <div class="min-w-0">
         <p class="truncate text-sm font-medium">{host || "No website"}</p>
-        <p class="text-muted-foreground text-xs">
-          {#if host}{view.current.tab.count} {view.current.tab.count === 1 ? "request" : "requests"} served locally{:else}Open an http(s) page to use this{/if}
-        </p>
+        {#if !host}
+          <p class="text-muted-foreground text-xs">Open an http(s) page to use this</p>
+        {/if}
       </div>
       <Switch checked={enabled} disabled={!host} aria-label={host ? `Enable on ${host}` : "Enable on this site"} onCheckedChange={onToggle} />
     </section>
+    {#if host}
+      <dl class="grid grid-cols-2 gap-2" aria-label="Requests served locally on this page">
+        <div class="bg-muted rounded-md px-3 py-2">
+          <dt class="text-muted-foreground text-xs">Saved copies</dt>
+          <dd class="text-lg font-semibold tabular-nums" data-testid="count-saved">{view.current.tab.count.saved}</dd>
+        </div>
+        <div class="bg-muted rounded-md px-3 py-2">
+          <dt class="text-muted-foreground text-xs">Detected copies</dt>
+          <dd class="text-lg font-semibold tabular-nums" data-testid="count-detected">{view.current.tab.count.detected}</dd>
+        </div>
+      </dl>
+    {/if}
   {/if}
 
   <Button variant="outline" size="sm" onclick={() => openOptions()}>Options</Button>

@@ -46,6 +46,20 @@ test("a site's own byte-identical copy of jQuery is detected and then served fro
     expect(await page.evaluate(() => (window as any).jQuery?.fn.jquery)).toBe("3.7.1");
     expect(server.requests).not.toContain("/vendor/jquery.min.js");
 
+    // the badge and the popup count it as served from a detected copy, apart from the saved copies
+    const counts = await ctx.newPage();
+    await counts.goto(ext);
+    const tabState = () =>
+      counts.evaluate(async (url) => {
+        const [tab] = await chrome.tabs.query({ url });
+        return {
+          badge: await chrome.action.getBadgeText({ tabId: tab!.id! }),
+          count: await chrome.runtime.sendMessage({ type: "get-tab-count", tabId: tab!.id! }),
+        };
+      }, `${server.origin}/selfhosted.html`);
+    await expect.poll(tabState).toEqual({ badge: "0·1", count: { saved: 0, detected: 1 } });
+    await counts.close();
+
     // the global switch also stops the dynamic redirects
     const settings = await page.context().newPage();
     await settings.goto(ext);

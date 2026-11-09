@@ -1,8 +1,8 @@
 import { parseManifest, type LibraryEntry } from "../shared/manifest-schema.ts";
-import { send, type Candidate, type MatchedEntry, type RejectedEntry, type LearnedEntry, type Settings, type StatsRange, type StatsResult } from "../shared/messages.ts";
+import { send, type Candidate, type MatchedEntry, type RejectedEntry, type LearnedEntry, type Settings, type StatsRange, type StatsResult, type TabCount } from "../shared/messages.ts";
 import { parseConfig, serializeConfig, toggleSitePatch } from "./config.ts";
 
-export type PopupState = { settings: Settings; tab: { host: string; count: number } };
+export type PopupState = { settings: Settings; tab: { host: string; count: TabCount } };
 
 const hostOf = (url: string | undefined): string => {
   try {
@@ -18,7 +18,7 @@ export const getSettings = (): Promise<Settings> => send({ type: "get-settings" 
 export async function getState(): Promise<PopupState> {
   const [settings, [tab]] = await Promise.all([getSettings(), chrome.tabs.query({ active: true, currentWindow: true })]);
   const host = hostOf(tab?.url);
-  const count = tab?.id !== undefined && host ? await send({ type: "get-tab-count", tabId: tab.id }) : 0;
+  const count = tab?.id !== undefined && host ? await send({ type: "get-tab-count", tabId: tab.id }) : { saved: 0, detected: 0 };
   return { settings, tab: { host, count } };
 }
 

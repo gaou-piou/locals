@@ -8,6 +8,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 - Serving by name (`byname` ruleset, on by default): a site's own copy named after a bundled library and version is served from the bundled copy at once, then verified by sha256 in the background and kept, corrected to the right version or handed back to the site.
 - Options → Discovered lists the files that were handed back.
+- The badge and the popup count the current page's requests in two numbers: served from saved copies and from detected copies (`5·2`; the total when the pair would not fit). On Android the badge shows once λocals is pinned in the extensions menu.
 
 ### Changed
 

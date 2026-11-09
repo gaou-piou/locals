@@ -30,11 +30,12 @@ afterEach(() => {
 });
 
 describe("popup", () => {
-  it("shows the current host and its count, and the switch calls toggleSite", async () => {
-    vi.mocked(api.getState).mockResolvedValue({ settings: DEFAULT_SETTINGS, tab: { host: "example.com", count: 3 } });
+  it("shows the current host and both counts, and the switch calls toggleSite", async () => {
+    vi.mocked(api.getState).mockResolvedValue({ settings: DEFAULT_SETTINGS, tab: { host: "example.com", count: { saved: 3, detected: 2 } } });
     render(Popup);
     expect(await screen.findByText("example.com")).toBeTruthy();
-    expect(screen.getByText(/3/)).toBeTruthy();
+    expect(screen.getByText("Saved copies").nextElementSibling?.textContent).toBe("3");
+    expect(screen.getByText("Detected copies").nextElementSibling?.textContent).toBe("2");
     const sw = screen.getByRole("switch");
     expect(sw.getAttribute("aria-checked")).toBe("true");
     await fireEvent.click(sw);
@@ -44,7 +45,7 @@ describe("popup", () => {
   it("reflects a disabled site and offers to enable it", async () => {
     vi.mocked(api.getState).mockResolvedValue({
       settings: { ...DEFAULT_SETTINGS, disabledSites: ["example.com"] },
-      tab: { host: "example.com", count: 0 },
+      tab: { host: "example.com", count: { saved: 0, detected: 0 } },
     });
     render(Popup);
     const sw = await screen.findByRole("switch");
@@ -54,14 +55,14 @@ describe("popup", () => {
   });
 
   it("disables the switch on pages that are not http(s)", async () => {
-    vi.mocked(api.getState).mockResolvedValue({ settings: DEFAULT_SETTINGS, tab: { host: "", count: 0 } });
+    vi.mocked(api.getState).mockResolvedValue({ settings: DEFAULT_SETTINGS, tab: { host: "", count: { saved: 0, detected: 0 } } });
     render(Popup);
     const sw = await screen.findByRole("switch");
     expect(sw.hasAttribute("disabled") || sw.getAttribute("data-disabled") !== null).toBe(true);
   });
 
   it("opens the options page", async () => {
-    vi.mocked(api.getState).mockResolvedValue({ settings: DEFAULT_SETTINGS, tab: { host: "a.com", count: 0 } });
+    vi.mocked(api.getState).mockResolvedValue({ settings: DEFAULT_SETTINGS, tab: { host: "a.com", count: { saved: 0, detected: 0 } } });
     render(Popup);
     await fireEvent.click(await screen.findByRole("button", { name: /options/i }));
     expect(api.openOptions).toHaveBeenCalled();

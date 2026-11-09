@@ -2,7 +2,7 @@ import type { Settings } from "../background/settings.ts";
 import type { LearnedEntry } from "../background/learned.ts";
 import type { MatchedEntry, RejectedEntry } from "../background/match.ts";
 import type { Candidate } from "../background/observe.ts";
-import type { StatsRange, StatsResult } from "../background/stats.ts";
+import type { StatsRange, StatsResult, TabCount } from "../background/stats.ts";
 
 /** UI → service worker requests and their responses. */
 export type Message =
@@ -25,7 +25,7 @@ export type Response<M extends Message> = M extends { type: "get-settings" }
     : M extends { type: "get-stats" }
       ? StatsResult
       : M extends { type: "get-tab-count" }
-        ? number
+        ? TabCount
         : M extends { type: "get-observed" }
           ? Candidate[]
           : M extends { type: "get-pending" }
@@ -42,7 +42,7 @@ export type Response<M extends Message> = M extends { type: "get-settings" }
                     ? RejectedEntry[]
                     : never;
 
-export type { Candidate, LearnedEntry, MatchedEntry, RejectedEntry, Settings, StatsRange, StatsResult };
+export type { Candidate, LearnedEntry, MatchedEntry, RejectedEntry, Settings, StatsRange, StatsResult, TabCount };
 
 export async function send<M extends Message>(message: M): Promise<Response<M>> {
   return (await chrome.runtime.sendMessage(message)) as Response<M>;

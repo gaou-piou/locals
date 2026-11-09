@@ -109,3 +109,21 @@ test("the generated ruleset serves jquery when cdnjs is unreachable (https and p
     }
   });
 });
+
+test("the badge counts a CDN request served from a saved copy", async () => {
+  await withCtx(async (ctx, sw) => {
+    const page = await ctx.newPage();
+    // reload inside the poll: the first load can beat the worker's start-up, then nothing is counted
+    const state = async () => {
+      await page.goto(`${server.origin}/jquery.html`);
+      return sw.evaluate(async (url) => {
+        const [tab] = await chrome.tabs.query({ url });
+        return {
+          badge: await chrome.action.getBadgeText({ tabId: tab!.id! }),
+          title: await chrome.action.getTitle({ tabId: tab!.id! }),
+        };
+      }, `${server.origin}/jquery.html`);
+    };
+    await expect.poll(state, { timeout: 20_000, intervals: [500, 1000, 2000] }).toEqual({ badge: "1", title: "λocals: 1 from saved copies, 0 from detected copies" });
+  });
+});

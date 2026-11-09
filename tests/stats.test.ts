@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { createStats, dayKey, isLibraryMatch } from "../src/background/stats.ts";
+import { createStats, dayKey, isLibraryMatch, matchSource } from "../src/background/stats.ts";
 import { installFakeChrome } from "./fake-chrome.ts";
 
 const index = { 1: "jquery", 2: "jquery", 3: "react" };
@@ -88,10 +88,50 @@ describe("stats", () => {
     s.recordMatch(1, daysAgo(0), 7);
     s.recordMatch(1, daysAgo(0), 7);
     s.recordMatch(1, daysAgo(0), 8);
-    expect(await s.getTabCount(7)).toBe(2);
+    expect(await s.getTabCount(7)).toEqual({ saved: 2, detected: 0 });
     s.resetTab(7);
-    expect(await s.getTabCount(7)).toBe(0);
-    expect(await s.getTabCount(8)).toBe(1);
+    expect(await s.getTabCount(7)).toEqual({ saved: 0, detected: 0 });
+    expect(await s.getTabCount(8)).toEqual({ saved: 1, detected: 0 });
+  });
+
+  it("splits per-tab counts into saved copies and detected self-hosted copies", async () => {
+    const s = make();
+    s.recordMatch(1, daysAgo(0), 7, "saved");
+    s.recordMatch(300_001, daysAgo(0), 7, "detected");
+    s.recordMatch(300_002, daysAgo(0), 7, "detected");
+    expect(await s.getTabCount(7)).toEqual({ saved: 1, detected: 2 });
+  });
+
+  it("per-tab counts survive a restarted worker", async () => {
+    const a = make();
+    a.recordMatch(1, daysAgo(0), 7, "saved");
+    a.recordMatch(300_001, daysAgo(0), 7, "detected");
+    await a.flush();
+    const b = make();
+    b.recordMatch(1, daysAgo(0), 7, "saved");
+    expect(await b.getTabCount(7)).toEqual({ saved: 2, detected: 1 });
+  });
+
+  it("reports every change of a tab's counts, including a reset", async () => {
+    const seen: Array<[number, { saved: number; detected: number }]> = [];
+    const s = createStats({ now: () => now, loadIndex: async () => index, flushDelayMs: 0, onTabCount: (tab, c) => seen.push([tab, c]) });
+    s.recordMatch(1, daysAgo(0), 7, "saved");
+    s.recordMatch(300_001, daysAgo(0), 7, "detected");
+    s.recordMatch(1, daysAgo(0)); // no tab: nothing to report
+    s.resetTab(7);
+    await s.flush();
+    expect(seen).toEqual([
+      [7, { saved: 1, detected: 0 }],
+      [7, { saved: 1, detected: 1 }],
+      [7, { saved: 0, detected: 0 }],
+    ]);
+  });
+
+  it("matchSource: hash-detected redirects are \"detected\", every other redirect is a saved copy", () => {
+    expect(matchSource({ rulesetId: "exact", ruleId: 300_001 })).toBe("saved"); // static ids are hashes: the ruleset decides
+    expect(matchSource({ rulesetId: "byname", ruleId: 1 })).toBe("saved");
+    expect(matchSource({ rulesetId: "_dynamic", ruleId: 200_003 })).toBe("saved"); // learned
+    expect(matchSource({ rulesetId: "_dynamic", ruleId: 300_001 })).toBe("detected");
   });
 
   it("only matches of the static redirect rulesets count; site-exception rules do not", () => {
@@ -109,7 +149,7 @@ describe("stats", () => {
     const s = createStats({ loadIndex: async () => ({}), flushDelayMs: 1 });
     s.recordMatch(200_003, dayKey(new Date()), 4);
     expect((await s.getStats("day")).byLibrary).toEqual({ learned: 1 });
-    expect(await s.getTabCount(4)).toBe(1);
+    expect(await s.getTabCount(4)).toEqual({ saved: 1, detected: 0 });
   });
 
   it("matches of hash-detected self-hosted copies are listed as \"detected\"", async () => {
