@@ -79,7 +79,7 @@ export function looksLikeLibrary(url: string, index: Pick<HashIndex, "tokens">):
   return index.tokens.some((t) => path.includes(t));
 }
 
-const filterFor = (url: string) => `||${url.replace(/^https?:\/\//, "")}^`;
+export const filterFor = (url: string) => `||${url.replace(/^https?:\/\//, "")}^`;
 
 /** `extensionId` keeps the worker's own downloads (verification, re-checks) out of the redirect. */
 export function matchRules(entries: MatchedEntry[], extensionId?: string): Rule[] {
